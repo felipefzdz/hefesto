@@ -3,6 +3,6 @@ import cucumber.api.junit.Cucumber;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions()
+@CucumberOptions(tags = {"~@ignore"})
 public class RunCukesTest {
 }
