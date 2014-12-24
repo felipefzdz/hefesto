@@ -1,4 +1,3 @@
-@ignore
 Feature: Create Employer
   As a user
   I want to create an employer
