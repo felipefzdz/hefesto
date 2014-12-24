@@ -1,18 +1,22 @@
 package org.olid16.domain;
 
+import static org.olid16.domain.UserRole.*;
+
 public class User {
     private final Person person;
+    private final UserRole role;
 
-    public User(Person person) {
+    public User(Person person, UserRole role) {
         this.person = person;
+        this.role = role;
     }
 
     public boolean isEmployer() {
-        return true;
+        return EMPLOYER.equals(role);
     }
     
-    public static User createUser(String name){
-        return new User(new Person(name));
+    public static User createUser(String name, UserRole userRole){
+        return new User(new Person(name), userRole);
     }
 
     @Override
