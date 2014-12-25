@@ -1,1 +1,2 @@
 [![Build Status](https://travis-ci.org/olid16/hefesto.svg?branch=master)](https://travis-ci.org/olid16/hefesto)
+[![Coverage Status](https://img.shields.io/coveralls/olid16/hefesto.svg)](https://coveralls.io/r/olid16/hefesto)
