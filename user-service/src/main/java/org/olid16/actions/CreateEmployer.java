@@ -15,7 +15,7 @@ public class CreateEmployer {
     }
 
     public User with(String name) {
-        User user = createUser(name, EMPLOYER);
+        User user = createUser(name, EMPLOYER, users.nextId());
         users.add(user);
         return user;
     }
