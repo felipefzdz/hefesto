@@ -4,14 +4,11 @@ import org.olid16.domain.User;
 import org.olid16.domain.UserId;
 import org.olid16.domain.Users;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class InMemoryUsers implements Users {
-    private final Map<UserId, User> users;
-
-    public InMemoryUsers(Map<UserId, User> users) {
-        this.users = users;
-    }
+    private final Map<UserId, User> users = new HashMap<>();
 
     @Override
     public void add(User user) {

@@ -1,5 +1,6 @@
 package org.olid16.actions;
 
+import com.google.inject.Inject;
 import org.olid16.domain.User;
 import org.olid16.domain.Users;
 
@@ -10,6 +11,7 @@ public class CreateEmployer {
 
     private final Users users;
 
+    @Inject
     public CreateEmployer(Users users) {
         this.users = users;
     }

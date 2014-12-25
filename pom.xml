@@ -51,6 +51,11 @@
                 <version>${auto-value.version}</version>
                 <scope>provided</scope>
             </dependency>
+            <dependency>
+                <groupId>com.google.inject</groupId>
+                <artifactId>guice</artifactId>
+                <version>${guice.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -117,6 +122,7 @@
         <auto-value.version>1.0-rc4</auto-value.version>
         <jacoco-maven-plugin.version>0.7.2.201409121644</jacoco-maven-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <guice.version>4.0-beta5</guice.version>
     </properties>
 
 

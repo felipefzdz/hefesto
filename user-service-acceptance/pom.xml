@@ -33,6 +33,10 @@
             <groupId>com.google.truth</groupId>
             <artifactId>truth</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+        </dependency>
     </dependencies>
     
 
