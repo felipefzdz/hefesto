@@ -3,8 +3,10 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.olid16.actions.CreateEmployer;
 import org.olid16.domain.User;
+import org.olid16.domain.UserId;
 import org.olid16.infrastructure.repositories.InMemoryUsers;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -20,7 +22,7 @@ public class CreateEmployerStepDefs {
 
     @When("^the user create an employer$")
     public void the_user_create_an_employer() throws Throwable {
-       user = new CreateEmployer(new InMemoryUsers(new HashSet<>())).with(name);
+       user = new CreateEmployer(new InMemoryUsers(new HashMap<>())).with(name);
     }
 
     @Then("^an employer is created$")
