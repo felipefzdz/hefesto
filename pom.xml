@@ -86,6 +86,9 @@
                 <groupId>org.eluder.coveralls</groupId>
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <version>3.0.1</version>
+                <configuration>
+                    <repoToken>${env.COVERALLS_HEFESTO_TOKEN}</repoToken>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -113,6 +116,7 @@
         <mockito-all.version>1.10.17</mockito-all.version>
         <auto-value.version>1.0-rc4</auto-value.version>
         <jacoco-maven-plugin.version>0.7.2.201409121644</jacoco-maven-plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
 
