@@ -18,7 +18,7 @@ public class User {
     }
     
     public static User createUser(String name, UserRole userRole, UserId userId){
-        return new User(new Person(name), userRole, userId);
+        return new User(Person.create(name), userRole, userId);
     }
 
     public UserId userId() {

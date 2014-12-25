@@ -58,7 +58,7 @@ public class UserBuilder {
         }
 
         public Person build() {
-            return new Person(name);
+            return Person.create(name);
         }
     }
 
@@ -74,7 +74,7 @@ public class UserBuilder {
         }
 
         public UserId build() {
-            return new UserId(id);
+            return UserId.create(id);
         }
     }
 }

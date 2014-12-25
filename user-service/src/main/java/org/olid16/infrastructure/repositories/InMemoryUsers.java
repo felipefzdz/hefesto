@@ -25,6 +25,6 @@ public class InMemoryUsers implements Users {
                 .max(Integer::compare)
                 .orElse(0)
                 + 1;
-        return new UserId(id);
+        return UserId.create(id);
     }
 }
