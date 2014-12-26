@@ -5,10 +5,10 @@ import com.google.auto.value.AutoValue;
 @AutoValue
 public abstract class UserId {
     
-    public static UserId create(Integer id){
+    public static UserId create(String id){
         return new AutoValue_UserId(id);
         
     }
     
-    public abstract Integer id();
+    public abstract String id();
 }

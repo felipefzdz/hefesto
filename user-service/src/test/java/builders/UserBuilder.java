@@ -63,14 +63,14 @@ public class UserBuilder {
     }
 
     public static class UserIdBuilder {
-        private Integer id;
+        private String id;
 
-        private UserIdBuilder(Integer id) {
+        private UserIdBuilder(String id) {
             this.id = id;
         }
 
         public static UserIdBuilder aUserId() {
-            return new UserIdBuilder(1234);
+            return new UserIdBuilder("1234");
         }
 
         public UserId build() {

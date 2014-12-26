@@ -56,6 +56,11 @@
                 <artifactId>guice</artifactId>
                 <version>${guice.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.mongodb</groupId>
+                <artifactId>mongo-java-driver</artifactId>
+                <version>${mongo-java-driver.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -106,6 +111,7 @@
                         <configuration>
                             <includes>
                                 <include>**/*Should.*</include>
+                                <include>**/*Test.*</include>
                             </includes>
                         </configuration>
                     </execution>
@@ -123,6 +129,7 @@
         <jacoco-maven-plugin.version>0.7.2.201409121644</jacoco-maven-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <guice.version>4.0-beta5</guice.version>
+        <mongo-java-driver.version>2.13.0-rc1</mongo-java-driver.version>
     </properties>
 
 

@@ -21,10 +21,6 @@ public class User {
         return new User(Person.create(name), userRole, userId);
     }
 
-    public UserId userId() {
-        return userId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -40,5 +36,17 @@ public class User {
     @Override
     public int hashCode() {
         return userId.hashCode();
+    }
+
+    public String name() {
+        return person.name();
+    }
+
+    public String role() {
+        return role.toString();
+    }
+
+    public String id() {
+        return userId.id();
     }
 }

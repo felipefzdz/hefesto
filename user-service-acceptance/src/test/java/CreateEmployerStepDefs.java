@@ -5,7 +5,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.olid16.actions.CreateEmployer;
 import org.olid16.domain.User;
-import org.olid16.infrastructure.dependency_injection.UserServiceModule;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -20,7 +19,7 @@ public class CreateEmployerStepDefs {
 
     @When("^the user create an employer$")
     public void the_user_create_an_employer() throws Throwable {
-        Injector injector = Guice.createInjector(new UserServiceModule());
+        Injector injector = Guice.createInjector(new UserServiceTestModule());
         CreateEmployer createEmployer = injector.getInstance(CreateEmployer.class);
         user = createEmployer.with(name);
     }
