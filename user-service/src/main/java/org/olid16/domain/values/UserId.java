@@ -1,4 +1,4 @@
-package org.olid16.domain;
+package org.olid16.domain.values;
 
 import com.google.auto.value.AutoValue;
 

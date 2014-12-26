@@ -1,9 +1,9 @@
 package builders;
 
-import org.olid16.domain.Person;
-import org.olid16.domain.User;
-import org.olid16.domain.UserId;
-import org.olid16.domain.UserRole;
+import org.olid16.domain.values.Person;
+import org.olid16.domain.entities.User;
+import org.olid16.domain.values.UserId;
+import org.olid16.domain.values.UserRole;
 
 import static builders.UserBuilder.PersonBuilder.aPerson;
 import static builders.UserBuilder.UserIdBuilder.*;

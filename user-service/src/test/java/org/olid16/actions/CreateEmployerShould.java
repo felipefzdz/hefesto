@@ -5,9 +5,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.olid16.domain.User;
+import org.olid16.domain.entities.User;
 import org.olid16.infrastructure.rest.JsonEntity;
-import org.olid16.domain.Users;
+import org.olid16.domain.collections.Users;
 
 import static builders.UserBuilder.UserIdBuilder.aUserId;
 import static builders.UserBuilder.aUser;

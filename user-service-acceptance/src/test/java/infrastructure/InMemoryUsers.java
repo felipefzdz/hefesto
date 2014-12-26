@@ -1,8 +1,8 @@
 package infrastructure;
 
-import org.olid16.domain.User;
-import org.olid16.domain.UserId;
-import org.olid16.domain.Users;
+import org.olid16.domain.entities.User;
+import org.olid16.domain.values.UserId;
+import org.olid16.domain.collections.Users;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -5,7 +5,7 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
-import org.olid16.domain.Users;
+import org.olid16.domain.collections.Users;
 import org.olid16.infrastructure.repositories.MongoUsers;
 
 import java.net.UnknownHostException;

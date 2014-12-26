@@ -2,7 +2,7 @@ package org.olid16.infrastructure.rest.controllers;
 
 import com.google.inject.Inject;
 import org.olid16.actions.CreateEmployer;
-import org.olid16.domain.User;
+import org.olid16.domain.entities.User;
 import org.olid16.infrastructure.rest.JsonEntity;
 import spark.Request;
 import spark.Response;

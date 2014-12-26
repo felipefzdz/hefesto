@@ -1,11 +1,11 @@
-package org.olid16.domain;
+package org.olid16.domain.entities;
 
-import builders.UserBuilder;
 import org.junit.Test;
+import org.olid16.domain.entities.User;
 
 import static builders.UserBuilder.*;
 import static com.google.common.truth.Truth.assertThat;
-import static org.olid16.domain.UserRole.*;
+import static org.olid16.domain.values.UserRole.*;
 
 public class UserShould {
     

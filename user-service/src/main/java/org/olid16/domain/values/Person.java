@@ -1,4 +1,4 @@
-package org.olid16.domain;
+package org.olid16.domain.values;
 
 import com.google.auto.value.AutoValue;
 
@@ -8,5 +8,5 @@ public abstract class Person {
         return new AutoValue_Person(name);
     }
 
-    abstract String name();
+    public abstract String name();
 }

@@ -1,12 +1,12 @@
 package org.olid16.actions;
 
 import com.google.inject.Inject;
-import org.olid16.domain.User;
+import org.olid16.domain.entities.User;
 import org.olid16.infrastructure.rest.JsonEntity;
-import org.olid16.domain.Users;
+import org.olid16.domain.collections.Users;
 
-import static org.olid16.domain.User.createUser;
-import static org.olid16.domain.UserRole.EMPLOYER;
+import static org.olid16.domain.entities.User.createUser;
+import static org.olid16.domain.values.UserRole.EMPLOYER;
 
 public class CreateEmployer {
 
