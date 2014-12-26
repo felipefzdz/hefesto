@@ -1,11 +1,11 @@
-package org.olid16.domain;
+package org.olid16.infrastructure.rest;
 
 import com.eclipsesource.json.JsonObject;
 
-public class UserJson {
+public class JsonEntity {
     private final JsonObject jsonObject;
 
-    public UserJson(JsonObject jsonObject) {
+    public JsonEntity(JsonObject jsonObject) {
         this.jsonObject = jsonObject;
     }
 

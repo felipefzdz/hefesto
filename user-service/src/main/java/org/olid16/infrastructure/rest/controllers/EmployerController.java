@@ -3,7 +3,7 @@ package org.olid16.infrastructure.rest.controllers;
 import com.google.inject.Inject;
 import org.olid16.actions.CreateEmployer;
 import org.olid16.domain.User;
-import org.olid16.domain.UserJson;
+import org.olid16.infrastructure.rest.JsonEntity;
 import spark.Request;
 import spark.Response;
 
@@ -18,8 +18,8 @@ public class EmployerController {
     }
 
     public String create(Request req, Response res) {
-        UserJson userJson = new UserJson(readFrom(req.body()));
-        User user = createEmployer.with(userJson);
+        JsonEntity jsonEntity = new JsonEntity(readFrom(req.body()));
+        User user = createEmployer.with(jsonEntity);
         return user.id();
     }
 }

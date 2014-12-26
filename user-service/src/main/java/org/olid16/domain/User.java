@@ -1,5 +1,7 @@
 package org.olid16.domain;
 
+import org.olid16.infrastructure.rest.JsonEntity;
+
 import static org.olid16.domain.UserRole.*;
 
 public class User {
@@ -17,8 +19,8 @@ public class User {
         return EMPLOYER.equals(role);
     }
     
-    public static User createUser(UserJson userJson, UserRole userRole, UserId userId){
-        return new User(Person.create(userJson.get("name")), userRole, userId);
+    public static User createUser(JsonEntity jsonEntity, UserRole userRole, UserId userId){
+        return new User(Person.create(jsonEntity.get("name")), userRole, userId);
     }
 
     @Override

@@ -2,14 +2,13 @@ package step_defs;
 
 import com.eclipsesource.json.JsonObject;
 import com.google.inject.Guice;
-import com.google.inject.Injector;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import infrastructure.UserServiceTestModule;
 import org.olid16.actions.CreateEmployer;
 import org.olid16.domain.User;
-import org.olid16.domain.UserJson;
+import org.olid16.infrastructure.rest.JsonEntity;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -28,7 +27,7 @@ public class CreateEmployerStepDefs {
                 Guice.
                 createInjector(new UserServiceTestModule()).
                 getInstance(CreateEmployer.class);
-        user = createEmployer.with(new UserJson(JsonObject.readFrom("{\"name\" : \"Bob\"}")));
+        user = createEmployer.with(new JsonEntity(JsonObject.readFrom("{\"name\" : \"Bob\"}")));
     }
 
     @Then("^an employer is created$")
