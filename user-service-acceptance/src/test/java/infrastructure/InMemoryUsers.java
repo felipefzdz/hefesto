@@ -1,3 +1,5 @@
+package infrastructure;
+
 import org.olid16.domain.User;
 import org.olid16.domain.UserId;
 import org.olid16.domain.Users;

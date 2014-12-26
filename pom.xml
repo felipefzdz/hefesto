@@ -61,6 +61,16 @@
                 <artifactId>mongo-java-driver</artifactId>
                 <version>${mongo-java-driver.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.sparkjava</groupId>
+                <artifactId>spark-core</artifactId>
+                <version>${spark-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eclipsesource.minimal-json</groupId>
+                <artifactId>minimal-json</artifactId>
+                <version>${minimal-json.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -130,6 +140,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <guice.version>4.0-beta5</guice.version>
         <mongo-java-driver.version>2.13.0-rc1</mongo-java-driver.version>
+        <spark-core.version>2.1</spark-core.version>
+        <minimal-json.version>0.9.1</minimal-json.version>
     </properties>
 
 

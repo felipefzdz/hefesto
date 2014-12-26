@@ -2,6 +2,7 @@ package org.olid16.actions;
 
 import com.google.inject.Inject;
 import org.olid16.domain.User;
+import org.olid16.domain.UserJson;
 import org.olid16.domain.Users;
 
 import static org.olid16.domain.User.createUser;
@@ -16,8 +17,8 @@ public class CreateEmployer {
         this.users = users;
     }
 
-    public User with(String name) {
-        User user = createUser(name, EMPLOYER, users.nextId());
+    public User with(UserJson userJson) {
+        User user = createUser(userJson, EMPLOYER, users.nextId());
         users.add(user);
         return user;
     }

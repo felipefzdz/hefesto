@@ -17,8 +17,8 @@ public class User {
         return EMPLOYER.equals(role);
     }
     
-    public static User createUser(String name, UserRole userRole, UserId userId){
-        return new User(Person.create(name), userRole, userId);
+    public static User createUser(UserJson userJson, UserRole userRole, UserId userId){
+        return new User(Person.create(userJson.get("name")), userRole, userId);
     }
 
     @Override

@@ -1,4 +1,7 @@
+package infrastructure;
+
 import com.google.inject.AbstractModule;
+import infrastructure.InMemoryUsers;
 import org.olid16.domain.Users;
 
 public class UserServiceTestModule extends AbstractModule {
