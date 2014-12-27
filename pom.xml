@@ -71,6 +71,11 @@
                 <artifactId>minimal-json</artifactId>
                 <version>${minimal-json.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -142,6 +147,7 @@
         <mongo-java-driver.version>2.13.0-rc1</mongo-java-driver.version>
         <spark-core.version>2.1</spark-core.version>
         <minimal-json.version>0.9.1</minimal-json.version>
+        <guava.version>18.0</guava.version>
     </properties>
 
 
