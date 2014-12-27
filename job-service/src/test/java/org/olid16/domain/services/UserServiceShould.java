@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.olid16.domain.factories.UserIdFactory;
-import org.olid16.infrastructure.client.UserClient;
+import org.olid16.infrastructure.clients.UserClient;
 
 import static builders.UserBuilder.aUser;
 import static com.google.common.truth.Truth.assertThat;

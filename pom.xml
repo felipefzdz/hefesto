@@ -79,6 +79,11 @@
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
             </dependency>
+            <dependency>
+                <groupId>us.monoid.web</groupId>
+                <artifactId>resty</artifactId>
+                <version>${resty.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -155,6 +160,7 @@
         <spark-core.version>2.1</spark-core.version>
         <minimal-json.version>0.9.1</minimal-json.version>
         <guava.version>18.0</guava.version>
+        <resty.version>0.3.2</resty.version>
     </properties>
 
 
