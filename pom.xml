@@ -107,10 +107,10 @@
                 <configuration>
                     <excludes>
                         <exclude>**/AutoValue*</exclude>
-                        <exclude>**/Exception</exclude>
-                        <exclude>**/Launcher</exclude>
-                        <exclude>**/Routes</exclude>
-                        <exclude>**/Module</exclude>
+                        <exclude>**/*Exception*</exclude>
+                        <exclude>**/*Launcher*</exclude>
+                        <exclude>**/Routes*</exclude>
+                        <exclude>**/*Module*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
