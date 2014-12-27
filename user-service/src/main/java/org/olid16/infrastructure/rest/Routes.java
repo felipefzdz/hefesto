@@ -1,19 +1,19 @@
 package org.olid16.infrastructure.rest;
 
 import com.google.inject.Inject;
-import org.olid16.infrastructure.rest.controllers.EmployerController;
+import org.olid16.infrastructure.rest.controllers.UserController;
 
 import static spark.Spark.post;
 
 public class Routes {
-    private final EmployerController employerController;
+    private final UserController userController;
 
     @Inject
-    public Routes(EmployerController employerController) {
-        this.employerController = employerController;
+    public Routes(UserController userController) {
+        this.userController = userController;
     }
 
     public void initialise() {
-        post("/employer", (req, res) -> employerController.create(req, res));
+        post("/user", (req, res) -> userController.create(req, res));
     }
 }

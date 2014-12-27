@@ -1,9 +1,9 @@
-Feature: Create Employer
+Feature: Create User
   As a user
-  I want to create an employer
+  I want to create users
   So I can manage jobs and jobs applications
 
   Scenario: Create Employer
     Given User fills employer data
-    When the user create an employer
+    When the user create a user
     Then an employer is created

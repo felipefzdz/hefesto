@@ -1,5 +1,6 @@
 package org.olid16.domain.entities;
 
+import org.olid16.domain.exceptions.ValidationException;
 import org.olid16.domain.values.Person;
 import org.olid16.domain.values.UserId;
 import org.olid16.domain.values.UserRole;
@@ -22,8 +23,19 @@ public class User {
         return EMPLOYER.equals(role);
     }
     
-    public static User createUser(JsonEntity jsonEntity, UserRole userRole, UserId userId){
-        return new User(Person.create(jsonEntity.get("name")), userRole, userId);
+    public static User createUser(JsonEntity jsonEntity, UserId userId){
+        return new User(
+                Person.create(jsonEntity.get("name")),
+                createRole(jsonEntity),
+                userId);
+    }
+
+    private static UserRole createRole(JsonEntity jsonEntity) {
+        try {
+            return UserRole.valueOf(jsonEntity.get("role").toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new ValidationException(String.format("Role %s is not valid", jsonEntity.get("role")));
+        }
     }
 
     @Override
