@@ -3,7 +3,7 @@ package org.olid16.infrastructure.rest.controllers;
 import com.google.inject.Inject;
 import org.olid16.actions.CreateUser;
 import org.olid16.domain.entities.User;
-import org.olid16.domain.exceptions.DomainException;
+import org.olid16.infrastructure.exceptions.DomainException;
 import org.olid16.infrastructure.rest.JsonEntity;
 import spark.Request;
 import spark.Response;

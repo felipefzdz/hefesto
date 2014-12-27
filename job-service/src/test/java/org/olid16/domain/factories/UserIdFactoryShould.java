@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.olid16.domain.exceptions.ValidationException;
+import org.olid16.infrastructure.exceptions.ValidationException;
 import org.olid16.domain.values.UserId;
 import org.olid16.infrastructure.rest.JsonEntity;
 import utils.Assert;

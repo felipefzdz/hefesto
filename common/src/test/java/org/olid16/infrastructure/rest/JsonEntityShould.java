@@ -6,8 +6,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.olid16.domain.exceptions.ValidationException;
 import utils.Assert;
+import org.olid16.infrastructure.exceptions.*;
 
 import static org.mockito.BDDMockito.given;
 

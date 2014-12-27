@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.olid16.actions.CreateUser;
-import org.olid16.domain.exceptions.ValidationException;
+import org.olid16.infrastructure.exceptions.ValidationException;
 import org.olid16.infrastructure.rest.controllers.UserController;
 import spark.Request;
 import spark.RequestResponseFactory;

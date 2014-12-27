@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.olid16.domain.collections.Users;
 import org.olid16.domain.entities.User;
-import org.olid16.domain.exceptions.ValidationException;
+import org.olid16.infrastructure.exceptions.ValidationException;
 import org.olid16.domain.factories.UserFactory;
 import org.olid16.domain.values.UserId;
 

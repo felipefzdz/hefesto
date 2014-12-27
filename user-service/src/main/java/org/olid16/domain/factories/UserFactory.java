@@ -1,7 +1,7 @@
 package org.olid16.domain.factories;
 
 import org.olid16.domain.entities.User;
-import org.olid16.domain.exceptions.ValidationException;
+import org.olid16.infrastructure.exceptions.ValidationException;
 import org.olid16.domain.values.Person;
 import org.olid16.domain.values.UserId;
 import org.olid16.domain.values.UserRole;

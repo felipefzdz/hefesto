@@ -1,10 +1,9 @@
 package org.olid16.domain.entities;
 
-import org.olid16.domain.exceptions.ValidationException;
+import org.olid16.infrastructure.exceptions.ValidationException;
 import org.olid16.domain.values.Person;
 import org.olid16.domain.values.UserId;
 import org.olid16.domain.values.UserRole;
-import org.olid16.infrastructure.rest.JsonEntity;
 
 import static org.olid16.domain.values.UserRole.*;
 

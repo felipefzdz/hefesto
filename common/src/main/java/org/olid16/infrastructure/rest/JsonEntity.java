@@ -1,8 +1,7 @@
 package org.olid16.infrastructure.rest;
 
 import com.eclipsesource.json.JsonObject;
-import com.google.common.base.Strings;
-import org.olid16.domain.exceptions.ValidationException;
+import org.olid16.infrastructure.exceptions.ValidationException;
 
 import static com.google.common.base.Strings.*;
 

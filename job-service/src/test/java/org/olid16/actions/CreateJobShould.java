@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.olid16.domain.entities.Job;
-import org.olid16.domain.exceptions.AuthorizationException;
+import org.olid16.infrastructure.exceptions.AuthorizationException;
 import org.olid16.domain.services.UserService;
 
 import static com.google.common.truth.Truth.assertThat;

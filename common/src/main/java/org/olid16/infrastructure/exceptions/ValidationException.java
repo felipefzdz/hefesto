@@ -1,4 +1,4 @@
-package org.olid16.domain.exceptions;
+package org.olid16.infrastructure.exceptions;
 
 public class ValidationException extends DomainException{
 
