@@ -1,7 +1,5 @@
 package org.olid16.domain.factories;
 
-import com.google.common.base.Preconditions;
-import com.google.common.base.Strings;
 import org.olid16.domain.entities.User;
 import org.olid16.domain.exceptions.ValidationException;
 import org.olid16.domain.values.Person;
@@ -21,17 +19,26 @@ public class UserFactory {
     }
 
     private Person createName(JsonEntity jsonEntity) {
-        if(isNullOrEmpty(jsonEntity.get("name"))){
-            throw new ValidationException("Name is mandatory");
-        }
+        validatePresence(jsonEntity, "name");
         return Person.create(jsonEntity.get("name"));
     }
 
     private UserRole createRole(JsonEntity jsonEntity) {
+        validatePresence(jsonEntity, "role");
         try {
             return UserRole.valueOf(jsonEntity.get("role").toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new ValidationException(String.format("Role %s is not valid", jsonEntity.get("role")));
+        }
+    }
+
+    private void validatePresence(JsonEntity jsonEntity, String field) {
+        try {
+            if(isNullOrEmpty(jsonEntity.get(field))){
+                throw new ValidationException(String.format("%s is mandatory", field));
+            }
+        } catch (NullPointerException e) {
+            throw new ValidationException(String.format("%s is mandatory", field));
         }
     }
 }
