@@ -10,27 +10,23 @@ import org.olid16.domain.collections.Users;
 public class MongoUsers implements Users {
     
     private final DBCollection users;
+    private final UserAdapter userAdapter;
 
     @Inject
-    public MongoUsers(DB database) {
+    public MongoUsers(DB database, UserAdapter userAdapter) {
+        this.userAdapter = userAdapter;
         this.users = database.getCollection("users");
     }
 
 
     @Override
     public void add(User user) {
-        users.insert(toDBObject(user));
+        users.insert(userAdapter.toDBObject(user));
     }
 
     @Override
     public UserId nextId() {
         return UserId.create((ObjectId.get().toString()));
     }
-    
-    private DBObject toDBObject(User user){
-        return new BasicDBObject("_id", user.id())
-                .append("person", new BasicDBObject("name", user.name()))
-                .append("role", user.role());
 
-    }
 }

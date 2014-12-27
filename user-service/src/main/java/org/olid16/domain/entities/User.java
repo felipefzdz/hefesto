@@ -22,38 +22,6 @@ public class User {
     public boolean isEmployer() {
         return EMPLOYER.equals(role);
     }
-    
-    public static User createUser(JsonEntity jsonEntity, UserId userId){
-        return new User(
-                Person.create(jsonEntity.get("name")),
-                createRole(jsonEntity),
-                userId);
-    }
-
-    private static UserRole createRole(JsonEntity jsonEntity) {
-        try {
-            return UserRole.valueOf(jsonEntity.get("role").toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new ValidationException(String.format("Role %s is not valid", jsonEntity.get("role")));
-        }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User user = (User) o;
-
-        if (!userId.equals(user.userId)) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return userId.hashCode();
-    }
 
     public String name() {
         return person.name();

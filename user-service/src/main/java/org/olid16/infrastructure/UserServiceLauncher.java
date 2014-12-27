@@ -7,10 +7,6 @@ import org.olid16.infrastructure.rest.Routes;
 public class UserServiceLauncher {
     
     public static void main(String[] args){
-        Guice.
-            createInjector(new UserServiceModule()).
-            getInstance(Routes.class).
-            initialise();
-
+        Guice.createInjector(new UserServiceModule()).getInstance(Routes.class).initialise();
     }
 }

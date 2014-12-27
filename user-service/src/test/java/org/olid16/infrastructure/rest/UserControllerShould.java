@@ -53,8 +53,8 @@ public class UserControllerShould {
     @Test public void
     return_bad_request_in_response_when_request_is_invalid(){
         given(request.body()).willReturn("{}");
-        Response response = spy(dummyResponse());
         given(createUser.with(any(JsonEntity.class))).willThrow(new ValidationException(""));
+        Response response = spy(dummyResponse());
         new UserController(createUser).create(request, response);
         verify(response).status(HttpStatus.BAD_REQUEST_400);
         
