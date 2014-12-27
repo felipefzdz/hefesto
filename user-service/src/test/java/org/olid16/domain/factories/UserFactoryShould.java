@@ -33,5 +33,11 @@ public class UserFactoryShould {
         assertThrows(ValidationException.class, () -> new UserFactory().create(jsonEntity, null));
     }
 
+    @Test public void
+    throw_validation_exception_when_role_is_not_valid(){
+        given(jsonEntity.get("name")).willReturn("Bob");
+        given(jsonEntity.get("role")).willReturn("whatever");
+        assertThrows(ValidationException.class, () -> new UserFactory().create(jsonEntity, null));
+    }
 
 }
