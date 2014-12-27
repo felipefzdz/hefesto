@@ -5,5 +5,5 @@ Feature: Create User
 
   Scenario: Create Employer
     Given User fills employer data
-    When the user create a user
+    When the user creates a user
     Then an employer is created

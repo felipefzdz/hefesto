@@ -11,6 +11,9 @@
     <modules>
         <module>user-service</module>
         <module>user-service-acceptance</module>
+        <module>job-service-acceptance</module>
+        <module>job-service</module>
+        <module>common</module>
     </modules>
 
     <dependencyManagement>

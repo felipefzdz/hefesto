@@ -23,8 +23,8 @@ public class CreateUserStepDefs {
         role = "Employer";
     }
 
-    @When("^the user create a user$")
-    public void the_user_create_a_user() throws Throwable {
+    @When("^the user creates a user$")
+    public void the_user_creates_a_user() throws Throwable {
         CreateUser createUser =
                 Guice.
                 createInjector(new UserServiceTestModule()).
