@@ -7,24 +7,21 @@ import org.olid16.domain.values.UserId;
 import org.olid16.domain.values.UserRole;
 import org.olid16.infrastructure.rest.JsonEntity;
 
-import static com.google.common.base.Strings.*;
-
 public class UserFactory {
 
     public User create(JsonEntity jsonEntity, UserId userId){
+        jsonEntity.validatePresenceOf("role", "name");
         return new User(
                 createName(jsonEntity),
                 createRole(jsonEntity),
                 userId);
     }
-
+    
     private Person createName(JsonEntity jsonEntity) {
-        validatePresence(jsonEntity, "name");
         return Person.create(jsonEntity.get("name"));
     }
 
     private UserRole createRole(JsonEntity jsonEntity) {
-        validatePresence(jsonEntity, "role");
         try {
             return UserRole.valueOf(jsonEntity.get("role").toUpperCase());
         } catch (IllegalArgumentException e) {
@@ -32,13 +29,5 @@ public class UserFactory {
         }
     }
 
-    private void validatePresence(JsonEntity jsonEntity, String field) {
-        try {
-            if(isNullOrEmpty(jsonEntity.get(field))){
-                throw new ValidationException(String.format("%s is mandatory", field));
-            }
-        } catch (NullPointerException e) {
-            throw new ValidationException(String.format("%s is mandatory", field));
-        }
-    }
+
 }

@@ -2,7 +2,6 @@ package step_defs;
 
 import com.eclipsesource.json.JsonObject;
 import com.google.inject.Guice;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -15,13 +14,13 @@ import static com.google.common.truth.Truth.assertThat;
 
 public class CreateJobStepDefs {
     private String title;
-    private String employerId;
+    private String userId;
     private Job job;
 
     @Given("^Employer fills job data$")
     public void Employer_fills_job_data() throws Throwable {
         title = "Developer at X";
-        employerId = "1234";
+        userId = "1234";
     }
 
     @When("^the employer creates a job$")
@@ -30,7 +29,7 @@ public class CreateJobStepDefs {
                     Guice.
                     createInjector(new JobServiceTestModule()).
                     getInstance(CreateJob.class);
-        job = createJob.with(new JsonEntity(JsonObject.readFrom("{\"title\" : \"" + title + "\", " + "\"employerId\" : \"" + employerId + "\"}")));
+        job = createJob.with(new JsonEntity(JsonObject.readFrom("{\"title\" : \"" + title + "\", " + "\"userId\" : \"" + userId + "\"}")));
     }
 
     @Then("^a job is created$")

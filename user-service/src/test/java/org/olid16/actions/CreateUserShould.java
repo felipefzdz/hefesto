@@ -10,7 +10,6 @@ import org.olid16.domain.entities.User;
 import org.olid16.domain.exceptions.ValidationException;
 import org.olid16.domain.factories.UserFactory;
 import org.olid16.domain.values.UserId;
-import utils.Assert;
 
 import static builders.UserBuilder.aUser;
 import static com.google.common.truth.Truth.assertThat;
@@ -18,6 +17,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.olid16.domain.values.UserRole.EMPLOYER;
+import static utils.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CreateUserShould {
@@ -41,7 +41,7 @@ public class CreateUserShould {
     @Test public void
     throw_validation_exception_when_factory_throws_exception(){
         given(userFactory.create(any(), any(UserId.class))).willThrow(ValidationException.class);
-        Assert.assertThrows(ValidationException.class, () -> createUser.with(null));
+        assertThrows(ValidationException.class, () -> createUser.with(null));
     }
 
     @Test public void
