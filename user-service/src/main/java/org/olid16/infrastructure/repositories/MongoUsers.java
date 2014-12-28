@@ -7,6 +7,8 @@ import org.olid16.domain.entities.User;
 import org.olid16.domain.values.UserId;
 import org.olid16.domain.collections.Users;
 
+import java.util.Optional;
+
 public class MongoUsers implements Users {
     
     private final DBCollection users;
@@ -27,6 +29,12 @@ public class MongoUsers implements Users {
     @Override
     public UserId nextId() {
         return UserId.create((ObjectId.get().toString()));
+    }
+
+    @Override
+    public Optional<User> by(UserId userId) {
+        DBObject user = users.find(new BasicDBObject("_id", userId.id())).one();
+        return user == null ? Optional.empty() : Optional.of(userAdapter.fromDBObject(user));
     }
 
 }

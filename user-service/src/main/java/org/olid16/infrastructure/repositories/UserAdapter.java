@@ -12,4 +12,8 @@ public class UserAdapter {
                 .append("role", user.role());
 
     }
+
+    public  User fromDBObject(DBObject dbObject) {
+        return null;
+    }
 }

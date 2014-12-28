@@ -2,6 +2,7 @@ package step_defs;
 
 import com.eclipsesource.json.JsonObject;
 import com.google.inject.Guice;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -36,6 +37,5 @@ public class CreateUserStepDefs {
     public void an_employer_is_created() throws Throwable {
         assertThat(user.isEmployer()).isTrue();
     }
-
 
 }
