@@ -1,8 +1,8 @@
 package infrastructure;
 
+import org.olid16.domain.collections.Users;
 import org.olid16.domain.entities.User;
 import org.olid16.domain.values.UserId;
-import org.olid16.domain.collections.Users;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +23,7 @@ public class InMemoryUsers implements Users {
     }
 
     @Override
-    public Optional<User> by(UserId userId) {
-        return users.containsKey(userId) ? Optional.of(users.get(userId)) : Optional.empty();
+    public Optional<String> by(UserId userId) {
+        return users.containsKey(userId) ? Optional.of(users.get(userId).id()) : Optional.empty();
     }
 }

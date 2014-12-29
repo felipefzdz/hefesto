@@ -25,17 +25,15 @@ public class GetUserShould {
 
     @Test public void
     return_a_user_when_exists_by_id(){
-        given(jsonEntity.get(anyString())).willReturn("1234");
-        given(users.by(aUserId().build())).willReturn(Optional.of(aUser().build()));
-        Optional<User> user = new GetUser(users).by(jsonEntity);
+        given(users.by(aUserId().build())).willReturn(Optional.of(""));
+        Optional<String> user = new GetUser(users).by("1234");
         assertThat(user.isPresent()).isTrue();
     }
     
     @Test public void
     return_empty_optional_when_not_exist_by_id(){
-        given(jsonEntity.get(anyString())).willReturn("1234");
         given(users.by(aUserId().build())).willReturn(Optional.empty());
-        Optional<User> user = new GetUser(users).by(jsonEntity);
+        Optional<String> user = new GetUser(users).by("1234");
         assertThat(user.isPresent()).isFalse();
     }
 }

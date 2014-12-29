@@ -13,7 +13,4 @@ public class UserAdapter {
 
     }
 
-    public  User fromDBObject(DBObject dbObject) {
-        return null;
-    }
 }

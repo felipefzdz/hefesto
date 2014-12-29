@@ -42,8 +42,7 @@ public class MongoUsersShould {
         given(db.getCollection(anyString())).willReturn(users);
         given(users.find(any(DBObject.class))).willReturn(dbCursor);
         given(dbCursor.one()).willReturn(mock(DBObject.class));
-        given(userAdapter.fromDBObject(any(DBObject.class))).willReturn(aUser().build());
-        Optional<User> user = new MongoUsers(db, userAdapter).by(aUserId().build());
+        Optional<String> user = new MongoUsers(db, userAdapter).by(aUserId().build());
         assertThat(user.isPresent()).isTrue();
     }
 
@@ -52,7 +51,7 @@ public class MongoUsersShould {
         given(db.getCollection(anyString())).willReturn(users);
         given(users.find(any(DBObject.class))).willReturn(dbCursor);
         given(dbCursor.one()).willReturn(null);
-        Optional<User> user = new MongoUsers(db, userAdapter).by(aUserId().build());
+        Optional<String> user = new MongoUsers(db, userAdapter).by(aUserId().build());
         assertThat(user.isPresent()).isFalse();
     }
     

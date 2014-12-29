@@ -10,5 +10,5 @@ public interface Users {
 
     UserId nextId();
 
-    Optional<User> by(UserId userId);
+    Optional<String> by(UserId userId);
 }

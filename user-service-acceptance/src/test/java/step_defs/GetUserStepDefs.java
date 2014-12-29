@@ -20,7 +20,7 @@ import static com.google.common.truth.Truth.assertThat;
 public class GetUserStepDefs {
 
     private String userId;
-    private Optional<User> user;
+    private Optional<String> user;
     private Injector injector = Guice.createInjector(new UserServiceTestModule());
 
     @Given("^A user exists$")
@@ -32,7 +32,7 @@ public class GetUserStepDefs {
 
     @When("^the user gets a user by id$")
     public void the_user_gets_a_user_by_id() throws Throwable {
-        user = getUser().by(new JsonEntity(JsonObject.readFrom("{\"userId\" : \"" + userId + "\"}")));
+        user = getUser().by(userId);
     }
 
     @Then("^a user is returned$")

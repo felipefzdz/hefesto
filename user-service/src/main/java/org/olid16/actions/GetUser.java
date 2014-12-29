@@ -17,7 +17,7 @@ public class GetUser {
         this.users = users;
     }
 
-    public Optional<User> by(JsonEntity jsonEntity) {
-        return users.by(UserId.create(jsonEntity.get("userId")));
+    public Optional<String> by(String id) {
+        return users.by(UserId.create(id));
     }
 }
