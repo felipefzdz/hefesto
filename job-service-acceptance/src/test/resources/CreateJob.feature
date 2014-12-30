@@ -1,4 +1,3 @@
-@ignore
 Feature: Create Job
   As an employer
   I want to create jobs
