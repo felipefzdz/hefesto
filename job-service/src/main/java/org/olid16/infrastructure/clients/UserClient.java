@@ -19,7 +19,7 @@ public class UserClient {
     }
 
     public User getBy(UserId userId) {
-        String url = String.format("http://localhost:8080/user/", userId.id());
+        String url = String.format("http://localhost:4567/user/%s", userId.id());
         try {
             return userAdapter.from(resty.json(url));
         } catch (IOException e) {
