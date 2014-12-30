@@ -13,7 +13,7 @@ import java.net.UnknownHostException;
 public class UserServiceModule extends AbstractModule {
     @Override
     protected void configure() {
-        bind(Users.class).to(MongoUsers.class);
+        bind(Users.class).to(MongoUsers.class).in(Singleton.class);
     }
     
     @Provides @Singleton

@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.olid16.domain.values.User;
 import org.olid16.infrastructure.exceptions.DomainException;
+import us.monoid.json.JSONException;
 import us.monoid.web.JSONResource;
 import us.monoid.web.Resty;
 
@@ -34,7 +35,7 @@ public class UserClientShould {
     }
 
     @Test public void
-    return_user_when_response_is_fine() throws IOException {
+    return_user_when_response_is_fine() throws IOException, JSONException {
         given(resty.json(anyString())).willReturn(new JSONResource());
         given(userAdapter.from(any(JSONResource.class))).willReturn(aUser().build());
         User user = new UserClient(resty, userAdapter).getBy(aUserId().build());

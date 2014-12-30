@@ -2,10 +2,21 @@ package org.olid16.domain.factories;
 
 import org.olid16.domain.entities.Job;
 import org.olid16.domain.values.JobId;
+import org.olid16.domain.values.Title;
+import org.olid16.domain.values.UserId;
 import org.olid16.infrastructure.rest.JsonEntity;
 
 public class JobFactory {
     public Job create(JsonEntity jsonEntity, JobId jobId) {
-        return null;
+        jsonEntity.validatePresenceOf("userId", "title");
+        return new Job(jobId, userId(jsonEntity), title(jsonEntity));
+    }
+
+    private UserId userId(JsonEntity jsonEntity) {
+        return UserId.create(jsonEntity.get("userId"));
+    }
+
+    private Title title(JsonEntity jsonEntity) {
+        return Title.create(jsonEntity.get("title"));
     }
 }

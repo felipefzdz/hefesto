@@ -4,6 +4,8 @@ import com.google.inject.Inject;
 import org.olid16.domain.values.User;
 import org.olid16.domain.values.UserId;
 import org.olid16.infrastructure.exceptions.DomainException;
+import us.monoid.json.JSONException;
+import us.monoid.web.JSONResource;
 import us.monoid.web.Resty;
 
 import java.io.IOException;
@@ -19,11 +21,12 @@ public class UserClient {
     }
 
     public User getBy(UserId userId) {
-        String url = String.format("http://localhost:4567/user/%s", userId.id());
+        String url = String.format("http://localhost:8080/user/%s", userId.id());
         try {
-            return userAdapter.from(resty.json(url));
-        } catch (IOException e) {
-            throw new DomainException(String.format("Unable to connect to %s", url), e);
+            JSONResource resource = resty.json(url);
+            return userAdapter.from(resource);
+        } catch (IOException| JSONException e) {
+            throw new DomainException(String.format("Problem while connecting to %s", url), e);
         }
     }
 }
