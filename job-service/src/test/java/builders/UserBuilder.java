@@ -5,7 +5,7 @@ import org.olid16.domain.values.User;
 import org.olid16.domain.values.UserId;
 import org.olid16.domain.values.UserRole;
 
-import static builders.UserBuilder.PersonBuilder.*;
+import static builders.UserBuilder.PersonBuilder.aPerson;
 
 public class UserBuilder {
 

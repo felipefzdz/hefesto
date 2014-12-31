@@ -54,8 +54,12 @@
             <artifactId>guava</artifactId>
         </dependency>
         <dependency>
-            <groupId>us.monoid.web</groupId>
-            <artifactId>resty</artifactId>
+            <groupId>com.squareup.retrofit</groupId>
+            <artifactId>retrofit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.retrofit</groupId>
+            <artifactId>converter-jackson</artifactId>
         </dependency>
     </dependencies>
 

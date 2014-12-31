@@ -1,8 +1,6 @@
 package org.olid16.infrastructure.rest.controllers;
 
-import com.eclipsesource.json.JsonObject;
 import com.google.inject.Inject;
-import org.eclipse.jetty.http.HttpStatus;
 import org.olid16.actions.CreateUser;
 import org.olid16.actions.GetUser;
 import org.olid16.domain.entities.User;
@@ -16,10 +14,9 @@ import java.util.Optional;
 import static com.eclipsesource.json.JsonObject.readFrom;
 import static org.eclipse.jetty.http.HttpStatus.*;
 import static org.eclipse.jetty.http.HttpStatus.BAD_REQUEST_400;
-import static org.eclipse.jetty.http.HttpStatus.NOT_FOUND_404;
 
 public class UserController {
-    private static final String EMPTY = "";
+    private static final String EMPTY_JSON = "{}";
     private final CreateUser createUser;
     private final GetUser getUser;
 
@@ -46,6 +43,6 @@ public class UserController {
             return user.get();
         }
         res.status(NO_CONTENT_204);
-        return EMPTY;
+        return EMPTY_JSON;
     }
 }

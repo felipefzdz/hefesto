@@ -7,11 +7,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.olid16.domain.collections.Jobs;
 import org.olid16.domain.entities.Job;
 import org.olid16.domain.factories.JobFactory;
-import org.olid16.infrastructure.exceptions.AuthorizationException;
 import org.olid16.domain.services.UserService;
+import org.olid16.infrastructure.exceptions.AuthorizationException;
 import org.olid16.infrastructure.rest.JsonEntity;
 
-import static builders.JobBuilder.*;
+import static builders.JobBuilder.aJob;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;

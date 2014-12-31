@@ -4,23 +4,22 @@ import com.google.inject.Inject;
 import org.olid16.domain.factories.UserIdFactory;
 import org.olid16.domain.values.User;
 import org.olid16.domain.values.UserRole;
-import org.olid16.infrastructure.clients.UserClient;
+import org.olid16.infrastructure.clients.UserApi;
 import org.olid16.infrastructure.rest.JsonEntity;
 
 public class UserService {
 
-    private final UserClient userClient;
+    private final UserApi userApi;
     private final UserIdFactory userIdFactory;
 
     @Inject
-    public UserService(UserClient userClient, UserIdFactory userIdFactory) {
-        this.userClient = userClient;
+    public UserService(UserApi userApi, UserIdFactory userIdFactory) {
+        this.userApi = userApi;
         this.userIdFactory = userIdFactory;
     }
     
     public boolean isEmployer(JsonEntity jsonEntity){
-        User user = userClient.getBy(userIdFactory.create(jsonEntity));
+        User user = userApi.getBy(userIdFactory.create(jsonEntity).id());
         return UserRole.EMPLOYER.equals(user.userRole());
-        
     }
 }

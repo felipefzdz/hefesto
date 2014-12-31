@@ -5,8 +5,8 @@ import org.olid16.domain.values.JobId;
 import org.olid16.domain.values.Title;
 import org.olid16.domain.values.UserId;
 
-import static builders.JobBuilder.TitleBuilder.*;
-import static builders.UserBuilder.UserIdBuilder.*;
+import static builders.JobBuilder.TitleBuilder.aTitle;
+import static builders.UserBuilder.UserIdBuilder.aUserId;
 
 public class JobBuilder {
 

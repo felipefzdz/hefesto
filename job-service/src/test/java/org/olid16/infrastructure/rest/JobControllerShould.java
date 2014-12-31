@@ -1,6 +1,5 @@
 package org.olid16.infrastructure.rest;
 
-import builders.JobBuilder;
 import org.eclipse.jetty.http.HttpStatus;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +12,7 @@ import spark.Request;
 import spark.RequestResponseFactory;
 import spark.Response;
 
-import static builders.JobBuilder.JobIdBuilder.*;
+import static builders.JobBuilder.JobIdBuilder.aJobId;
 import static builders.JobBuilder.aJob;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.BDDMockito.given;

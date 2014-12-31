@@ -78,8 +78,8 @@ public class UserControllerShould {
     return_empty_when_not_exists_by_id() throws IOException {
         given(request.body()).willReturn("{}");
         given(getUser.by(anyString())).willReturn(Optional.empty());
-        String user = new UserController(null, getUser).get(request, dummyResponse());
-        assertThat(user).isEmpty();
+        String message = new UserController(null, getUser).get(request, dummyResponse());
+        assertThat(message).isEqualTo("{}");
     }
 
     @Test public void
@@ -87,8 +87,7 @@ public class UserControllerShould {
         given(request.body()).willReturn("{}");
         given(getUser.by(anyString())).willReturn(Optional.empty());
         Response response = spy(dummyResponse());
-        String message = new UserController(null, getUser).get(request, response);
-        assertThat(message).isEmpty();
+        new UserController(null, getUser).get(request, response);
         verify(response).status(HttpStatus.NO_CONTENT_204);
 
     }
