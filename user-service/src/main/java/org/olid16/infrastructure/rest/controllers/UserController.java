@@ -2,6 +2,7 @@ package org.olid16.infrastructure.rest.controllers;
 
 import com.eclipsesource.json.JsonObject;
 import com.google.inject.Inject;
+import org.eclipse.jetty.http.HttpStatus;
 import org.olid16.actions.CreateUser;
 import org.olid16.actions.GetUser;
 import org.olid16.domain.entities.User;
@@ -13,6 +14,7 @@ import spark.Response;
 import java.util.Optional;
 
 import static com.eclipsesource.json.JsonObject.readFrom;
+import static org.eclipse.jetty.http.HttpStatus.*;
 import static org.eclipse.jetty.http.HttpStatus.BAD_REQUEST_400;
 import static org.eclipse.jetty.http.HttpStatus.NOT_FOUND_404;
 
@@ -43,7 +45,7 @@ public class UserController {
         if (user.isPresent()) {
             return user.get();
         }
-        res.status(NOT_FOUND_404);
+        res.status(NO_CONTENT_204);
         return EMPTY;
     }
 }
