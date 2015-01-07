@@ -4,6 +4,7 @@ Feature: Create Job
   So the jobseekers can apply to them
 
   Scenario: Create Job
-    Given Employer fills job data
+    Given An employer exists
+    And Employer fills job data
     When the employer creates a job
     Then a job is created

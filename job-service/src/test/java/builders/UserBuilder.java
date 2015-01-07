@@ -11,14 +11,16 @@ public class UserBuilder {
 
     private Person person;
     private UserRole role;
+    private String userId;
 
-    public UserBuilder(Person person, UserRole role) {
+    public UserBuilder(Person person, UserRole role, String userId) {
         this.person = person;
         this.role = role;
+        this.userId = userId;
     }
 
     public static UserBuilder aUser(){
-        return new UserBuilder(aPerson().build(), UserRole.UNKNOWN);
+        return new UserBuilder(aPerson().build(), UserRole.UNKNOWN, "1234");
     }
 
     public UserBuilder w(Person person){
@@ -32,7 +34,7 @@ public class UserBuilder {
     }
 
     public User build(){
-        return User.create(person, role);
+        return User.create(person, role, userId);
     }
 
     public static class PersonBuilder {
