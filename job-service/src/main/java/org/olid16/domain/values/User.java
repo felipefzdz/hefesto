@@ -16,4 +16,8 @@ public abstract class User {
     public abstract Person person();
     @JsonProperty
     public abstract UserRole userRole();
+
+    public boolean isEmployer() {
+        return UserRole.EMPLOYER.equals(userRole());
+    }
 }
