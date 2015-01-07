@@ -26,7 +26,7 @@ public class JobServiceModule extends AbstractModule{
     
     @Provides @Singleton DB provideDB(){
         try {
-            return new MongoClient().getDB("userService");
+            return new MongoClient().getDB("jobService");
         } catch (UnknownHostException e) {
             throw new IllegalStateException(e);
         }
