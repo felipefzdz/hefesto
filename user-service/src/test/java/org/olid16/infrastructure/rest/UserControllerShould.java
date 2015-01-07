@@ -88,7 +88,7 @@ public class UserControllerShould {
         given(getUser.by(anyString())).willReturn(Optional.empty());
         Response response = spy(dummyResponse());
         new UserController(null, getUser).get(request, response);
-        verify(response).status(HttpStatus.NO_CONTENT_204);
+        verify(response).status(HttpStatus.NOT_FOUND_404);
 
     }
 

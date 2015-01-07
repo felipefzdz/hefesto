@@ -1,6 +1,7 @@
 package org.olid16.infrastructure.rest.controllers;
 
 import com.google.inject.Inject;
+import org.eclipse.jetty.http.HttpStatus;
 import org.olid16.actions.CreateUser;
 import org.olid16.actions.GetUser;
 import org.olid16.domain.entities.User;
@@ -42,7 +43,7 @@ public class UserController {
         if (user.isPresent()) {
             return user.get();
         }
-        res.status(NO_CONTENT_204);
+        res.status(NOT_FOUND_404);
         return EMPTY_JSON;
     }
 }
