@@ -20,9 +20,17 @@ public class UserFactoryShould {
     @Mock JsonEntity jsonEntity;
 
     @Test public void
-    create_a_user_when_data_is_valid(){
+    create_a_user_when_role_is_employer(){
         given(jsonEntity.get("name")).willReturn("Bob");
         given(jsonEntity.get("role")).willReturn("employer");
+        User user = new UserFactory().create(jsonEntity, null);
+        assertThat(user).isNotNull();
+    }
+
+    @Test public void
+    create_a_user_when_role_is_jobseeker(){
+        given(jsonEntity.get("name")).willReturn("Bob");
+        given(jsonEntity.get("role")).willReturn("jobseeker");
         User user = new UserFactory().create(jsonEntity, null);
         assertThat(user).isNotNull();
     }
