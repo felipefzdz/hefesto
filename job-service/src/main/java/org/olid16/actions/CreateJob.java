@@ -5,6 +5,7 @@ import org.olid16.domain.collections.Jobs;
 import org.olid16.domain.entities.Job;
 import org.olid16.domain.factories.JobFactory;
 import org.olid16.domain.factories.UserFactory;
+import org.olid16.domain.factories.UserIdFactory;
 import org.olid16.domain.values.User;
 import org.olid16.infrastructure.exceptions.AuthorizationException;
 import org.olid16.infrastructure.rest.JsonEntity;
@@ -16,16 +17,18 @@ public class CreateJob {
     private final UserFactory userFactory;
     private final JobFactory jobFactory;
     private final Jobs jobs;
+    private final UserIdFactory userIdFactory;
 
     @Inject
-    public CreateJob(UserFactory userFactory, JobFactory jobFactory, Jobs jobs) {
+    public CreateJob(UserFactory userFactory, JobFactory jobFactory, Jobs jobs, UserIdFactory userIdFactory) {
         this.userFactory = userFactory;
         this.jobFactory = jobFactory;
         this.jobs = jobs;
+        this.userIdFactory = userIdFactory;
     }
 
     public Job with(JsonEntity jsonEntity) {
-        Optional<User> user = userFactory.create(jsonEntity);
+        Optional<User> user = userFactory.create(userIdFactory.create(jsonEntity));
         if (user.isPresent() && user.get().isEmployer()){
             Job job = jobFactory.create(jsonEntity, jobs.nextId());
             jobs.add(job);

@@ -1,5 +1,6 @@
 package org.olid16.infrastructure.repositories;
 
+import com.eclipsesource.json.JsonArray;
 import com.google.inject.Inject;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -10,6 +11,7 @@ import org.olid16.domain.collections.Jobs;
 import org.olid16.domain.entities.Job;
 import org.olid16.domain.values.JobId;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -33,8 +35,12 @@ public class MongoJobs implements Jobs {
     }
 
     @Override
-    public List<Job> by(String employerId) {
-        Iterator<DBObject> dbObjectIterator = jobs.find(new BasicDBObject("employer_id", employerId)).iterator();
-        return jobAdapter.from(dbObjectIterator);
+    public String by(String employerId) {
+        Iterator<DBObject> it = jobs.find(new BasicDBObject("employer_id", employerId)).iterator();
+        JsonArray jsonArray = new JsonArray();
+        while(it.hasNext()){
+            jsonArray.add(it.next().toString());
+        }
+        return jsonArray.toString();
     }
 }

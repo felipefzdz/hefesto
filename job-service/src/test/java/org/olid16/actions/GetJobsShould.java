@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static builders.UserBuilder.UserIdBuilder.*;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.anyString;
@@ -31,21 +32,21 @@ public class GetJobsShould {
     @Test
     public void
     return_jobs_when_user_is_employer(){
-        given(userFactory.create(null)).willReturn(Optional.of(UserBuilder.aUser().w(UserRole.EMPLOYER).build()));
-        given(jobs.by(anyString())).willReturn(Arrays.asList(JobBuilder.aJob().build()));
-        List<Job> jobsByEmployer = new GetJobs(userFactory, jobs).with(null);
-        assertThat(jobsByEmployer).isNotEmpty();
+        given(userFactory.create(aUserId().build())).willReturn(Optional.of(UserBuilder.aUser().w(UserRole.EMPLOYER).build()));
+        given(jobs.by(anyString())).willReturn("");
+        String jobsByEmployer = new GetJobs(userFactory, jobs).with("1234");
+        assertThat(jobsByEmployer).isNotNull();
     }
 
     @Test public void
     throw_authorization_exception_when_user_is_not_employer(){
-        given(userFactory.create(null)).willReturn(Optional.of(UserBuilder.aUser().build()));
-        assertThrows(AuthorizationException.class, () -> new GetJobs(userFactory, jobs).with(null));
+        given(userFactory.create(aUserId().build())).willReturn(Optional.of(UserBuilder.aUser().build()));
+        assertThrows(AuthorizationException.class, () -> new GetJobs(userFactory, jobs).with("1234"));
     }
 
     @Test public void
     throw_authorization_exception_when_user_not_exists(){
-        given(userFactory.create(null)).willReturn(Optional.empty());
-        assertThrows(AuthorizationException.class, () -> new GetJobs(userFactory, jobs).with(null));
+        given(userFactory.create(aUserId().build())).willReturn(Optional.empty());
+        assertThrows(AuthorizationException.class, () -> new GetJobs(userFactory, jobs).with("1234"));
     }
 }

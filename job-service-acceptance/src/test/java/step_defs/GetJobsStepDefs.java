@@ -1,5 +1,6 @@
 package step_defs;
 
+import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -31,7 +32,7 @@ public class GetJobsStepDefs {
     private String userId;
     private Injector injector = Guice.
             createInjector(new JobServiceTestModule());
-    private List<Job> jobs;
+    private String jobs;
 
     @Given("^An employer exists when get jobs$")
     public void An_employer_exists_when_get_jobs() throws Throwable{
@@ -52,12 +53,12 @@ public class GetJobsStepDefs {
     @When("^the employer gets the jobs$")
     public void the_employer_gets_the_jobs() throws Throwable {
         GetJobs getJobs = injector.getInstance(GetJobs.class);
-        jobs = getJobs.with(new JsonEntity(JsonObject.readFrom("{\"userId\" : \"" + userId + "\"}")));
+        jobs = getJobs.with(userId);
     }
 
     @Then("^jobs are retrieved$")
     public void jobs_are_retrieved() throws Throwable {
-        assertThat(jobs).hasSize(3);
+        assertThat(JsonArray.readFrom(jobs).size()).is(3);
     }
 
 

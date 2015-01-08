@@ -1,11 +1,13 @@
 package org.olid16.infrastructure.rest;
 
+import com.mongodb.util.JSON;
 import org.eclipse.jetty.http.HttpStatus;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.olid16.actions.CreateJob;
+import org.olid16.actions.GetJobs;
 import org.olid16.infrastructure.exceptions.AuthorizationException;
 import org.olid16.infrastructure.exceptions.ValidationException;
 import spark.Request;
@@ -17,6 +19,7 @@ import static builders.JobBuilder.aJob;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
@@ -25,12 +28,13 @@ public class JobControllerShould {
 
     @Mock CreateJob createJob;
     @Mock Request request;
+    @Mock GetJobs getJobs;
 
     @Test public void
     call_create_job(){
         given(request.body()).willReturn("{}");
         given(createJob.with(any(JsonEntity.class))).willReturn(aJob().build());
-        new JobController(createJob).create(request, null);
+        new JobController(createJob, getJobs).create(request, null);
         verify(createJob).with(any(JsonEntity.class));
     }
 
@@ -38,7 +42,7 @@ public class JobControllerShould {
     return_job_id_when_create_job(){
         given(request.body()).willReturn("{}");
         given(createJob.with(any(JsonEntity.class))).willReturn(aJob().build());
-        String id = new JobController(createJob).create(request, null);
+        String id = new JobController(createJob, getJobs).create(request, null);
         assertThat(id).isEqualTo(aJobId().build().id());
     }
 
@@ -47,7 +51,7 @@ public class JobControllerShould {
         given(request.body()).willReturn("{}");
         given(createJob.with(any(JsonEntity.class))).willThrow(ValidationException.class);
         Response response = spy(dummyResponse());
-        new JobController(createJob).create(request, response);
+        new JobController(createJob, getJobs).create(request, response);
         verify(response).status(HttpStatus.BAD_REQUEST_400);
     }
 
@@ -55,9 +59,22 @@ public class JobControllerShould {
     return_authorization_message_error_when_invalid_role(){
         given(request.body()).willReturn("{}");
         given(createJob.with(any(JsonEntity.class))).willThrow(new AuthorizationException("Only employers can create jobs"));
-        Response response = spy(dummyResponse());
-        String message = new JobController(createJob).create(request, response);
+        String message = new JobController(createJob, getJobs).create(request, dummyResponse());
         assertThat(message).isEqualTo("Only employers can create jobs");
+    }
+
+    @Test public void
+    call_get_jobs(){
+        new JobController(createJob, getJobs).getByEmployerId(request, null);
+        verify(getJobs).with(anyString());
+    }
+
+    @Test public void
+    return_authorization_message_error_when_invalid_role_when_get_jobs(){
+        given(request.params("employerId")).willReturn("1234");
+        given(getJobs.with("1234")).willThrow(new AuthorizationException("Only employers can get jobs"));
+        String message = new JobController(createJob, getJobs).getByEmployerId(request, dummyResponse());
+        assertThat(message).isEqualTo("Only employers can get jobs");
     }
 
     private Response dummyResponse() {

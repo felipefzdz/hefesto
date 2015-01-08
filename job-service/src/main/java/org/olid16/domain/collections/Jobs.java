@@ -10,5 +10,5 @@ public interface Jobs {
 
     void add(Job job);
 
-    List<Job> by(String employerId);
+    String by(String employerId);
 }

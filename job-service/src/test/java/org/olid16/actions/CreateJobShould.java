@@ -9,6 +9,7 @@ import org.olid16.domain.collections.Jobs;
 import org.olid16.domain.entities.Job;
 import org.olid16.domain.factories.JobFactory;
 import org.olid16.domain.factories.UserFactory;
+import org.olid16.domain.factories.UserIdFactory;
 import org.olid16.domain.values.UserRole;
 import org.olid16.infrastructure.exceptions.AuthorizationException;
 import org.olid16.infrastructure.rest.JsonEntity;
@@ -28,24 +29,25 @@ public class CreateJobShould {
     @Mock UserFactory userFactory;
     @Mock JobFactory jobFactory;
     @Mock Jobs jobs;
+    @Mock UserIdFactory userIdFactory;
 
     @Test public void
     return_job_when_user_is_employer(){
         given(userFactory.create(null)).willReturn(Optional.of(UserBuilder.aUser().w(UserRole.EMPLOYER).build()));
         given(jobFactory.create(any(JsonEntity.class), anyObject())).willReturn(aJob().build());
-        Job job = new CreateJob(userFactory, jobFactory, jobs).with(null);
+        Job job = new CreateJob(userFactory, jobFactory, jobs, userIdFactory).with(null);
         assertThat(job).isNotNull();
     }
 
     @Test public void
     throw_authorization_exception_when_user_is_not_employer(){
         given(userFactory.create(null)).willReturn(Optional.of(UserBuilder.aUser().build()));
-        assertThrows(AuthorizationException.class, () -> new CreateJob(userFactory, jobFactory, jobs).with(null));
+        assertThrows(AuthorizationException.class, () -> new CreateJob(userFactory, jobFactory, jobs, userIdFactory).with(null));
     }
 
     @Test public void
     throw_authorization_exception_when_user_not_exists(){
         given(userFactory.create(null)).willReturn(Optional.empty());
-        assertThrows(AuthorizationException.class, () -> new CreateJob(userFactory, jobFactory, jobs).with(null));
+        assertThrows(AuthorizationException.class, () -> new CreateJob(userFactory, jobFactory, jobs, userIdFactory).with(null));
     }
 }

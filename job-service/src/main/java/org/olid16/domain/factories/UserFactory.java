@@ -2,25 +2,23 @@ package org.olid16.domain.factories;
 
 import com.google.inject.Inject;
 import org.olid16.domain.values.User;
+import org.olid16.domain.values.UserId;
 import org.olid16.infrastructure.clients.UserApi;
-import org.olid16.infrastructure.rest.JsonEntity;
 import retrofit.RetrofitError;
 
 import java.util.Optional;
 
 public class UserFactory {
     private final UserApi userApi;
-    private final UserIdFactory userIdFactory;
 
     @Inject
-    public UserFactory(UserApi userApi, UserIdFactory userIdFactory) {
+    public UserFactory(UserApi userApi) {
         this.userApi = userApi;
-        this.userIdFactory = userIdFactory;
     }
 
-    public Optional<User> create(JsonEntity jsonEntity) {
+    public Optional<User> create(UserId userId) {
         try {
-            return Optional.of(userApi.getBy(userIdFactory.create(jsonEntity).id()));
+            return Optional.of(userApi.getBy(userId.id()));
         } catch (RetrofitError e) {
             return Optional.empty();
         }
