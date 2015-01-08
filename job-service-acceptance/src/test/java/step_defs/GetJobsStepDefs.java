@@ -1,7 +1,6 @@
 package step_defs;
 
 import com.eclipsesource.json.JsonArray;
-import com.eclipsesource.json.JsonObject;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import cucumber.api.java.en.And;
@@ -18,9 +17,6 @@ import org.olid16.domain.values.Title;
 import org.olid16.domain.values.User;
 import org.olid16.domain.values.UserId;
 import org.olid16.infrastructure.clients.UserApi;
-import org.olid16.infrastructure.rest.JsonEntity;
-
-import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.olid16.domain.values.Person.create;
@@ -30,8 +26,7 @@ public class GetJobsStepDefs {
 
     private String[] titles = {"1", "2", "3"};
     private String userId;
-    private Injector injector = Guice.
-            createInjector(new JobServiceTestModule());
+    private Injector injector = Guice.createInjector(new JobServiceTestModule());
     private String jobs;
 
     @Given("^An employer exists when get jobs$")
@@ -53,7 +48,7 @@ public class GetJobsStepDefs {
     @When("^the employer gets the jobs$")
     public void the_employer_gets_the_jobs() throws Throwable {
         GetJobs getJobs = injector.getInstance(GetJobs.class);
-        jobs = getJobs.with(userId);
+        jobs = getJobs.byEmployerId(userId).get();
     }
 
     @Then("^jobs are retrieved$")

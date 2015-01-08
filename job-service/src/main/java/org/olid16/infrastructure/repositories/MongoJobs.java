@@ -14,6 +14,7 @@ import org.olid16.domain.values.JobId;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 public class MongoJobs implements Jobs {
     private final DBCollection jobs;
@@ -35,12 +36,15 @@ public class MongoJobs implements Jobs {
     }
 
     @Override
-    public String by(String employerId) {
+    public Optional<String> byEmployerId(String employerId) {
         Iterator<DBObject> it = jobs.find(new BasicDBObject("employer_id", employerId)).iterator();
+        if (!it.hasNext()){
+            return Optional.empty();
+        }
         JsonArray jsonArray = new JsonArray();
         while(it.hasNext()){
             jsonArray.add(it.next().toString());
         }
-        return jsonArray.toString();
+        return Optional.of(jsonArray.toString());
     }
 }

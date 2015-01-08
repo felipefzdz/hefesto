@@ -18,6 +18,6 @@ public class Routes {
     public void initialise() {
         port(8081);
         post("/job", (req, res) -> jobController.create(req, res));
-        get("/jobs/:employerId", (req, res) -> jobController.getByEmployerId(req, res));
+        get("/jobs/:employerId", (req, res) -> jobController.getByEmployer(req, res));
     }
 }

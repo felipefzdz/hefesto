@@ -1,6 +1,5 @@
 package org.olid16.infrastructure.rest;
 
-import com.mongodb.util.JSON;
 import org.eclipse.jetty.http.HttpStatus;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +12,8 @@ import org.olid16.infrastructure.exceptions.ValidationException;
 import spark.Request;
 import spark.RequestResponseFactory;
 import spark.Response;
+
+import java.util.Optional;
 
 import static builders.JobBuilder.JobIdBuilder.aJobId;
 import static builders.JobBuilder.aJob;
@@ -65,16 +66,19 @@ public class JobControllerShould {
 
     @Test public void
     call_get_jobs(){
-        new JobController(createJob, getJobs).getByEmployerId(request, null);
-        verify(getJobs).with(anyString());
+        given(request.params("employerId")).willReturn("1234");
+        given(getJobs.byEmployerId("1234")).willReturn(Optional.empty());
+        new JobController(createJob, getJobs).getByEmployer(request, dummyResponse());
+        verify(getJobs).byEmployerId(anyString());
     }
 
     @Test public void
-    return_authorization_message_error_when_invalid_role_when_get_jobs(){
+    return_404_when_not_jobs_found(){
         given(request.params("employerId")).willReturn("1234");
-        given(getJobs.with("1234")).willThrow(new AuthorizationException("Only employers can get jobs"));
-        String message = new JobController(createJob, getJobs).getByEmployerId(request, dummyResponse());
-        assertThat(message).isEqualTo("Only employers can get jobs");
+        given(getJobs.byEmployerId("1234")).willReturn(Optional.empty());
+        Response response = spy(dummyResponse());
+        new JobController(createJob, getJobs).getByEmployer(request, response);
+        verify(response).status(HttpStatus.NOT_FOUND_404);
     }
 
     private Response dummyResponse() {

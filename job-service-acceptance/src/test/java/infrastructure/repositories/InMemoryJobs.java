@@ -8,10 +8,7 @@ import org.olid16.domain.collections.Jobs;
 import org.olid16.domain.entities.Job;
 import org.olid16.domain.values.JobId;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class InMemoryJobs implements Jobs {
     
@@ -28,12 +25,12 @@ public class InMemoryJobs implements Jobs {
     }
 
     @Override
-    public String by(String employerId) {
+    public Optional<String> byEmployerId(String employerId) {
         JsonArray jsonArray = new JsonArray();
         Iterator<Job> it = jobs.get(employerId).iterator();
         while(it.hasNext()){
             jsonArray.add(it.next().toString());
         }
-        return jsonArray.toString();
+        return Optional.of(jsonArray.toString());
     }
 }
