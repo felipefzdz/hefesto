@@ -67,15 +67,15 @@ public class JobControllerShould {
     @Test public void
     call_get_jobs(){
         given(request.params("employerId")).willReturn("1234");
-        given(getJobs.byEmployerId("1234")).willReturn(Optional.empty());
+        given(getJobs.byEmployer("1234")).willReturn(Optional.empty());
         new JobController(createJob, getJobs).getByEmployer(request, dummyResponse());
-        verify(getJobs).byEmployerId(anyString());
+        verify(getJobs).byEmployer(anyString());
     }
 
     @Test public void
     return_404_when_not_jobs_found(){
         given(request.params("employerId")).willReturn("1234");
-        given(getJobs.byEmployerId("1234")).willReturn(Optional.empty());
+        given(getJobs.byEmployer("1234")).willReturn(Optional.empty());
         Response response = spy(dummyResponse());
         new JobController(createJob, getJobs).getByEmployer(request, response);
         verify(response).status(HttpStatus.NOT_FOUND_404);

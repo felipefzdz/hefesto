@@ -35,7 +35,7 @@ public class JobController {
     }
 
     public String getByEmployer(Request req, Response res) {
-        Optional<String> jobs = getJobs.byEmployerId(req.params("employerId"));
+        Optional<String> jobs = getJobs.byEmployer(req.params("employerId"));
         if(jobs.isPresent()){
             return jobs.get();
         }

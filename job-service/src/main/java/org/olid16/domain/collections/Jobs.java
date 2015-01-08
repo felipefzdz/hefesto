@@ -12,4 +12,6 @@ public interface Jobs {
     void add(Job job);
 
     Optional<String> byEmployerId(String employerId);
+
+    Optional<String> all();
 }

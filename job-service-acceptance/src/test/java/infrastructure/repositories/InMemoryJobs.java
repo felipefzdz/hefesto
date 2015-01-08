@@ -26,8 +26,18 @@ public class InMemoryJobs implements Jobs {
 
     @Override
     public Optional<String> byEmployerId(String employerId) {
-        JsonArray jsonArray = new JsonArray();
         Iterator<Job> it = jobs.get(employerId).iterator();
+        return adapt(it);
+    }
+
+    @Override
+    public Optional<String> all() {
+        Iterator<Job> it = jobs.values().iterator();
+        return adapt(it);
+    }
+
+    private Optional<String> adapt(Iterator<Job> it) {
+        JsonArray jsonArray = new JsonArray();
         while(it.hasNext()){
             jsonArray.add(it.next().toString());
         }

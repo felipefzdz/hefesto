@@ -22,10 +22,10 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.olid16.domain.values.Person.create;
 import static org.olid16.domain.values.UserRole.EMPLOYER;
 
-public class GetJobsStepDefs {
+public class GetJobsByEmployerStepDefs {
 
-    private String[] titles = {"1", "2", "3"};
     private String userId;
+    private String[] titles = {"1", "2", "3"};
     private Injector injector = Guice.createInjector(new JobServiceTestModule());
     private String jobs;
 
@@ -48,7 +48,7 @@ public class GetJobsStepDefs {
     @When("^the employer gets the jobs$")
     public void the_employer_gets_the_jobs() throws Throwable {
         GetJobs getJobs = injector.getInstance(GetJobs.class);
-        jobs = getJobs.byEmployerId(userId).get();
+        jobs = getJobs.byEmployer(userId).get();
     }
 
     @Then("^jobs are retrieved$")

@@ -7,16 +7,18 @@ import org.olid16.domain.factories.UserFactory;
 import java.util.Optional;
 
 public class GetJobs {
-    private final UserFactory userFactory;
     private final Jobs jobs;
 
     @Inject
-    public GetJobs(UserFactory userFactory, Jobs jobs) {
-        this.userFactory = userFactory;
+    public GetJobs(Jobs jobs) {
         this.jobs = jobs;
     }
 
-    public Optional<String> byEmployerId(String employerId) {
+    public Optional<String> byEmployer(String employerId) {
         return jobs.byEmployerId(employerId);
+    }
+
+    public Optional<String> all() {
+        return jobs.all();
     }
 }
