@@ -19,5 +19,6 @@ public class Routes {
         port(8081);
         post("/job", (req, res) -> jobController.create(req, res));
         get("/jobs/:employerId", (req, res) -> jobController.getByEmployer(req, res));
+        get("/jobs", (req, res) -> jobController.getAll(res));
     }
 }

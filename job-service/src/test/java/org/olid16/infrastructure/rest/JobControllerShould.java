@@ -32,14 +32,6 @@ public class JobControllerShould {
     @Mock GetJobs getJobs;
 
     @Test public void
-    call_create_job(){
-        given(request.body()).willReturn("{}");
-        given(createJob.with(any(JsonEntity.class))).willReturn(aJob().build());
-        new JobController(createJob, getJobs).create(request, null);
-        verify(createJob).with(any(JsonEntity.class));
-    }
-
-    @Test public void
     return_job_id_when_create_job(){
         given(request.body()).willReturn("{}");
         given(createJob.with(any(JsonEntity.class))).willReturn(aJob().build());
@@ -63,9 +55,9 @@ public class JobControllerShould {
         String message = new JobController(createJob, getJobs).create(request, dummyResponse());
         assertThat(message).isEqualTo("Only employers can create jobs");
     }
-
+    
     @Test public void
-    call_get_jobs(){
+    call_get_jobs_by_employer(){
         given(request.params("employerId")).willReturn("1234");
         given(getJobs.byEmployer("1234")).willReturn(Optional.empty());
         new JobController(createJob, getJobs).getByEmployer(request, dummyResponse());
@@ -73,11 +65,26 @@ public class JobControllerShould {
     }
 
     @Test public void
-    return_404_when_not_jobs_found(){
+    return_404_when_not_jobs_by_employer_found(){
         given(request.params("employerId")).willReturn("1234");
         given(getJobs.byEmployer("1234")).willReturn(Optional.empty());
         Response response = spy(dummyResponse());
         new JobController(createJob, getJobs).getByEmployer(request, response);
+        verify(response).status(HttpStatus.NOT_FOUND_404);
+    }
+
+    @Test public void
+    call_get_jobs_all(){
+        given(getJobs.all()).willReturn(Optional.of(""));
+        new JobController(createJob, getJobs).getAll(dummyResponse());
+        verify(getJobs).all();
+    }
+
+    @Test public void
+    return_404_when_not_jobs_found(){
+        given(getJobs.all()).willReturn(Optional.empty());
+        Response response = spy(dummyResponse());
+        new JobController(createJob, getJobs).getAll(response);
         verify(response).status(HttpStatus.NOT_FOUND_404);
     }
 

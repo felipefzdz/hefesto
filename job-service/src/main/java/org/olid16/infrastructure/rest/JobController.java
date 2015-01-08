@@ -42,4 +42,13 @@ public class JobController {
         res.status(NOT_FOUND_404);
         return EMPTY;
     }
+
+    public String getAll(Response res) {
+        Optional<String> jobs = getJobs.all();
+        if(jobs.isPresent()){
+            return jobs.get();
+        }
+        res.status(NOT_FOUND_404);
+        return EMPTY;
+    }
 }
