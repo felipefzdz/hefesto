@@ -45,7 +45,9 @@ public class MongoJobs implements Jobs {
 
     @Override
     public void addJobseeker(JobId jobId, UserId jobseekerId) {
-
+        BasicDBObject query = new BasicDBObject().append("_id", jobId.id());
+        BasicDBObject modification = new BasicDBObject().append("$addToSet", new BasicDBObject().append("jobseekers", jobseekerId.id()));
+        jobs.update(query, modification);
     }
 
     private Optional<String> adapt(DBCursor cursor) {

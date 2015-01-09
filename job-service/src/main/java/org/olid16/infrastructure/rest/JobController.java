@@ -1,6 +1,7 @@
 package org.olid16.infrastructure.rest;
 
 import com.google.inject.Inject;
+import org.olid16.actions.AddJobseekerToJob;
 import org.olid16.actions.CreateJob;
 import org.olid16.actions.GetJobs;
 import org.olid16.infrastructure.exceptions.DomainException;
@@ -17,11 +18,13 @@ public class JobController {
     private static final String EMPTY = "";
     private final CreateJob createJob;
     private final GetJobs getJobs;
+    private final AddJobseekerToJob addJobSeekerToJob;
 
     @Inject
-    public JobController(CreateJob createJob, GetJobs getJobs) {
+    public JobController(CreateJob createJob, GetJobs getJobs, AddJobseekerToJob addJobSeekerToJob) {
         this.createJob = createJob;
         this.getJobs = getJobs;
+        this.addJobSeekerToJob = addJobSeekerToJob;
     }
 
     public String create(Request req, Response res) {
@@ -49,6 +52,17 @@ public class JobController {
             return jobs.get();
         }
         res.status(NOT_FOUND_404);
+        return EMPTY;
+    }
+
+    public String addJobseekerToJob(Request req, Response res) {
+        JsonEntity jsonEntity = new JsonEntity(readFrom(req.body()));
+        try {
+            addJobSeekerToJob.with(jsonEntity, req.params("jobId"));
+        } catch (DomainException e) {
+            res.status(BAD_REQUEST_400);
+            return e.getMessage();
+        }
         return EMPTY;
     }
 }

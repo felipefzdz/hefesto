@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 
 import static spark.Spark.post;
 import static spark.Spark.get;
+import static spark.Spark.put;
 import static spark.SparkBase.port;
 
 public class Routes {
@@ -20,5 +21,6 @@ public class Routes {
         post("/job", (req, res) -> jobController.create(req, res));
         get("/jobs/:employerId", (req, res) -> jobController.getByEmployer(req, res));
         get("/jobs", (req, res) -> jobController.getAll(res));
+        put("/jobs/:jobId", (req, res) -> jobController.addJobseekerToJob(req, res));
     }
 }
