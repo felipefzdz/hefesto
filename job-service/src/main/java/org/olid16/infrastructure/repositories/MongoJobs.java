@@ -7,6 +7,7 @@ import org.bson.types.ObjectId;
 import org.olid16.domain.collections.Jobs;
 import org.olid16.domain.entities.Job;
 import org.olid16.domain.values.JobId;
+import org.olid16.domain.values.UserId;
 
 import java.util.Iterator;
 import java.util.Optional;
@@ -40,6 +41,11 @@ public class MongoJobs implements Jobs {
     public Optional<String> all() {
         DBCursor cursor = jobs.find();
         return adapt(cursor);
+    }
+
+    @Override
+    public void addJobseeker(JobId jobId, UserId jobseekerId) {
+
     }
 
     private Optional<String> adapt(DBCursor cursor) {

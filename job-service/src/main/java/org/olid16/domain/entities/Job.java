@@ -9,11 +9,13 @@ public class Job {
     private final JobId jobId;
     private final UserId userId;
     private final Title title;
+    private final Jobseekers jobseekers;
 
     public Job(JobId jobId, UserId userId, Title title) {
         this.jobId = jobId;
         this.userId = userId;
         this.title = title;
+        this.jobseekers = Jobseekers.create();
     }
 
     public String id() {
@@ -43,5 +45,13 @@ public class Job {
 
     public String title() {
         return title.title();
+    }
+
+    public Jobseekers interestedJobseekers() {
+        return jobseekers;
+    }
+
+    public void addJobseeker(UserId jobseekerId) {
+        jobseekers.add(jobseekerId);
     }
 }

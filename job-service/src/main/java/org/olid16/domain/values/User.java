@@ -24,4 +24,8 @@ public abstract class User {
     public boolean isEmployer() {
         return UserRole.EMPLOYER.equals(userRole());
     }
+
+    public boolean isJobseeker() {
+        return UserRole.JOBSEEKER.equals(userRole());
+    }
 }

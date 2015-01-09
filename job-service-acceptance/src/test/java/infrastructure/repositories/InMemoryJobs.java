@@ -7,8 +7,10 @@ import com.google.common.collect.Multimaps;
 import org.olid16.domain.collections.Jobs;
 import org.olid16.domain.entities.Job;
 import org.olid16.domain.values.JobId;
+import org.olid16.domain.values.UserId;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class InMemoryJobs implements Jobs {
     
@@ -36,11 +38,23 @@ public class InMemoryJobs implements Jobs {
         return adapt(it);
     }
 
+    @Override
+    public void addJobseeker(JobId jobId, UserId jobseekerId) {
+        Job job = byId(jobId.id());
+        job.addJobseeker(jobseekerId);
+    }
+
     private Optional<String> adapt(Iterator<Job> it) {
         JsonArray jsonArray = new JsonArray();
         while(it.hasNext()){
             jsonArray.add(it.next().toString());
         }
         return Optional.of(jsonArray.toString());
+    }
+
+    public Job byId(String jobId) {
+        return jobs.values().stream()
+                .filter(job -> jobId.equals(job.id()))
+                .findFirst().get();
     }
 }
