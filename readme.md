@@ -13,7 +13,7 @@ There is not any UI so far or any deployable, but If you want to run the app you
 1. Download the code: git clone https://github.com/olid16/hefesto.git
 2. Import the project into Intellij or your favourite IDE (I didn't create any task in Maven to create a jar with an executable entry point, so for now, it would be easier to execute it from the IDE).
 3. [Install MongoDb](http://docs.mongodb.org/manual/installation/) and start a local instance (mongod).
-4. Run UserServiceLauncher and JobServiceLauncher classes. Both start a jetty server, through [Spark](http://sparkjava.com/), listening in 8080 the former and 8081 the latter.
+4. Run UserServiceLauncher and JobServiceLauncher classes. Both start a jetty server, through [Spark](http://sparkjava.com/), listening in 8080 and 8081 ports.
 5. You can access to different rest endpoints contained in Routes classes.
     
 	`post("/user", (req, res) -> userController.create(req, res));`
@@ -22,4 +22,4 @@ There is not any UI so far or any deployable, but If you want to run the app you
 	
 	`http://localhost:8080/user/54a1d864d4c6c21b47d8c267`
 	
-	The future idea is support [HATEOAS](http://en.wikipedia.org/wiki/HATEOAS) in order to provide a self discoverable API.
+	The future idea is to support [HATEOAS](http://en.wikipedia.org/wiki/HATEOAS) in order to provide a self discoverable API.
