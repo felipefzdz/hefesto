@@ -1,6 +1,7 @@
 package infrastructure.repositories;
 
 import com.eclipsesource.json.JsonArray;
+import com.eclipsesource.json.JsonObject;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
@@ -44,6 +45,14 @@ public class InMemoryJobs implements Jobs {
         job.addJobseeker(jobseekerId);
     }
 
+    @Override
+    public Optional<String> byJobseekerId(String jobseekerId) {
+        return jobs.values().stream()
+                .filter(job -> job.interestedJobseekers().contains(UserId.create(jobseekerId)))
+                .map(Object::toString)
+                .findFirst();
+    }
+
     private Optional<String> adapt(Iterator<Job> it) {
         JsonArray jsonArray = new JsonArray();
         while(it.hasNext()){
@@ -56,5 +65,10 @@ public class InMemoryJobs implements Jobs {
         return jobs.values().stream()
                 .filter(job -> jobId.equals(job.id()))
                 .findFirst().get();
+    }
+    
+    public void clear(){
+        jobs.clear();
+        
     }
 }

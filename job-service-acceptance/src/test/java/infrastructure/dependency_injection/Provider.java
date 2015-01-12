@@ -12,6 +12,14 @@ import org.olid16.infrastructure.clients.UserApi;
 
 public class Provider {
 
+    private static Provider instance = new Provider();
+    private Provider() {
+    }
+
+    public static Provider getSingleton() {
+        return instance;
+    }
+
     private Injector injector = Guice.createInjector(new JobServiceTestModule());
 
     public GetJobs getJobs() {
@@ -32,5 +40,10 @@ public class Provider {
 
     public InMemoryJobs inMemoryJobs() {
         return (InMemoryJobs)injector.getInstance(Jobs.class);
+    }
+
+    public void clear() {
+        userApi().clear();
+        inMemoryJobs().clear();
     }
 }

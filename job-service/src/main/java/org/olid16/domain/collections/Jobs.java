@@ -17,4 +17,6 @@ public interface Jobs {
     Optional<String> all();
 
     void addJobseeker(JobId jobId, UserId jobseekerId);
+
+    Optional<String> byJobseekerId(String jobseekerId);
 }

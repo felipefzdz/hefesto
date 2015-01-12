@@ -21,4 +21,9 @@ public class InMemoryUserApi implements UserApi {
     public User getBy(@Path("userId") String userId) {
         return users.get(UserId.create(userId));
     }
+    
+    public void clear(){
+        users.clear();
+        
+    }
 }

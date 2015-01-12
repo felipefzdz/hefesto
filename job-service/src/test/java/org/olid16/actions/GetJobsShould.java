@@ -26,10 +26,18 @@ public class GetJobsShould {
     }
 
     @Test public void
-    return_all_jobs_(){
+    return_all_jobs(){
         given(jobs.all()).willReturn(Optional.of(""));
         Optional<String> allJobs = new GetJobs(jobs).all();
         assertThat(allJobs.isPresent()).isTrue();
+    }
+    
+    @Test public void 
+    return_jobs_by_jobseeker(){
+        given(jobs.byJobseekerId(anyString())).willReturn(Optional.of(""));
+        Optional<String> jobsByJobseeker = new GetJobs(jobs).byJobseeker("");
+        assertThat(jobsByJobseeker.isPresent()).isTrue();
+        
     }
 
 }

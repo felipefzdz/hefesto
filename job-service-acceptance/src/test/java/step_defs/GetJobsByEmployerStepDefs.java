@@ -1,6 +1,7 @@
 package step_defs;
 
 import com.eclipsesource.json.JsonArray;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -17,9 +18,17 @@ import static infrastructure.Fixtures.USER_ID;
 
 public class GetJobsByEmployerStepDefs {
 
-    private String jobs;
-    private Provider provider = new Provider();
+    private static Provider provider = Provider.getSingleton();
+    
+    
 
+    private String jobs;
+    
+    @Before
+    public static void beforeScenario(){
+        provider.clear();
+    }
+    
 
     @And("^Employer creates several jobs$")
     public void Employer_creates_several_jobs() throws Throwable {

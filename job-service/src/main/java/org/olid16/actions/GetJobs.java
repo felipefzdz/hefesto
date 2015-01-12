@@ -21,4 +21,8 @@ public class GetJobs {
     public Optional<String> all() {
         return jobs.all();
     }
+
+    public Optional<String> byJobseeker(String jobseekerId) {
+        return jobs.byJobseekerId(jobseekerId);
+    }
 }

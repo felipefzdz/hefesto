@@ -1,15 +1,11 @@
 package step_defs;
 
 import com.eclipsesource.json.JsonArray;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import infrastructure.Fixtures;
-import infrastructure.dependency_injection.JobServiceTestModule;
 import infrastructure.dependency_injection.Provider;
-import org.olid16.actions.GetJobs;
 import org.olid16.domain.collections.Jobs;
 import org.olid16.domain.entities.Job;
 import org.olid16.domain.values.JobId;
@@ -17,12 +13,19 @@ import org.olid16.domain.values.Title;
 import org.olid16.domain.values.UserId;
 
 import static com.google.common.truth.Truth.assertThat;
-import static infrastructure.Fixtures.*;
+import static infrastructure.Fixtures.TITLES;
+import static infrastructure.Fixtures.USER_ID;
 
 public class GetAllJobsStepDefs {
 
+    private static Provider provider = Provider.getSingleton();
+
     private String jobs;
-    private Provider provider = new Provider();
+
+    @Before
+    public static void beforeScenario(){
+        provider.clear();
+    }
 
     @Given("^User creates several jobs$")
     public void User_creates_several_jobs() throws Throwable {

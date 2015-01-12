@@ -1,11 +1,11 @@
 package step_defs;
 
 import com.eclipsesource.json.JsonObject;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import infrastructure.Fixtures;
 import infrastructure.dependency_injection.Provider;
 import org.olid16.domain.entities.Job;
 import org.olid16.domain.values.JobId;
@@ -19,10 +19,14 @@ import static infrastructure.Fixtures.*;
 import static org.olid16.domain.values.Person.create;
 import static org.olid16.domain.values.UserRole.JOBSEEKER;
 
-public class AddJobseekerToJobStepDefs {
+public class AddJobseekerToJobStepDefs{
 
-    private Provider provider = new Provider();
+    private static Provider provider = Provider.getSingleton();
 
+    @Before
+    public static void beforeScenario(){
+        provider.clear();
+    }
 
     @Given("^A jobseeker exists$")
     public void a_jobseeker_exists() throws Throwable {
@@ -45,6 +49,5 @@ public class AddJobseekerToJobStepDefs {
         Job job = provider.inMemoryJobs().byId(JOB_ID);
         assertThat(job.interestedJobseekers().contains(UserId.create(JOBSEEKER_ID))).isTrue();
     }
-
 
 }

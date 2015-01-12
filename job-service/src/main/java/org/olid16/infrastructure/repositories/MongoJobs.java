@@ -50,6 +50,12 @@ public class MongoJobs implements Jobs {
         jobs.update(query, modification);
     }
 
+    @Override
+    public Optional<String> byJobseekerId(String jobseekerId) {
+        DBCursor cursor = jobs.find(new BasicDBObject("jobseekers", jobseekerId));
+        return adapt(cursor);
+    }
+
     private Optional<String> adapt(DBCursor cursor) {
         Iterator<DBObject> it = cursor.iterator();
         if (!it.hasNext()){
