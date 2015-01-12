@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import org.olid16.domain.collections.Users;
 import org.olid16.domain.entities.User;
 import org.olid16.domain.factories.UserFactory;
-import org.olid16.infrastructure.rest.JsonEntity;
 
 public class CreateUser {
 

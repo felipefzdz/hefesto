@@ -12,7 +12,6 @@ import org.olid16.domain.values.JobId;
 import org.olid16.domain.values.Title;
 import org.olid16.domain.values.User;
 import org.olid16.domain.values.UserId;
-import org.olid16.infrastructure.rest.JsonEntity;
 
 import static com.google.common.truth.Truth.assertThat;
 import static infrastructure.Fixtures.*;
@@ -35,13 +34,12 @@ public class AddJobseekerToJobStepDefs{
 
     @And("^a job exists$")
     public void a_job_exists() throws Throwable {
-        provider.inMemoryJobs().add(new Job(JobId.create(JOB_ID), UserId.create(EMPLOYER_ID), Title.create("Developer")));
+        provider.inMemoryJobs().add(Job.createJob(JobId.create(JOB_ID), UserId.create(EMPLOYER_ID), Title.create("Developer")));
     }
 
     @When("^the jobseeker save the job$")
     public void the_jobseeker_save_the_job() throws Throwable {
-        JsonEntity jsonEntity = new JsonEntity(JsonObject.readFrom("{\"userId\" : \"" + JOBSEEKER_ID + "\"}"));
-        provider.addJobseekerToJob().with(jsonEntity, JOB_ID);
+        provider.addJobseekerToJob().with(JOBSEEKER_ID, JOB_ID);
     }
 
     @Then("^the jobseeker get added into that job$")

@@ -1,11 +1,15 @@
 package org.olid16.domain.factories;
 
+import com.google.common.base.Strings;
 import org.olid16.domain.values.UserId;
-import org.olid16.infrastructure.rest.JsonEntity;
+import org.olid16.infrastructure.exceptions.ValidationException;
 
 public class UserIdFactory {
-    public UserId create(JsonEntity jsonEntity) {
-        jsonEntity.validatePresenceOf("userId");
-        return UserId.create(jsonEntity.get("userId"));
+
+    public UserId create(String userId) {
+        if (Strings.isNullOrEmpty(userId)) {
+            throw new ValidationException(String.format("%s is mandatory", userId));
+        }
+        return UserId.create(userId);
     }
 }

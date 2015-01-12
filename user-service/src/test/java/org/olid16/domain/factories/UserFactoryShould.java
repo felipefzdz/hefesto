@@ -6,7 +6,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.olid16.domain.entities.User;
 import org.olid16.infrastructure.exceptions.ValidationException;
-import org.olid16.infrastructure.rest.JsonEntity;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.BDDMockito.given;

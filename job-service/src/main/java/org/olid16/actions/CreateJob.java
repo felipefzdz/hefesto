@@ -8,7 +8,6 @@ import org.olid16.domain.factories.UserFactory;
 import org.olid16.domain.factories.UserIdFactory;
 import org.olid16.domain.values.User;
 import org.olid16.infrastructure.exceptions.AuthorizationException;
-import org.olid16.infrastructure.rest.JsonEntity;
 
 import java.util.Optional;
 
@@ -27,10 +26,10 @@ public class CreateJob {
         this.userIdFactory = userIdFactory;
     }
 
-    public Job with(JsonEntity jsonEntity) {
-        Optional<User> user = userFactory.create(userIdFactory.create(jsonEntity));
+    public Job with(String userId, String title) {
+        Optional<User> user = userFactory.create(userIdFactory.create(userId));
         if (user.isPresent() && user.get().isEmployer()){
-            Job job = jobFactory.create(jsonEntity, jobs.nextId());
+            Job job = jobFactory.create(user.get(), title, jobs.nextId());
             jobs.add(job);
             return job;
         }

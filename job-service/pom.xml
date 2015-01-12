@@ -42,10 +42,6 @@
             <artifactId>mongo-java-driver</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.sparkjava</groupId>
-            <artifactId>spark-core</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.eclipsesource.minimal-json</groupId>
             <artifactId>minimal-json</artifactId>
         </dependency>
@@ -60,6 +56,14 @@
         <dependency>
             <groupId>com.squareup.retrofit</groupId>
             <artifactId>converter-jackson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.dropwizard</groupId>
+            <artifactId>dropwizard-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.hubspot.dropwizard</groupId>
+            <artifactId>dropwizard-guice</artifactId>
         </dependency>
     </dependencies>
 

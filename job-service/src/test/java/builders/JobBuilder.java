@@ -24,7 +24,7 @@ public class JobBuilder {
         return new JobBuilder(JobIdBuilder.aJobId().build(), aUserId().build(), aTitle().build());
     }
     
-    public Job build(){return new Job(jobId, userId, title);}
+    public Job build(){return Job.createJob(jobId, userId, title);}
 
     public static class JobIdBuilder {
         private final String id;

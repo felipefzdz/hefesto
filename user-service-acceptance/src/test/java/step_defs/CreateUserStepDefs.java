@@ -9,7 +9,6 @@ import cucumber.api.java.en.When;
 import infrastructure.UserServiceTestModule;
 import org.olid16.actions.CreateUser;
 import org.olid16.domain.entities.User;
-import org.olid16.infrastructure.rest.JsonEntity;
 
 import static com.google.common.truth.Truth.assertThat;
 

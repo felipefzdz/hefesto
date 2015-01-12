@@ -6,7 +6,7 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.olid16.infrastructure.dependency_injection.UserServiceModule;
 
-public class UserServiceApp  extends Application<UserServiceConfiguration> {
+public class UserServiceApp extends Application<UserServiceConfiguration> {
     
     public static void main(String[] args) throws Exception {
         new UserServiceApp().run(args);

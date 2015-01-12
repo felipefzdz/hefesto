@@ -9,7 +9,6 @@ import cucumber.api.java.en.When;
 import infrastructure.dependency_injection.Provider;
 import org.olid16.domain.entities.Job;
 import org.olid16.domain.values.User;
-import org.olid16.infrastructure.rest.JsonEntity;
 
 import static com.google.common.truth.Truth.assertThat;
 import static infrastructure.Fixtures.USER_ID;
@@ -42,7 +41,7 @@ public class CreateJobStepDefs {
 
     @When("^the employer creates a job$")
     public void the_employer_creates_a_job() throws Throwable {
-        job = provider.createJob().with(new JsonEntity(JsonObject.readFrom("{\"title\" : \"" + title + "\", " + "\"userId\" : \"" + USER_ID + "\"}")));
+        job = provider.createJob().with(USER_ID, title);
     }
 
 

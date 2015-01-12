@@ -11,7 +11,6 @@ import infrastructure.UserServiceTestModule;
 import org.olid16.actions.CreateUser;
 import org.olid16.actions.GetUser;
 import org.olid16.domain.entities.User;
-import org.olid16.infrastructure.rest.JsonEntity;
 
 import java.util.Optional;
 

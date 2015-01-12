@@ -7,7 +7,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.olid16.domain.collections.Users;
 import org.olid16.domain.entities.User;
-import org.olid16.infrastructure.rest.JsonEntity;
 
 import java.util.Optional;
 
@@ -21,7 +20,6 @@ import static org.mockito.Matchers.anyString;
 public class GetUserShould {
 
     @Mock Users users;
-    @Mock JsonEntity jsonEntity;
 
     @Test public void
     return_a_user_when_exists_by_id(){

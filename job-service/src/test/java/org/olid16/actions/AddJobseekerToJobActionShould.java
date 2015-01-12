@@ -34,18 +34,18 @@ public class AddJobseekerToJobActionShould {
     call_jobs_add_jobseeker() {
         JobId jobId = aJobId().build();
         UserId jobseekerId = aUserId().build();
-        given(userIdFactory.create(null)).willReturn(jobseekerId);
+        given(userIdFactory.create("")).willReturn(jobseekerId);
         given(userFactory.create(jobseekerId)).willReturn(Optional.of(aUser().w(UserRole.JOBSEEKER).build()));
-        new AddJobseekerToJob(jobs, userIdFactory, userFactory).with(null, jobId.id());
+        new AddJobseekerToJob(jobs, userIdFactory, userFactory).with("", jobId.id());
         verify(jobs).addJobseeker(jobId, jobseekerId);
     }
 
     @Test public void
     throw_authorization_exception_if_user_is_not_a_jobseeker(){
         UserId jobseekerId = aUserId().build();
-        given(userIdFactory.create(null)).willReturn(jobseekerId);
+        given(userIdFactory.create("")).willReturn(jobseekerId);
         given(userFactory.create(jobseekerId)).willReturn(Optional.of(aUser().build()));
-        assertThrows(AuthorizationException.class, () -> new AddJobseekerToJob(jobs, userIdFactory, userFactory).with(null, null));
+        assertThrows(AuthorizationException.class, () -> new AddJobseekerToJob(jobs, userIdFactory, userFactory).with("", ""));
     }
 
     

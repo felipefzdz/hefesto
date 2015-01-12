@@ -8,7 +8,6 @@ import org.olid16.domain.values.JobId;
 import org.olid16.domain.values.User;
 import org.olid16.domain.values.UserId;
 import org.olid16.infrastructure.exceptions.AuthorizationException;
-import org.olid16.infrastructure.rest.JsonEntity;
 
 import java.util.Optional;
 
@@ -24,8 +23,9 @@ public class AddJobseekerToJob {
         this.userFactory = userFactory;
     }
 
-    public void with(JsonEntity jsonEntity, String jobId) {
-        UserId userId = userIdFactory.create(jsonEntity);
+
+    public void with(String userIdValue, String jobId) {
+        UserId userId = userIdFactory.create(userIdValue);
         Optional<User> user = userFactory.create(userId);
         if(user.isPresent() & user.get().isJobseeker()){
             jobs.addJobseeker(JobId.create(jobId), userId);
