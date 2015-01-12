@@ -1,4 +1,4 @@
-package infrastructure;
+package infrastructure.dependency_injection;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;

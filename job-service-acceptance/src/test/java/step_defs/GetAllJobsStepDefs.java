@@ -6,7 +6,9 @@ import com.google.inject.Injector;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import infrastructure.JobServiceTestModule;
+import infrastructure.Fixtures;
+import infrastructure.dependency_injection.JobServiceTestModule;
+import infrastructure.dependency_injection.Provider;
 import org.olid16.actions.GetJobs;
 import org.olid16.domain.collections.Jobs;
 import org.olid16.domain.entities.Job;
@@ -15,26 +17,24 @@ import org.olid16.domain.values.Title;
 import org.olid16.domain.values.UserId;
 
 import static com.google.common.truth.Truth.assertThat;
+import static infrastructure.Fixtures.*;
 
 public class GetAllJobsStepDefs {
 
-    private String userId = "1234";
-    private String[] titles = {"1", "2", "3"};
-    private Injector injector = Guice.createInjector(new JobServiceTestModule());
     private String jobs;
+    private Provider provider = new Provider();
 
     @Given("^User creates several jobs$")
     public void User_creates_several_jobs() throws Throwable {
-        Jobs inMemoryJobs = injector.getInstance(Jobs.class);
-        for(String title: titles){
-            inMemoryJobs.add(new Job(JobId.create(title), UserId.create(userId), Title.create(title)));
+        Jobs inMemoryJobs = provider.inMemoryJobs();
+        for(String title: TITLES){
+            inMemoryJobs.add(new Job(JobId.create(title), UserId.create(USER_ID), Title.create(title)));
         }
     }
 
     @When("^User get all jobs$")
     public void User_get_all_jobs() throws Throwable {
-        GetJobs getJobs = injector.getInstance(GetJobs.class);
-        jobs = getJobs.all().get();
+        jobs = provider.getJobs().all().get();
     }
 
     @Then("^all jobs are retrieved$")
