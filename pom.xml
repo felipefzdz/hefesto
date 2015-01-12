@@ -123,8 +123,8 @@
                     <excludes>
                         <exclude>**/AutoValue*</exclude>
                         <exclude>**/*Exception*</exclude>
-                        <exclude>**/*Launcher*</exclude>
-                        <exclude>**/Routes*</exclude>
+                        <exclude>**/*App*</exclude>
+                        <exclude>**/*Configuration*</exclude>
                         <exclude>**/*Module*</exclude>
                     </excludes>
                 </configuration>
