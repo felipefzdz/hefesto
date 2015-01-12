@@ -68,6 +68,16 @@
                 <groupId>com.sparkjava</groupId>
                 <artifactId>spark-core</artifactId>
                 <version>${spark-core.version}</version>
+                <!--<exclusions>-->
+                    <!--<exclusion>-->
+                        <!--<groupId>org.slf4j</groupId>-->
+                        <!--<artifactId>slf4j-simple</artifactId>-->
+                    <!--</exclusion>-->
+                    <!--<exclusion>-->
+                        <!--<groupId>org.eclipse.jetty</groupId>-->
+                        <!--<artifactId>jetty-server</artifactId>-->
+                    <!--</exclusion>-->
+                <!--</exclusions>-->
             </dependency>
             <dependency>
                 <groupId>com.eclipsesource.minimal-json</groupId>
@@ -88,6 +98,16 @@
                 <groupId>com.squareup.retrofit</groupId>
                 <artifactId>converter-jackson</artifactId>
                 <version>${retrofit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.dropwizard</groupId>
+                <artifactId>dropwizard-core</artifactId>
+                <version>${dropwizard-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hubspot.dropwizard</groupId>
+                <artifactId>dropwizard-guice</artifactId>
+                <version>${dropwizard-guice.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -166,6 +186,8 @@
         <minimal-json.version>0.9.1</minimal-json.version>
         <guava.version>18.0</guava.version>
         <retrofit.version>1.8.0</retrofit.version>
+        <dropwizard-core.version>0.7.1</dropwizard-core.version>
+        <dropwizard-guice.version>0.7.2</dropwizard-guice.version>
     </properties>
 
 

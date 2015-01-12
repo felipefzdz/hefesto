@@ -17,8 +17,8 @@ public class CreateUser {
         this.userFactory = userFactory;
     }
 
-    public User with(JsonEntity jsonEntity) {
-        User user = userFactory.create(jsonEntity, users.nextId());
+    public User with(String name, String role) {
+        User user = userFactory.create(name, role, users.nextId());
         users.add(user);
         return user;
     }

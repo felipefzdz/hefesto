@@ -25,8 +25,7 @@ public class GetUserStepDefs {
 
     @Given("^A user exists$")
     public void a_users_exists() throws Throwable {
-        User user = createUser().
-                with(new JsonEntity(JsonObject.readFrom("{\"name\" : \"Bob\", " + "\"role\" : \"Employer\"}")));
+        User user = createUser().with("Bob", "Employer");
         userId = user.id();
     }
 

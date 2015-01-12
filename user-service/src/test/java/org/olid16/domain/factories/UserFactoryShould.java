@@ -17,35 +17,26 @@ import static utils.Assert.*;
 @RunWith(MockitoJUnitRunner.class)
 public class UserFactoryShould {
 
-    @Mock JsonEntity jsonEntity;
-
     @Test public void
     create_a_user_when_role_is_employer(){
-        given(jsonEntity.get("name")).willReturn("Bob");
-        given(jsonEntity.get("role")).willReturn("employer");
-        User user = new UserFactory().create(jsonEntity, null);
+        User user = new UserFactory().create("Bob", "employer", null);
         assertThat(user).isNotNull();
     }
 
     @Test public void
     create_a_user_when_role_is_jobseeker(){
-        given(jsonEntity.get("name")).willReturn("Bob");
-        given(jsonEntity.get("role")).willReturn("jobseeker");
-        User user = new UserFactory().create(jsonEntity, null);
+        User user = new UserFactory().create("Bob", "jobseeker", null);
         assertThat(user).isNotNull();
     }
 
     @Test public void
     throw_validation_exception_when_some_mandatory_field_is_not_present(){
-        doThrow(new ValidationException("")).when(jsonEntity).validatePresenceOf(anyVararg());
-        assertThrows(ValidationException.class, () -> new UserFactory().create(jsonEntity, null));
+        assertThrows(ValidationException.class, () -> new UserFactory().create("", "", null));
     }
 
     @Test public void
     throw_validation_exception_when_role_is_not_valid(){
-        given(jsonEntity.get("name")).willReturn("Bob");
-        given(jsonEntity.get("role")).willReturn("whatever");
-        assertThrows(ValidationException.class, () -> new UserFactory().create(jsonEntity, null));
+        assertThrows(ValidationException.class, () -> new UserFactory().create("Bob", "whatever", null));
     }
 
 }

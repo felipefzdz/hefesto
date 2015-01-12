@@ -15,6 +15,7 @@ import static builders.UserBuilder.aUser;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.olid16.domain.values.UserRole.EMPLOYER;
 import static utils.Assert.*;
@@ -33,22 +34,22 @@ public class CreateUserShould {
 
     @Test public void
     return_an_employer_when_employer_role(){
-        given(userFactory.create(any(), any(UserId.class))).willReturn(aUser().w(EMPLOYER).build());
-        User user = createUser.with(null);
+        given(userFactory.create(anyString(), anyString(), any(UserId.class))).willReturn(aUser().w(EMPLOYER).build());
+        User user = createUser.with("", "");
         assertThat(user.isEmployer()).isTrue();
     }
 
     @Test public void
     throw_validation_exception_when_factory_throws_exception(){
-        given(userFactory.create(any(), any(UserId.class))).willThrow(ValidationException.class);
-        assertThrows(ValidationException.class, () -> createUser.with(null));
+        given(userFactory.create(anyString(), anyString(),  any(UserId.class))).willThrow(ValidationException.class);
+        assertThrows(ValidationException.class, () -> createUser.with("", ""));
     }
 
     @Test public void
     add_a_employer_into_users(){
         User user = aUser().w(EMPLOYER).build();
-        given(userFactory.create(any(), any(UserId.class))).willReturn(user);
-        createUser.with(null);
+        given(userFactory.create(anyString(), anyString(), any(UserId.class))).willReturn(user);
+        createUser.with("", "");
         verify(users).add(user);
     }
 

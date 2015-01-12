@@ -6,6 +6,6 @@ import retrofit.http.Path;
 
 public interface UserApi {
     
-    @GET("/user/{userId}")
+    @GET("/users/{userId}")
     User getBy(@Path("userId") String userId);
 }

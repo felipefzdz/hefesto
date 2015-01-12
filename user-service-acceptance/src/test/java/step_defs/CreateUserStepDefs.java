@@ -30,7 +30,7 @@ public class CreateUserStepDefs {
                 Guice.
                 createInjector(new UserServiceTestModule()).
                 getInstance(CreateUser.class);
-        user = createUser.with(new JsonEntity(JsonObject.readFrom("{\"name\" : \""+ name +"\", " + "\"role\" : \""+ role +"\"}")));
+        user = createUser.with(name, role);
     }
 
     @Then("^an employer is created$")
