@@ -11,10 +11,9 @@ I've been blogging about this project [here](olid16.github.io). The current proj
 There is not any UI so far or any deployable, but If you want to run the app you will need to do this:
 
 1. Download the code: git clone https://github.com/olid16/hefesto.git
-2. Import the project into Intellij or your favourite IDE (I didn't create any task in Maven to create a jar with an executable entry point, so for now, it would be easier to execute it from the IDE).
-3. [Install MongoDb](http://docs.mongodb.org/manual/installation/) and start a local instance (mongod).
-4. [Install RabbitMQ](http://www.rabbitmq.com/) and start a local instance (rabbitmq-server)
-5. Run mvn clean install. [Capsule](https://github.com/puniverse/capsule) will create a couple of fat jars. Run them:
+2. [Install MongoDb](http://docs.mongodb.org/manual/installation/) and start a local instance (mongod).
+3. [Install RabbitMQ](http://www.rabbitmq.com/) and start a local instance (rabbitmq-server)
+4. Run mvn clean install. [Capsule](https://github.com/puniverse/capsule) will create a couple of fat jars. Run them:
     
     java -jar user-service/target/user-service-1.0-SNAPSHOT-capsule-fat.jar server user-service/userService.yml
     
