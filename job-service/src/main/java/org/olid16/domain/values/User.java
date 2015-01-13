@@ -28,4 +28,8 @@ public abstract class User {
     public boolean isJobseeker() {
         return UserRole.JOBSEEKER.equals(userRole());
     }
+
+    public String name() {
+        return person().name();
+    }
 }

@@ -33,7 +33,7 @@ public class MongoJobs implements Jobs {
 
     @Override
     public Optional<String> byEmployerId(String employerId) {
-        DBCursor cursor = jobs.find(new BasicDBObject("employer_id", employerId));
+        DBCursor cursor = jobs.find(new BasicDBObject("employer.id", employerId));
         return adapt(cursor);
     }
 

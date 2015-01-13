@@ -2,24 +2,25 @@ package org.olid16.domain.entities;
 
 import org.olid16.domain.values.JobId;
 import org.olid16.domain.values.Title;
+import org.olid16.domain.values.User;
 import org.olid16.domain.values.UserId;
 
 public class Job {
 
     private final JobId jobId;
-    private final UserId userId;
+    private final User user;
     private final Title title;
     private final Jobseekers jobseekers;
 
-    private Job(JobId jobId, UserId userId, Title title) {
+    private Job(JobId jobId, User user, Title title) {
         this.jobId = jobId;
-        this.userId = userId;
+        this.user = user;
         this.title = title;
         this.jobseekers = Jobseekers.create();
     }
 
-    public static Job createJob(JobId jobId, UserId userId, Title title) {
-        return new Job(jobId, userId, title);
+    public static Job createJob(JobId jobId, User user, Title title) {
+        return new Job(jobId, user, title);
     }
 
     public String id() {
@@ -44,7 +45,7 @@ public class Job {
     }
 
     public String employerId() {
-        return userId.id();
+        return user.userId();
     }
 
     public String title() {
@@ -57,5 +58,9 @@ public class Job {
 
     public void addJobseeker(UserId jobseekerId) {
         jobseekers.add(jobseekerId);
+    }
+
+    public String employerName() {
+        return user.name();
     }
 }

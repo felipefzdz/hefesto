@@ -15,6 +15,6 @@ public class JobFactory {
         if(Strings.isNullOrEmpty(title)){
             throw new ValidationException("title is mandatory");
         }
-        return Job.createJob(jobId, UserId.create(user.userId()), Title.create(title));
+        return Job.createJob(jobId, user, Title.create(title));
     }
 }

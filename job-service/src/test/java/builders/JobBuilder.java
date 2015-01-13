@@ -3,28 +3,30 @@ package builders;
 import org.olid16.domain.entities.Job;
 import org.olid16.domain.values.JobId;
 import org.olid16.domain.values.Title;
-import org.olid16.domain.values.UserId;
+import org.olid16.domain.values.User;
 
+import static builders.JobBuilder.JobIdBuilder.*;
 import static builders.JobBuilder.TitleBuilder.aTitle;
+import static builders.UserBuilder.*;
 import static builders.UserBuilder.UserIdBuilder.aUserId;
 
 public class JobBuilder {
 
     private JobId jobId;
-    private UserId userId;
+    private User user;
     private Title title;
 
-    public JobBuilder(JobId jobId, UserId userId, Title title) {
+    public JobBuilder(JobId jobId, User user, Title title) {
         this.jobId = jobId;
-        this.userId = userId;
+        this.user = user;
         this.title = title;
     }
 
     public static JobBuilder aJob(){ 
-        return new JobBuilder(JobIdBuilder.aJobId().build(), aUserId().build(), aTitle().build());
+        return new JobBuilder(aJobId().build(), aUser().build(), aTitle().build());
     }
     
-    public Job build(){return Job.createJob(jobId, userId, title);}
+    public Job build(){return Job.createJob(jobId, user, title);}
 
     public static class JobIdBuilder {
         private final String id;

@@ -8,10 +8,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import infrastructure.dependency_injection.Provider;
 import org.olid16.domain.entities.Job;
-import org.olid16.domain.values.JobId;
-import org.olid16.domain.values.Title;
-import org.olid16.domain.values.User;
-import org.olid16.domain.values.UserId;
+import org.olid16.domain.values.*;
 
 import static com.google.common.truth.Truth.assertThat;
 import static infrastructure.Fixtures.*;
@@ -29,12 +26,12 @@ public class AddJobseekerToJobStepDefs{
 
     @Given("^A jobseeker exists$")
     public void a_jobseeker_exists() throws Throwable {
-        provider.userApi().add(User.create(create("Bob"), JOBSEEKER, JOBSEEKER_ID));
+        provider.userApi().add(aUser());
     }
 
     @And("^a job exists$")
     public void a_job_exists() throws Throwable {
-        provider.inMemoryJobs().add(Job.createJob(JobId.create(JOB_ID), UserId.create(EMPLOYER_ID), Title.create("Developer")));
+        provider.inMemoryJobs().add(Job.createJob(JobId.create(JOB_ID), aUser(), Title.create("Developer")));
     }
 
     @When("^the jobseeker save the job$")
@@ -46,6 +43,10 @@ public class AddJobseekerToJobStepDefs{
     public void the_jobseeker_get_added_into_that_job() throws Throwable {
         Job job = provider.inMemoryJobs().byId(JOB_ID);
         assertThat(job.interestedJobseekers().contains(UserId.create(JOBSEEKER_ID))).isTrue();
+    }
+
+    private User aUser() {
+        return User.create(create("Bob"), JOBSEEKER, JOBSEEKER_ID);
     }
 
 }

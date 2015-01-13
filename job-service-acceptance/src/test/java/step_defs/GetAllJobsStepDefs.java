@@ -10,11 +10,15 @@ import org.olid16.domain.collections.Jobs;
 import org.olid16.domain.entities.Job;
 import org.olid16.domain.values.JobId;
 import org.olid16.domain.values.Title;
+import org.olid16.domain.values.User;
 import org.olid16.domain.values.UserId;
 
 import static com.google.common.truth.Truth.assertThat;
+import static infrastructure.Fixtures.JOBSEEKER_ID;
 import static infrastructure.Fixtures.TITLES;
 import static infrastructure.Fixtures.USER_ID;
+import static org.olid16.domain.values.Person.create;
+import static org.olid16.domain.values.UserRole.JOBSEEKER;
 
 public class GetAllJobsStepDefs {
 
@@ -31,7 +35,7 @@ public class GetAllJobsStepDefs {
     public void User_creates_several_jobs() throws Throwable {
         Jobs inMemoryJobs = provider.inMemoryJobs();
         for(String title: TITLES){
-            inMemoryJobs.add(Job.createJob(JobId.create(title), UserId.create(USER_ID), Title.create(title)));
+            inMemoryJobs.add(Job.createJob(JobId.create(title), User.create(create("Bob"), JOBSEEKER, JOBSEEKER_ID), Title.create(title)));
         }
     }
 
