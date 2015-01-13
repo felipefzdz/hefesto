@@ -94,6 +94,11 @@
                 <artifactId>dropwizard-guice</artifactId>
                 <version>${dropwizard-guice.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.rabbitmq</groupId>
+                <artifactId>amqp-client</artifactId>
+                <version>${amqp-client.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -173,6 +178,7 @@
         <retrofit.version>1.8.0</retrofit.version>
         <dropwizard-core.version>0.7.1</dropwizard-core.version>
         <dropwizard-guice.version>0.7.2</dropwizard-guice.version>
+        <amqp-client.version>3.4.3</amqp-client.version>
     </properties>
 
 

@@ -1,16 +1,24 @@
 package org.olid16.domain.events;
 
+import com.eclipsesource.json.JsonObject;
 import org.olid16.domain.entities.User;
 
 public class UpdateUserEvent implements UserEvent {
-    private final User user;
 
-    private UpdateUserEvent(User user) {
-        this.user = user;
+    private final JsonObject message;
+
+    private UpdateUserEvent(JsonObject message) {
+        this.message = message;
     }
 
     public static UpdateUserEvent createUpdateUserEvent(User user) {
-        return new UpdateUserEvent(user);
+        JsonObject message = new JsonObject().add("id", user.id()).add("name", user.name());
+        return new UpdateUserEvent(message);
+    }
+
+    @Override
+    public String message() {
+        return message.toString();
     }
 
     @Override
@@ -20,13 +28,13 @@ public class UpdateUserEvent implements UserEvent {
 
         UpdateUserEvent that = (UpdateUserEvent) o;
 
-        if (!user.equals(that.user)) return false;
+        if (!message.equals(that.message)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return user.hashCode();
+        return message.hashCode();
     }
 }
