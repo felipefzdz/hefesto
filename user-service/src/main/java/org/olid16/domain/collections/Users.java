@@ -10,5 +10,7 @@ public interface Users {
 
     UserId nextId();
 
-    Optional<String> by(UserId userId);
+    Optional<User> by(UserId userId);
+
+    void update(User user);
 }

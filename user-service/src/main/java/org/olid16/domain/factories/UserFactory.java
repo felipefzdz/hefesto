@@ -11,7 +11,7 @@ public class UserFactory {
 
     public User create(String name, String role, UserId userId) {
         validatePresenceOf(name, role);
-        return new User(
+        return User.createUser(
                 createName(name),
                 createRole(role),
                 userId);

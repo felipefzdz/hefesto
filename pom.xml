@@ -126,6 +126,7 @@
                         <exclude>**/*App*</exclude>
                         <exclude>**/*Configuration*</exclude>
                         <exclude>**/*Module*</exclude>
+                        <exclude>**/*Adapter*</exclude>
                     </excludes>
                 </configuration>
             </plugin>

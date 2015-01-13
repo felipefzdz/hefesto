@@ -35,7 +35,7 @@ public class GetAllJobsStepDefs {
     public void User_creates_several_jobs() throws Throwable {
         Jobs inMemoryJobs = provider.inMemoryJobs();
         for(String title: TITLES){
-            inMemoryJobs.add(Job.createJob(JobId.create(title), User.create(create("Bob"), JOBSEEKER, JOBSEEKER_ID), Title.create(title)));
+            inMemoryJobs.add(Job.createJob(JobId.create(title), User.create(create("Bob"), JOBSEEKER, UserId.create(JOBSEEKER_ID)), Title.create(title)));
         }
     }
 

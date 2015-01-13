@@ -16,7 +16,7 @@ public class GetUser {
         this.users = users;
     }
 
-    public Optional<String> by(String id) {
+    public Optional<User> by(String id) {
         return users.by(UserId.create(id));
     }
 }

@@ -45,7 +45,7 @@ public class Job {
     }
 
     public String employerId() {
-        return user.userId();
+        return user.userId().id();
     }
 
     public String title() {

@@ -11,10 +11,14 @@ public class User {
     private final UserRole role;
     private final UserId userId;
 
-    public User(Person person, UserRole role, UserId userId) {
+    private User(Person person, UserRole role, UserId userId) {
         this.person = person;
         this.role = role;
         this.userId = userId;
+    }
+
+    public static User createUser(Person person, UserRole role, UserId userId) {
+        return new User(person, role, userId);
     }
 
     public boolean isEmployer() {
@@ -31,5 +35,22 @@ public class User {
 
     public String id() {
         return userId.id();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (!userId.equals(user.userId)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return userId.hashCode();
     }
 }

@@ -23,7 +23,22 @@ public class InMemoryUsers implements Users {
     }
 
     @Override
-    public Optional<String> by(UserId userId) {
-        return users.containsKey(userId) ? Optional.of(users.get(userId).id()) : Optional.empty();
+    public Optional<User> by(UserId userId) {
+        return users.containsKey(userId) ? Optional.of(users.get(userId)) : Optional.empty();
+    }
+
+    @Override
+    public void update(User user) {
+        users.replace(UserId.create(user.id()), user);
+    }
+
+    public String getNameBy(UserId userId){
+        return users.get(userId).name();
+        
+    }
+    
+    public String firstUserId(){
+        return ((UserId) users.keySet().toArray()[0]).id();
+
     }
 }

@@ -42,7 +42,7 @@ public class UserBuilder {
     }
 
     public User build(){
-        return new User(person, role, userId);
+        return User.createUser(person, role, userId);
     }
 
 

@@ -1,16 +1,15 @@
 package org.olid16.infrastructure.clients;
 
+import org.olid16.domain.values.Person;
+import org.olid16.domain.values.UserId;
+import org.olid16.domain.values.UserRole;
+
 public class UserAdapter {
-//    public User from(JSONResource resource) throws JSONException, IOException {
-//        JSONObject object = resource.object();
-//        return User.create(person(object), userRole(object));
-//    }
-//
-//    private Person person(JSONObject jsonObject) throws JSONException {
-//        return Person.create(jsonObject.getJSONObject("person").getString("name"));
-//    }
-//
-//    private UserRole userRole(JSONObject jsonObject) throws JSONException {
-//        return UserRole.valueOf(jsonObject.getString("role"));
-//    }
+    public org.olid16.domain.values.User fromClient(User user) {
+        return org.olid16.domain.values.User.create(
+                Person.create(user.getName()), 
+                UserRole.valueOf(user.getRole().toUpperCase()),
+                UserId.create(user.getId()));
+    }
+
 }

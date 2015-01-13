@@ -1,7 +1,7 @@
 package infrastructure.clients;
 
-import org.olid16.domain.values.User;
 import org.olid16.domain.values.UserId;
+import org.olid16.infrastructure.clients.User;
 import org.olid16.infrastructure.clients.UserApi;
 import retrofit.http.Path;
 
@@ -13,7 +13,7 @@ public class InMemoryUserApi implements UserApi {
     private Map<UserId, User> users = new HashMap<>();
     
     public void add(User user){
-        users.put(UserId.create(user.userId()), user);
+        users.put(UserId.create(user.getId()), user);
         
     }
 

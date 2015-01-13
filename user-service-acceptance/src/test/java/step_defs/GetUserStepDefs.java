@@ -1,15 +1,9 @@
 package step_defs;
 
-import com.eclipsesource.json.JsonObject;
-import com.google.inject.Guice;
-import com.google.inject.Inject;
-import com.google.inject.Injector;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import infrastructure.UserServiceTestModule;
-import org.olid16.actions.CreateUser;
-import org.olid16.actions.GetUser;
+import infrastructure.dependency_injection.Provider;
 import org.olid16.domain.entities.User;
 
 import java.util.Optional;
@@ -19,18 +13,18 @@ import static com.google.common.truth.Truth.assertThat;
 public class GetUserStepDefs {
 
     private String userId;
-    private Optional<String> user;
-    private Injector injector = Guice.createInjector(new UserServiceTestModule());
+    private Optional<User> user;
+    private Provider provider = Provider.getSingleton();
 
     @Given("^A user exists$")
     public void a_users_exists() throws Throwable {
-        User user = createUser().with("Bob", "Employer");
+        User user = provider.createUser().with("Bob", "Employer");
         userId = user.id();
     }
 
     @When("^the user gets a user by id$")
     public void the_user_gets_a_user_by_id() throws Throwable {
-        user = getUser().by(userId);
+        user = provider.getUser().by(userId);
     }
 
     @Then("^a user is returned$")
@@ -38,13 +32,7 @@ public class GetUserStepDefs {
         assertThat(user.isPresent()).isTrue();
     }
 
-    private CreateUser createUser() {
-        return injector.getInstance(CreateUser.class);
-    }
 
-    private GetUser getUser() {
-        return injector.getInstance(GetUser.class);
-    }
 
 
 }

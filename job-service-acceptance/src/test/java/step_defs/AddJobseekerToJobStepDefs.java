@@ -9,6 +9,8 @@ import cucumber.api.java.en.When;
 import infrastructure.dependency_injection.Provider;
 import org.olid16.domain.entities.Job;
 import org.olid16.domain.values.*;
+import org.olid16.domain.values.User;
+import org.olid16.infrastructure.clients.*;
 
 import static com.google.common.truth.Truth.assertThat;
 import static infrastructure.Fixtures.*;
@@ -26,7 +28,7 @@ public class AddJobseekerToJobStepDefs{
 
     @Given("^A jobseeker exists$")
     public void a_jobseeker_exists() throws Throwable {
-        provider.userApi().add(aUser());
+        provider.userApi().add(new org.olid16.infrastructure.clients.User(JOBSEEKER_ID, "Bob", "Jobseeker"));
     }
 
     @And("^a job exists$")
@@ -46,7 +48,7 @@ public class AddJobseekerToJobStepDefs{
     }
 
     private User aUser() {
-        return User.create(create("Bob"), JOBSEEKER, JOBSEEKER_ID);
+        return User.create(create("Bob"), JOBSEEKER, UserId.create(JOBSEEKER_ID));
     }
 
 }

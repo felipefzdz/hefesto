@@ -1,13 +1,9 @@
 package step_defs;
 
-import com.eclipsesource.json.JsonObject;
-import com.google.inject.Guice;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import infrastructure.UserServiceTestModule;
-import org.olid16.actions.CreateUser;
+import infrastructure.dependency_injection.Provider;
 import org.olid16.domain.entities.User;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -16,6 +12,8 @@ public class CreateUserStepDefs {
     private String name;
     private User user;
     private String role;
+    
+    private Provider provider = Provider.getSingleton();
 
     @Given("^User fills employer data$")
     public void User_fills_employer_data() throws Throwable {
@@ -25,11 +23,7 @@ public class CreateUserStepDefs {
 
     @When("^the user creates a user$")
     public void the_user_creates_a_user() throws Throwable {
-        CreateUser createUser =
-                Guice.
-                createInjector(new UserServiceTestModule()).
-                getInstance(CreateUser.class);
-        user = createUser.with(name, role);
+        user = provider.createUser().with(name, role);
     }
 
     @Then("^an employer is created$")
@@ -37,4 +31,5 @@ public class CreateUserStepDefs {
         assertThat(user.isEmployer()).isTrue();
     }
 
+    
 }

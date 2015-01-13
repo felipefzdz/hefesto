@@ -9,6 +9,7 @@ import cucumber.api.java.en.When;
 import infrastructure.dependency_injection.Provider;
 import org.olid16.domain.entities.Job;
 import org.olid16.domain.values.User;
+import org.olid16.domain.values.UserId;
 
 import static com.google.common.truth.Truth.assertThat;
 import static infrastructure.Fixtures.USER_ID;
@@ -30,7 +31,7 @@ public class CreateJobStepDefs {
     
     @Given("^An employer exists$")
     public void An_employer_exists() throws Throwable{
-        provider.userApi().add(User.create(create("Bob"), EMPLOYER, USER_ID));
+        provider.userApi().add(new org.olid16.infrastructure.clients.User("1234", "Bob", "employer"));
         
     }
 

@@ -32,9 +32,14 @@ public class MongoUsers implements Users {
     }
 
     @Override
-    public Optional<String> by(UserId userId) {
+    public Optional<User> by(UserId userId) {
         DBObject user = users.find(new BasicDBObject("_id", userId.id())).one();
-        return user == null ? Optional.empty() : Optional.of(user.toString());
+        return user == null ? Optional.empty() : Optional.of(userAdapter.fromDBObject(user));
+    }
+
+    @Override
+    public void update(User user) {
+
     }
 
 }

@@ -6,21 +6,22 @@ import org.olid16.domain.values.UserId;
 import org.olid16.domain.values.UserRole;
 
 import static builders.UserBuilder.PersonBuilder.aPerson;
+import static builders.UserBuilder.UserIdBuilder.*;
 
 public class UserBuilder {
 
     private Person person;
     private UserRole role;
-    private String userId;
+    private UserId userId;
 
-    public UserBuilder(Person person, UserRole role, String userId) {
+    public UserBuilder(Person person, UserRole role, UserId userId) {
         this.person = person;
         this.role = role;
         this.userId = userId;
     }
 
     public static UserBuilder aUser(){
-        return new UserBuilder(aPerson().build(), UserRole.UNKNOWN, "1234");
+        return new UserBuilder(aPerson().build(), UserRole.UNKNOWN, aUserId().build());
     }
 
     public UserBuilder w(Person person){
