@@ -19,4 +19,6 @@ public interface Jobs {
     void addJobseeker(JobId jobId, UserId jobseekerId);
 
     Optional<String> byJobseekerId(String jobseekerId);
+
+    void updateEmployerName(String employerId, String name);
 }

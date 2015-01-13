@@ -10,10 +10,7 @@ import com.mongodb.MongoClient;
 import org.olid16.domain.collections.Jobs;
 import org.olid16.infrastructure.clients.UserApi;
 import org.olid16.infrastructure.repositories.MongoJobs;
-import retrofit.ErrorHandler;
 import retrofit.RestAdapter;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 import retrofit.converter.JacksonConverter;
 
 import java.net.UnknownHostException;

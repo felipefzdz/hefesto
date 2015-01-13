@@ -53,6 +53,11 @@ public class InMemoryJobs implements Jobs {
                 .findFirst();
     }
 
+    @Override
+    public void updateEmployerName(String employerId, String name) {
+
+    }
+
     private Optional<String> adapt(Iterator<Job> it) {
         JsonArray jsonArray = new JsonArray();
         while(it.hasNext()){

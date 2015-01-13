@@ -5,6 +5,7 @@ import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.olid16.infrastructure.dependency_injection.JobServiceModule;
+import org.olid16.infrastructure.events.UserEventConsumer;
 
 public class JobServiceApp extends Application<JobServiceConfiguration> {
 

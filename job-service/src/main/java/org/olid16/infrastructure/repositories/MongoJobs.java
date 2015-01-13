@@ -56,6 +56,14 @@ public class MongoJobs implements Jobs {
         return adapt(cursor);
     }
 
+    @Override
+    public void updateEmployerName(String employerId, String name) {
+        BasicDBObject query = new BasicDBObject().append("employer.id", employerId);
+        BasicDBObject modification = new BasicDBObject();
+        modification.append("$set", new BasicDBObject().append("employer.name", name));
+        jobs.updateMulti(query, modification);
+    }
+
     private Optional<String> adapt(DBCursor cursor) {
         Iterator<DBObject> it = cursor.iterator();
         if (!it.hasNext()){
