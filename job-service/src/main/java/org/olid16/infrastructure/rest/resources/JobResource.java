@@ -31,9 +31,19 @@ public class JobResource {
     }
 
     @GET
-    @Path("{employerId}")
+    @Path("employerId/{employerId}")
     public String getByEmployer(@PathParam("employerId") String employerId){
         Optional<String> job = getJobs.byEmployer(employerId);
+        if (job.isPresent()) {
+            return job.get();
+        }
+        throw new WebApplicationException(HttpStatus.NOT_FOUND_404);
+    }
+
+    @GET
+    @Path("jobseekerId/{jobseekerId}")
+    public String getByJobseeker(@PathParam("jobseekerId") String jobseekerId){
+        Optional<String> job = getJobs.byJobseeker(jobseekerId);
         if (job.isPresent()) {
             return job.get();
         }

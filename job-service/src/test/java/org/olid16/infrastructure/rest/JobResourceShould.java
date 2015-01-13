@@ -60,6 +60,20 @@ public class JobResourceShould {
     }
 
     @Test public void
+    call_get_jobs_by_jobseeker(){
+        given(getJobs.byJobseeker("")).willReturn(Optional.of(""));
+        new JobResource(createJob, getJobs, addJobSeekerToJob).getByJobseeker("");
+        verify(getJobs).byJobseeker(anyString());
+    }
+
+    @Test public void
+    return_404_when_not_jobs_by_jobseeker_found(){
+        given(getJobs.byJobseeker("")).willReturn(Optional.empty());
+        assertThrows(WebApplicationException.class, () -> new JobResource(createJob, getJobs, addJobSeekerToJob).getByJobseeker(""));
+
+    }
+
+    @Test public void
     call_get_jobs_all(){
         given(getJobs.all()).willReturn(Optional.of(""));
         new JobResource(createJob, getJobs, addJobSeekerToJob).getAll();
