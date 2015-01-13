@@ -39,7 +39,10 @@ public class MongoUsers implements Users {
 
     @Override
     public void update(User user) {
-
+        BasicDBObject query = new BasicDBObject().append("_id", user.id());
+        BasicDBObject modification = new BasicDBObject();
+        modification.append("$set", new BasicDBObject().append("person.name", user.name()));
+        users.update(query, modification);
     }
 
 }

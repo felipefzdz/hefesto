@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import org.eclipse.jetty.http.HttpStatus;
 import org.olid16.actions.CreateUser;
 import org.olid16.actions.GetUser;
+import org.olid16.actions.UpdateUser;
 import org.olid16.infrastructure.exceptions.DomainException;
 import org.olid16.infrastructure.rest.entities.User;
 import org.olid16.infrastructure.rest.adapters.UserAdapter;
@@ -23,12 +24,17 @@ public class UserResource {
     private final CreateUser createUser;
     private final GetUser getUser;
     private final UserAdapter userAdapter;
+    private final UpdateUser updateUser;
 
     @Inject
-    public UserResource(CreateUser createUser, GetUser getUser, UserAdapter userAdapter) {
+    public UserResource(CreateUser createUser,
+                        GetUser getUser, 
+                        UserAdapter userAdapter, 
+                        UpdateUser updateUser) {
         this.createUser = createUser;
         this.getUser = getUser;
         this.userAdapter = userAdapter;
+        this.updateUser = updateUser;
     }
 
     @GET
@@ -50,5 +56,14 @@ public class UserResource {
             throw new WebApplicationException(e, BAD_REQUEST_400);
         }
         
+    }
+
+    @PUT
+    public void update(User user) {
+        try {
+            updateUser.with(user.getId(), user.getName());
+        } catch (DomainException e) {
+            throw new WebApplicationException(e, BAD_REQUEST_400);
+        }
     }
 }
