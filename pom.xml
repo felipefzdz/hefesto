@@ -99,6 +99,11 @@
                 <artifactId>amqp-client</artifactId>
                 <version>${amqp-client.version}</version>
             </dependency>
+            <dependency>
+                <groupId>io.federecio</groupId>
+                <artifactId>dropwizard-swagger</artifactId>
+                <version>${dropwizard-swagger.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -179,6 +184,7 @@
         <dropwizard-core.version>0.7.1</dropwizard-core.version>
         <dropwizard-guice.version>0.7.2</dropwizard-guice.version>
         <amqp-client.version>3.4.3</amqp-client.version>
+        <dropwizard-swagger.version>0.5.2</dropwizard-swagger.version>
     </properties>
 
 

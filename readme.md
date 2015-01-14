@@ -18,4 +18,8 @@ There is not any UI so far or any deployable, but If you want to run the app you
     java -jar user-service/target/user-service-1.0-SNAPSHOT-capsule-fat.jar server user-service/userService.yml
     
     java -jar job-service/target/job-service-1.0-SNAPSHOT-capsule-fat.jar server job-service/jobService.yml
-5. The servers will be listening at 8080 and 8081 ports. The future idea is to support [HATEOAS](http://en.wikipedia.org/wiki/HATEOAS) in order to provide a self discoverable API.
+5. The servers will be listening at 8080 and 8081 ports. You can browse the Swagger UI API here:
+
+	http://localhost:8080/swagger
+	
+	http://localhost:8081/swagger

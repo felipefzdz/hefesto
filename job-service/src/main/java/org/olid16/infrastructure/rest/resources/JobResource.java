@@ -1,6 +1,8 @@
 package org.olid16.infrastructure.rest.resources;
 
 import com.google.inject.Inject;
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import org.eclipse.jetty.http.HttpStatus;
 import org.olid16.actions.AddJobseekerToJob;
 import org.olid16.actions.CreateJob;
@@ -17,6 +19,7 @@ import static org.eclipse.jetty.http.HttpStatus.BAD_REQUEST_400;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/jobs")
+@Api("/jobs")
 public class JobResource {
 
     private final CreateJob createJob;
@@ -31,7 +34,8 @@ public class JobResource {
     }
 
     @GET
-    @Path("employerId/{employerId}")
+    @Path("/employerId/{employerId}")
+    @ApiOperation("Get list of jobs by employer id")
     public String getByEmployer(@PathParam("employerId") String employerId){
         Optional<String> job = getJobs.byEmployer(employerId);
         if (job.isPresent()) {
@@ -41,7 +45,8 @@ public class JobResource {
     }
 
     @GET
-    @Path("jobseekerId/{jobseekerId}")
+    @Path("/jobseekerId/{jobseekerId}")
+    @ApiOperation("Get list of jobs by jobseeker id")
     public String getByJobseeker(@PathParam("jobseekerId") String jobseekerId){
         Optional<String> job = getJobs.byJobseeker(jobseekerId);
         if (job.isPresent()) {
@@ -51,6 +56,7 @@ public class JobResource {
     }
 
     @GET
+    @ApiOperation("Get list of all jobs")
     public String getAll(){
         Optional<String> job = getJobs.all();
         if (job.isPresent()) {
@@ -60,6 +66,7 @@ public class JobResource {
     }
 
     @POST
+    @ApiOperation("Create a job")
     public String create(Job job){
         try {
             return createJob.with(job.getUserId(), job.getTitle()).id();
@@ -69,7 +76,8 @@ public class JobResource {
     }
 
     @PUT
-    @Path("{jobId}")
+    @Path("/{jobId}")
+    @ApiOperation("Add jobseeker to a job")
     public void addJobseekerToJob(Job job, @PathParam("jobId")String jobId){
         try {
             addJobSeekerToJob.with(job.getUserId(), jobId);
