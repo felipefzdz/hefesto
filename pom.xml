@@ -104,6 +104,16 @@
                 <artifactId>dropwizard-swagger</artifactId>
                 <version>${dropwizard-swagger.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.yammer.tenacity</groupId>
+                <artifactId>tenacity-core</artifactId>
+                <version>${tenacity-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.inject.extensions</groupId>
+                <artifactId>guice-assistedinject</artifactId>
+                <version>${guice.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -185,6 +195,7 @@
         <dropwizard-guice.version>0.7.2</dropwizard-guice.version>
         <amqp-client.version>3.4.3</amqp-client.version>
         <dropwizard-swagger.version>0.5.2</dropwizard-swagger.version>
+        <tenacity-core.version>0.4.3</tenacity-core.version>
     </properties>
 
 

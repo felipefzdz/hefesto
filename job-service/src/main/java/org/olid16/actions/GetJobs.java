@@ -2,7 +2,6 @@ package org.olid16.actions;
 
 import com.google.inject.Inject;
 import org.olid16.domain.collections.Jobs;
-import org.olid16.domain.factories.UserFactory;
 
 import java.util.Optional;
 

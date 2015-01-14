@@ -1,12 +1,15 @@
 package org.olid16.infrastructure;
 
 import com.hubspot.dropwizard.guice.GuiceBundle;
+import com.yammer.tenacity.core.bundle.TenacityBundleBuilder;
+import com.yammer.tenacity.core.bundle.TenacityConfiguredBundle;
 import io.dropwizard.Application;
+import io.dropwizard.Configuration;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.federecio.dropwizard.swagger.SwaggerDropwizard;
+import org.olid16.infrastructure.circuit_breaker.JobServiceTenacityBundleConfigurationFactory;
 import org.olid16.infrastructure.dependency_injection.JobServiceModule;
-import org.olid16.infrastructure.events.UserEventConsumer;
 
 public class JobServiceApp extends Application<JobServiceConfiguration> {
 
@@ -19,7 +22,14 @@ public class JobServiceApp extends Application<JobServiceConfiguration> {
     @Override
     public void initialize(Bootstrap<JobServiceConfiguration> bootstrap) {
         bootstrap.addBundle(guice());
+        bootstrap.addBundle(tenacity());
         swaggerDropwizard.onInitialize(bootstrap);
+    }
+
+    private TenacityConfiguredBundle<Configuration> tenacity() {
+        return TenacityBundleBuilder.newBuilder()
+                .configurationFactory(new JobServiceTenacityBundleConfigurationFactory())
+                .build();
     }
 
     private GuiceBundle<JobServiceConfiguration> guice() {

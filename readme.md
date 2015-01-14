@@ -13,13 +13,16 @@ There is not any UI so far or any deployable, but If you want to run the app you
 1. Download the code: git clone https://github.com/olid16/hefesto.git
 2. [Install MongoDb](http://docs.mongodb.org/manual/installation/) and start a local instance (mongod).
 3. [Install RabbitMQ](http://www.rabbitmq.com/) and start a local instance (rabbitmq-server)
-4. Run mvn clean install. [Capsule](https://github.com/puniverse/capsule) will create a couple of fat jars. Run them:
+4. Run [Breakerbox](https://github.com/yammer/breakerbox)
+	cd breakerbox
+	./runBreakerbox.sh
+5. Run mvn clean install. [Capsule](https://github.com/puniverse/capsule) will create a couple of fat jars. Run them:
     
     java -jar user-service/target/user-service-1.0-SNAPSHOT-capsule-fat.jar server user-service/userService.yml
     
     java -jar job-service/target/job-service-1.0-SNAPSHOT-capsule-fat.jar server job-service/jobService.yml
-5. The servers will be listening at 8080 and 8081 ports. You can browse the Swagger UI API here:
+6. The servers will be listening at 8081 and 8082 ports. You can browse the Swagger UI API here:
 
-	http://localhost:8080/swagger
-	
 	http://localhost:8081/swagger
+	
+	http://localhost:8082/swagger
