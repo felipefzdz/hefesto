@@ -14,7 +14,9 @@ There is not any UI so far or any deployable, but If you want to run the app you
 2. [Install MongoDb](http://docs.mongodb.org/manual/installation/) and start a local instance (mongod).
 3. [Install RabbitMQ](http://www.rabbitmq.com/) and start a local instance (rabbitmq-server)
 4. Run [Breakerbox](https://github.com/yammer/breakerbox)
+
 	cd breakerbox
+	
 	./runBreakerbox.sh
 5. Run mvn clean install. [Capsule](https://github.com/puniverse/capsule) will create a couple of fat jars. Run them:
     
