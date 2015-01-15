@@ -4,6 +4,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.mongodb.DB;
+import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -21,9 +22,9 @@ public class UserServiceModule extends AbstractModule {
     }
     
     @Provides @Singleton
-    DB provideDB(){
+    DBCollection userCollection(){
         try {
-            return new MongoClient().getDB("userService");
+            return new MongoClient().getDB("userService").getCollection("users");
         } catch (UnknownHostException e) {
             throw new IllegalStateException(e);
         }

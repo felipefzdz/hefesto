@@ -15,9 +15,9 @@ public class MongoUsers implements Users {
     private final UserAdapter userAdapter;
 
     @Inject
-    public MongoUsers(DB database, UserAdapter userAdapter) {
+    public MongoUsers(DBCollection users, UserAdapter userAdapter) {
         this.userAdapter = userAdapter;
-        this.users = database.getCollection("users");
+        this.users = users;
     }
 
 
