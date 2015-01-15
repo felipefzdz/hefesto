@@ -13,6 +13,8 @@ import org.olid16.domain.values.Title;
 import org.olid16.domain.values.User;
 import org.olid16.domain.values.UserId;
 
+import java.util.List;
+
 import static com.google.common.truth.Truth.assertThat;
 import static infrastructure.Fixtures.JOBSEEKER_ID;
 import static infrastructure.Fixtures.TITLES;
@@ -24,7 +26,7 @@ public class GetAllJobsStepDefs {
 
     private static Provider provider = Provider.getSingleton();
 
-    private String jobs;
+    private List<Job> jobs;
 
     @Before
     public static void beforeScenario(){
@@ -41,11 +43,11 @@ public class GetAllJobsStepDefs {
 
     @When("^User get all jobs$")
     public void User_get_all_jobs() throws Throwable {
-        jobs = provider.getJobs().all().get();
+        jobs = provider.getJobs().all();
     }
 
     @Then("^all jobs are retrieved$")
     public void all_jobs_are_retrieved() throws Throwable {
-        assertThat(JsonArray.readFrom(jobs).size()).is(3);
+        assertThat(jobs.size()).is(3);
     }
 }

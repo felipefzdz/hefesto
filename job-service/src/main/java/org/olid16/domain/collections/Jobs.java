@@ -12,13 +12,13 @@ public interface Jobs {
 
     void add(Job job);
 
-    Optional<String> byEmployerId(String employerId);
+    List<Job> byEmployerId(String employerId);
 
-    Optional<String> all();
+    List<Job> all();
 
     void addJobseeker(JobId jobId, UserId jobseekerId);
 
-    Optional<String> byJobseekerId(String jobseekerId);
+    List<Job> byJobseekerId(String jobseekerId);
 
     void updateEmployerName(String employerId, String name);
 }

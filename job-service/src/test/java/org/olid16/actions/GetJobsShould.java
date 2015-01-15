@@ -5,10 +5,13 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.olid16.domain.collections.Jobs;
+import org.olid16.domain.entities.Job;
 
-import java.util.Optional;
+import java.util.List;
 
+import static builders.JobBuilder.aJob;
 import static com.google.common.truth.Truth.assertThat;
+import static java.util.Arrays.asList;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.anyString;
 
@@ -20,23 +23,23 @@ public class GetJobsShould {
 
     @Test public void
     return_jobs_by_employer(){
-        given(jobs.byEmployerId(anyString())).willReturn(Optional.of(""));
-        Optional<String> jobsByEmployer = new GetJobs(jobs).byEmployer("1234");
-        assertThat(jobsByEmployer.isPresent()).isTrue();
+        given(jobs.byEmployerId(anyString())).willReturn(asList(aJob().build()));
+        List<Job> jobsByEmployer = new GetJobs(jobs).byEmployer("1234");
+        assertThat(jobsByEmployer.isEmpty()).isFalse();
     }
 
     @Test public void
     return_all_jobs(){
-        given(jobs.all()).willReturn(Optional.of(""));
-        Optional<String> allJobs = new GetJobs(jobs).all();
-        assertThat(allJobs.isPresent()).isTrue();
+        given(jobs.all()).willReturn(asList(aJob().build()));
+        List<Job> allJobs = new GetJobs(jobs).all();
+        assertThat(allJobs.isEmpty()).isFalse();
     }
     
     @Test public void 
     return_jobs_by_jobseeker(){
-        given(jobs.byJobseekerId(anyString())).willReturn(Optional.of(""));
-        Optional<String> jobsByJobseeker = new GetJobs(jobs).byJobseeker("");
-        assertThat(jobsByJobseeker.isPresent()).isTrue();
+        given(jobs.byJobseekerId(anyString())).willReturn(asList(aJob().build()));
+        List<Job> jobsByJobseeker = new GetJobs(jobs).byJobseeker("");
+        assertThat(jobsByJobseeker.isEmpty()).isFalse();
         
     }
 

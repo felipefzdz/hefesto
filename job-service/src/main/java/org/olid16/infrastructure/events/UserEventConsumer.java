@@ -2,64 +2,47 @@ package org.olid16.infrastructure.events;
 
 import com.eclipsesource.json.JsonObject;
 import com.google.inject.Inject;
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.QueueingConsumer;
-import io.dropwizard.Bundle;
-import io.dropwizard.setup.Bootstrap;
-import io.dropwizard.setup.Environment;
 import org.olid16.domain.collections.Jobs;
+import org.olid16.infrastructure.exceptions.InfrastructureException;
 
-import java.io.IOException;
-
-public class UserEventConsumer implements Bundle{
+public class UserEventConsumer implements Runnable {
+    private final QueueingConsumer consumer;
     private final Jobs jobs;
 
     @Inject
-    public UserEventConsumer(Jobs jobs) {
+    public UserEventConsumer(QueueingConsumer consumer, Jobs jobs) {
+        this.consumer = consumer;
         this.jobs = jobs;
     }
 
-    @Override
-    public void initialize(Bootstrap<?> bootstrap) {
-    }
 
     @Override
-    public void run(final Environment environment) {
-        try {
-            QueueingConsumer consumer = consumer();
-            new Thread((() -> {
-                while (true) {
-                    try {
-                        QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-                        JsonObject message = JsonObject.readFrom(new String(delivery.getBody()));
-                        String employerId = message.get("id").asString();
-                        String name = message.get("name").asString();
-                        jobs.updateEmployerName(employerId, name);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            })).start();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void run() {
+        while (true) {
+            consumeMessage();
         }
     }
 
-    private QueueingConsumer consumer() throws IOException {
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        Connection connection = factory.newConnection();
-        Channel channel = connection.createChannel();
+    public void consumeMessage() {
+        try {
+            JsonObject message = nextMessage();
+            jobs.updateEmployerName(idFrom(message), nameFrom(message));
+        } catch (InterruptedException | RuntimeException e) {
+            throw new InfrastructureException("Error while consuming message", e);
+        }
+    }
 
-        channel.exchangeDeclare("userEvents", "fanout");
-        String queueName = channel.queueDeclare().getQueue();
-        channel.queueBind(queueName, "userEvents", "");
+    private JsonObject nextMessage() throws InterruptedException {
+        QueueingConsumer.Delivery delivery = consumer.nextDelivery();
+        return JsonObject.readFrom(new String(delivery.getBody()));
+    }
 
-        QueueingConsumer consumer = new QueueingConsumer(channel);
-        channel.basicConsume(queueName, true, consumer);
-        return consumer;
+    private String idFrom(JsonObject message) {
+        return message.get("id").asString();
+    }
+
+    private String nameFrom(JsonObject message) {
+        return message.get("name").asString();
     }
 }

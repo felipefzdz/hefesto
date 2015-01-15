@@ -2,7 +2,9 @@ package org.olid16.actions;
 
 import com.google.inject.Inject;
 import org.olid16.domain.collections.Jobs;
+import org.olid16.domain.entities.Job;
 
+import java.util.List;
 import java.util.Optional;
 
 public class GetJobs {
@@ -13,15 +15,15 @@ public class GetJobs {
         this.jobs = jobs;
     }
 
-    public Optional<String> byEmployer(String employerId) {
+    public List<Job> byEmployer(String employerId) {
         return jobs.byEmployerId(employerId);
     }
 
-    public Optional<String> all() {
+    public List<Job> all() {
         return jobs.all();
     }
 
-    public Optional<String> byJobseeker(String jobseekerId) {
+    public List<Job> byJobseeker(String jobseekerId) {
         return jobs.byJobseekerId(jobseekerId);
     }
 }

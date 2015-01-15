@@ -1,6 +1,5 @@
 package org.olid16.infrastructure.repositories;
 
-import com.eclipsesource.json.JsonArray;
 import com.google.inject.Inject;
 import com.mongodb.*;
 import org.bson.types.ObjectId;
@@ -9,17 +8,17 @@ import org.olid16.domain.entities.Job;
 import org.olid16.domain.values.JobId;
 import org.olid16.domain.values.UserId;
 
-import java.util.Iterator;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MongoJobs implements Jobs {
     private final DBCollection jobs;
     private final JobAdapter jobAdapter;
 
     @Inject
-    public MongoJobs(DB database, JobAdapter jobAdapter) {
+    public MongoJobs(DBCollection jobs, JobAdapter jobAdapter) {
         this.jobAdapter = jobAdapter;
-        this.jobs = database.getCollection("jobs");
+        this.jobs = jobs;
     }
     @Override
     public JobId nextId() {
@@ -32,14 +31,20 @@ public class MongoJobs implements Jobs {
     }
 
     @Override
-    public Optional<String> byEmployerId(String employerId) {
+    public List<Job> byEmployerId(String employerId) {
         DBCursor cursor = jobs.find(new BasicDBObject("employer.id", employerId));
         return adapt(cursor);
     }
 
     @Override
-    public Optional<String> all() {
+    public List<Job> all() {
         DBCursor cursor = jobs.find();
+        return adapt(cursor);
+    }
+
+    @Override
+    public List<Job> byJobseekerId(String jobseekerId) {
+        DBCursor cursor = jobs.find(new BasicDBObject("jobseekers", jobseekerId));
         return adapt(cursor);
     }
 
@@ -51,12 +56,6 @@ public class MongoJobs implements Jobs {
     }
 
     @Override
-    public Optional<String> byJobseekerId(String jobseekerId) {
-        DBCursor cursor = jobs.find(new BasicDBObject("jobseekers", jobseekerId));
-        return adapt(cursor);
-    }
-
-    @Override
     public void updateEmployerName(String employerId, String name) {
         BasicDBObject query = new BasicDBObject().append("employer.id", employerId);
         BasicDBObject modification = new BasicDBObject();
@@ -64,15 +63,11 @@ public class MongoJobs implements Jobs {
         jobs.updateMulti(query, modification);
     }
 
-    private Optional<String> adapt(DBCursor cursor) {
-        Iterator<DBObject> it = cursor.iterator();
-        if (!it.hasNext()){
-            return Optional.empty();
+    private List<Job> adapt(DBCursor cursor) {
+        List<Job> jobs = new ArrayList<>();
+        while(cursor.hasNext()){
+            jobs.add(jobAdapter.fromDBObject(cursor.next()));
         }
-        JsonArray jsonArray = new JsonArray();
-        while(it.hasNext()){
-            jsonArray.add(it.next().toString());
-        }
-        return Optional.of(jsonArray.toString());
+        return jobs;
     }
 }

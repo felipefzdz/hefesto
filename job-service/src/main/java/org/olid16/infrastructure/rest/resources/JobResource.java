@@ -8,10 +8,13 @@ import org.olid16.actions.AddJobseekerToJob;
 import org.olid16.actions.CreateJob;
 import org.olid16.actions.GetJobs;
 import org.olid16.infrastructure.exceptions.DomainException;
+import org.olid16.infrastructure.rest.JobAdapter;
 import org.olid16.infrastructure.rest.entities.Job;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.List;
 import java.util.Optional;
 
 import static org.eclipse.jetty.http.HttpStatus.BAD_REQUEST_400;
@@ -25,44 +28,49 @@ public class JobResource {
     private final CreateJob createJob;
     private final GetJobs getJobs;
     private final AddJobseekerToJob addJobSeekerToJob;
+    private final JobAdapter jobAdapter;
 
     @Inject
-    public JobResource(CreateJob createJob, GetJobs getJobs, AddJobseekerToJob addJobSeekerToJob) {
+    public JobResource(CreateJob createJob,
+                       GetJobs getJobs,
+                       AddJobseekerToJob addJobSeekerToJob, 
+                       JobAdapter jobAdapter) {
         this.createJob = createJob;
         this.getJobs = getJobs;
         this.addJobSeekerToJob = addJobSeekerToJob;
+        this.jobAdapter = jobAdapter;
     }
 
     @GET
     @Path("/employerId/{employerId}")
     @ApiOperation("Get list of jobs by employer id")
-    public String getByEmployer(@PathParam("employerId") String employerId){
-        Optional<String> job = getJobs.byEmployer(employerId);
-        if (job.isPresent()) {
-            return job.get();
+    public Response getByEmployer(@PathParam("employerId") String employerId){
+        List<org.olid16.domain.entities.Job> jobs = getJobs.byEmployer(employerId);
+        if (jobs.isEmpty()) {
+            throw new WebApplicationException(HttpStatus.NOT_FOUND_404);
         }
-        throw new WebApplicationException(HttpStatus.NOT_FOUND_404);
+        return Response.ok(jobAdapter.fromDomain(jobs)).build();
     }
 
     @GET
     @Path("/jobseekerId/{jobseekerId}")
     @ApiOperation("Get list of jobs by jobseeker id")
-    public String getByJobseeker(@PathParam("jobseekerId") String jobseekerId){
-        Optional<String> job = getJobs.byJobseeker(jobseekerId);
-        if (job.isPresent()) {
-            return job.get();
+    public Response getByJobseeker(@PathParam("jobseekerId") String jobseekerId){
+        List<org.olid16.domain.entities.Job> jobs = getJobs.byJobseeker(jobseekerId);
+        if (jobs.isEmpty()) {
+            throw new WebApplicationException(HttpStatus.NOT_FOUND_404);
         }
-        throw new WebApplicationException(HttpStatus.NOT_FOUND_404);
+        return Response.ok(jobAdapter.fromDomain(jobs)).build();
     }
 
     @GET
     @ApiOperation("Get list of all jobs")
-    public String getAll(){
-        Optional<String> job = getJobs.all();
-        if (job.isPresent()) {
-            return job.get();
+    public Response getAll(){
+        List<org.olid16.domain.entities.Job> jobs = getJobs.all();
+        if (jobs.isEmpty()) {
+            throw new WebApplicationException(HttpStatus.NOT_FOUND_404);
         }
-        throw new WebApplicationException(HttpStatus.NOT_FOUND_404);
+        return Response.ok(jobAdapter.fromDomain(jobs)).build();
     }
 
     @POST

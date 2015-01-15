@@ -19,8 +19,19 @@ public class Job {
         this.jobseekers = Jobseekers.create();
     }
 
+    public Job(JobId jobId, User user, Title title, Jobseekers jobseekers) {
+        this.jobId = jobId;
+        this.user = user;
+        this.title = title;
+        this.jobseekers = jobseekers;
+    }
+
     public static Job createJob(JobId jobId, User user, Title title) {
         return new Job(jobId, user, title);
+    }
+
+    public static Job createJob(JobId jobId, User user, Title title, Jobseekers jobseekers) {
+        return new Job(jobId, user, title, jobseekers);
     }
 
     public String id() {

@@ -5,7 +5,9 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import infrastructure.Fixtures;
 import infrastructure.dependency_injection.Provider;
+import org.olid16.domain.entities.Job;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -14,7 +16,7 @@ public class GetJobsByJobseeker  {
 
     private static Provider provider = Provider.getSingleton();
     
-    private Optional<String> jobs;
+    private List<Job> jobs;
 
     @Before
     public static void beforeScenario(){
@@ -28,6 +30,6 @@ public class GetJobsByJobseeker  {
 
     @Then("^the jobseeker related job is there$")
     public void the_jobseeker_related_job_is_there() throws Throwable {
-        assertThat(jobs.isPresent()).isTrue();
+        assertThat(jobs).isNotEmpty();
     }
 }
