@@ -54,9 +54,10 @@ public class UserResource {
     
     @POST
     @ApiOperation("Create user")
-    public String create(User user){
+    public Response create(User user){
         try {
-            return createUser.with(user.getName(), user.getRole()).id();
+            org.olid16.domain.entities.User createdUser = createUser.with(user.getName(), user.getRole());
+            return Response.ok(userAdapter.fromDomain(createdUser)).build();
         } catch (DomainException e) {
             throw new WebApplicationException(e, BAD_REQUEST_400);
         }

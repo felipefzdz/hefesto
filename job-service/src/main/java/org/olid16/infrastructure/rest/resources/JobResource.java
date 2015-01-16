@@ -75,9 +75,10 @@ public class JobResource {
 
     @POST
     @ApiOperation("Create a job")
-    public String create(Job job){
+    public Response create(Job job){
         try {
-            return createJob.with(job.getUserId(), job.getTitle()).id();
+            org.olid16.domain.entities.Job createdJob = createJob.with(job.getUserId(), job.getTitle());
+            return Response.ok(jobAdapter.fromDomain(createdJob)).build();
         } catch (DomainException e) {
             throw new WebApplicationException(e, BAD_REQUEST_400);
         }

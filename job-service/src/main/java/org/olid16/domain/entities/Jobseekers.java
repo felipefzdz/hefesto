@@ -20,4 +20,8 @@ public class Jobseekers {
     public boolean contains(UserId userId) {
         return jobseekers.contains(userId);
     }
+
+    public Set<UserId> get() {
+        return jobseekers;
+    }
 }

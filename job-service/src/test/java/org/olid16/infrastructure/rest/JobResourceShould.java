@@ -1,6 +1,5 @@
 package org.olid16.infrastructure.rest;
 
-import com.google.common.collect.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -8,19 +7,15 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.olid16.actions.AddJobseekerToJob;
 import org.olid16.actions.CreateJob;
 import org.olid16.actions.GetJobs;
+import org.olid16.domain.entities.Jobseekers;
 import org.olid16.infrastructure.exceptions.AuthorizationException;
 import org.olid16.infrastructure.exceptions.ValidationException;
 import org.olid16.infrastructure.rest.entities.Job;
 import org.olid16.infrastructure.rest.resources.JobResource;
 
 import javax.ws.rs.WebApplicationException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Optional;
 
-import static builders.JobBuilder.JobIdBuilder.aJobId;
 import static builders.JobBuilder.aJob;
-import static com.google.common.collect.Lists.*;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.truth.Truth.assertThat;
 import static java.util.Arrays.*;
@@ -41,16 +36,16 @@ public class JobResourceShould {
     @Test public void
     return_job_id_when_create_job(){
         given(createJob.with(anyString(), anyString())).willReturn(aJob().build());
-        String id = new JobResource(createJob, getJobs, addJobSeekerToJob, jobAdapter).create(new Job("", ""));
-        assertThat(id).isEqualTo(aJobId().build().id());
+        given(jobAdapter.fromDomain(aJob().build())).willReturn(emptyRestJob());
+        Job job = (Job) new JobResource(createJob, getJobs, addJobSeekerToJob, jobAdapter).create(emptyRestJob()).getEntity();
+        assertThat(job).isNotNull();
     }
 
     @Test public void
     return_bad_request_in_response_when_request_is_invalid(){
         given(createJob.with(anyString(), anyString())).willThrow(ValidationException.class);
-        assertThrows(WebApplicationException.class, () -> new JobResource(createJob, getJobs, addJobSeekerToJob, jobAdapter).create(new Job("", "")));
+        assertThrows(WebApplicationException.class, () -> new JobResource(createJob, getJobs, addJobSeekerToJob, jobAdapter).create(emptyRestJob()));
     }
-
 
     @Test public void
     call_get_jobs_by_employer(){
@@ -58,6 +53,7 @@ public class JobResourceShould {
         new JobResource(createJob, getJobs, addJobSeekerToJob, jobAdapter).getByEmployer("");
         verify(getJobs).byEmployer(anyString());
     }
+
 
     @Test public void
     return_404_when_not_jobs_by_employer_found(){
@@ -95,7 +91,7 @@ public class JobResourceShould {
 
     @Test public void
     call_add_jobseeker_to_job() {
-        new JobResource(createJob, getJobs, addJobSeekerToJob, jobAdapter).addJobseekerToJob(new Job("", ""), "");
+        new JobResource(createJob, getJobs, addJobSeekerToJob, jobAdapter).addJobseekerToJob(emptyRestJob(), "");
         verify(addJobSeekerToJob).with(anyString(), anyString());
 
     }
@@ -103,8 +99,12 @@ public class JobResourceShould {
     @Test public void
     return_bad_request_in_response_when_request_is_invalid_with_add_jobseeker_to_job_action(){
         doThrow(AuthorizationException.class).when(addJobSeekerToJob).with(anyString(), anyString());
-        assertThrows(WebApplicationException.class, () -> new JobResource(createJob, getJobs, addJobSeekerToJob, jobAdapter).addJobseekerToJob(new Job("", ""), ""));
+        assertThrows(WebApplicationException.class, () -> new JobResource(createJob, getJobs, addJobSeekerToJob, jobAdapter).addJobseekerToJob(emptyRestJob(), ""));
 
+    }
+
+    public Job emptyRestJob() {
+        return new Job("", "", "", "", null);
     }
 
 }
