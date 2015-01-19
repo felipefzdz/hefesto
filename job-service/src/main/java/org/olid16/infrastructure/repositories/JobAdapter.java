@@ -22,7 +22,12 @@ public class JobAdapter {
                 jobId(dbObject),
                 user(dbObject),
                 title(dbObject),
+                jobType(dbObject),
                 jobseekers(dbObject));
+    }
+
+    private JobType jobType(DBObject dbObject) {
+        return JobType.valueOf(extractField(dbObject, "type").toUpperCase());
     }
 
     private JobId jobId(DBObject dbObject) {

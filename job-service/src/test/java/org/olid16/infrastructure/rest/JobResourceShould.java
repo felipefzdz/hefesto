@@ -7,7 +7,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.olid16.actions.AddJobseekerToJob;
 import org.olid16.actions.CreateJob;
 import org.olid16.actions.GetJobs;
-import org.olid16.domain.entities.Jobseekers;
+import org.olid16.domain.values.JobType;
 import org.olid16.infrastructure.exceptions.AuthorizationException;
 import org.olid16.infrastructure.exceptions.ValidationException;
 import org.olid16.infrastructure.rest.entities.Job;
@@ -20,6 +20,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.truth.Truth.assertThat;
 import static java.util.Arrays.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
@@ -35,7 +36,7 @@ public class JobResourceShould {
 
     @Test public void
     return_job_id_when_create_job(){
-        given(createJob.with(anyString(), anyString())).willReturn(aJob().build());
+        given(createJob.with(any())).willReturn(aJob().build());
         given(jobAdapter.fromDomain(aJob().build())).willReturn(emptyRestJob());
         Job job = (Job) new JobResource(createJob, getJobs, addJobSeekerToJob, jobAdapter).create(emptyRestJob()).getEntity();
         assertThat(job).isNotNull();
@@ -43,7 +44,7 @@ public class JobResourceShould {
 
     @Test public void
     return_bad_request_in_response_when_request_is_invalid(){
-        given(createJob.with(anyString(), anyString())).willThrow(ValidationException.class);
+        given(createJob.with(any())).willThrow(ValidationException.class);
         assertThrows(WebApplicationException.class, () -> new JobResource(createJob, getJobs, addJobSeekerToJob, jobAdapter).create(emptyRestJob()));
     }
 
@@ -104,7 +105,7 @@ public class JobResourceShould {
     }
 
     public Job emptyRestJob() {
-        return new Job("", "", "", "", null);
+        return new Job("", "", "", "", "", null);
     }
 
 }

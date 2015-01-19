@@ -2,28 +2,30 @@ package builders;
 
 import org.olid16.domain.entities.Job;
 import org.olid16.domain.values.JobId;
+import org.olid16.domain.values.JobType;
 import org.olid16.domain.values.Title;
 import org.olid16.domain.values.User;
 
 import static builders.JobBuilder.JobIdBuilder.*;
 import static builders.JobBuilder.TitleBuilder.aTitle;
 import static builders.UserBuilder.*;
-import static builders.UserBuilder.UserIdBuilder.aUserId;
 
 public class JobBuilder {
 
     private JobId jobId;
     private User user;
     private Title title;
+    private JobType jobType;
 
-    public JobBuilder(JobId jobId, User user, Title title) {
+    public JobBuilder(JobId jobId, User user, Title title, JobType jobType) {
         this.jobId = jobId;
         this.user = user;
         this.title = title;
+        this.jobType = jobType;
     }
 
     public static JobBuilder aJob(){ 
-        return new JobBuilder(aJobId().build(), aUser().build(), aTitle().build());
+        return new JobBuilder(aJobId().build(), aUser().build(), aTitle().build(), JobType.ATS);
     }
     
     public JobBuilder w(JobId jobId){
@@ -31,7 +33,7 @@ public class JobBuilder {
         return this;
     }
     
-    public Job build(){return Job.createJob(jobId, user, title);}
+    public Job build(){return Job.createJob(jobId, user, title, jobType);}
 
     public static class JobIdBuilder {
         private final String id;

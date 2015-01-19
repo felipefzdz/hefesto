@@ -24,4 +24,14 @@ public class JobAdapterShould {
         assertThat(jobs.size()).is(2);
     }
 
+    @Test public void
+    adapt_to_domain(){
+        org.olid16.domain.entities.Job job = new JobAdapter().toDomain(jobFromClient());
+        assertThat(job.id()).is("id");
+    }
+
+    private Job jobFromClient() {
+        return new Job("userId", "title", "id", "userName", "ats", asList("jobseeker1", "jobseeker2"));
+    }
+
 }

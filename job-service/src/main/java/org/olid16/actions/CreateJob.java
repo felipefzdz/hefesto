@@ -26,12 +26,12 @@ public class CreateJob {
         this.userIdFactory = userIdFactory;
     }
 
-    public Job with(String userId, String title) {
-        Optional<User> user = userClient.create(userIdFactory.create(userId));
+    public Job with(Job job) {
+        Optional<User> user = userClient.create(userIdFactory.create(job.employerId()));
         if (user.isPresent() && user.get().isEmployer()){
-            Job job = jobFactory.create(user.get(), title, jobs.nextId());
-            jobs.add(job);
-            return job;
+            Job createdJob = jobFactory.create(user.get(), job.title(), jobs.nextId(), job.type());
+            jobs.add(createdJob);
+            return createdJob;
         }
         throw new AuthorizationException("Only employers can create jobs");
     }

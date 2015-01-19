@@ -1,9 +1,6 @@
 package org.olid16.domain.entities;
 
-import org.olid16.domain.values.JobId;
-import org.olid16.domain.values.Title;
-import org.olid16.domain.values.User;
-import org.olid16.domain.values.UserId;
+import org.olid16.domain.values.*;
 
 public class Job {
 
@@ -11,27 +8,30 @@ public class Job {
     private final User user;
     private final Title title;
     private final Jobseekers jobseekers;
+    private final JobType jobType;
 
-    private Job(JobId jobId, User user, Title title) {
+    private Job(JobId jobId, User user, Title title, JobType jobType) {
         this.jobId = jobId;
         this.user = user;
         this.title = title;
+        this.jobType = jobType;
         this.jobseekers = Jobseekers.create();
     }
 
-    public Job(JobId jobId, User user, Title title, Jobseekers jobseekers) {
+    public Job(JobId jobId, User user, Title title, Jobseekers jobseekers, JobType jobType) {
         this.jobId = jobId;
         this.user = user;
         this.title = title;
         this.jobseekers = jobseekers;
+        this.jobType = jobType;
     }
 
-    public static Job createJob(JobId jobId, User user, Title title) {
-        return new Job(jobId, user, title);
+    public static Job createJob(JobId jobId, User user, Title title, JobType jobType) {
+        return new Job(jobId, user, title, jobType);
     }
 
-    public static Job createJob(JobId jobId, User user, Title title, Jobseekers jobseekers) {
-        return new Job(jobId, user, title, jobseekers);
+    public static Job createJob(JobId jobId, User user, Title title, JobType jobType, Jobseekers jobseekers) {
+        return new Job(jobId, user, title, jobseekers, jobType);
     }
 
     public String id() {
@@ -73,5 +73,9 @@ public class Job {
 
     public String employerName() {
         return user.name();
+    }
+
+    public String type() {
+        return jobType.toString();
     }
 }

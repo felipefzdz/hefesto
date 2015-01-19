@@ -9,6 +9,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.olid16.domain.entities.Job;
 import org.olid16.infrastructure.exceptions.ValidationException;
 
+import static builders.JobBuilder.*;
+import static builders.JobBuilder.JobIdBuilder.*;
+import static builders.UserBuilder.*;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.anyVararg;
@@ -22,12 +25,12 @@ public class JobFactoryShould {
     @Test
     public void
     create_a_job_when_data_is_valid(){
-        Job job = new JobFactory().create(UserBuilder.aUser().build(), "1234", JobBuilder.JobIdBuilder.aJobId().build());
+        Job job = new JobFactory().create(aUser().build(), "1234", aJobId().build(), "ats");
         assertThat(job).isNotNull();
     }
 
     @Test public void
     throw_validation_exception_when_some_mandatory_field_is_not_present(){
-        assertThrows(ValidationException.class, () -> new JobFactory().create(null, null, null));
+        assertThrows(ValidationException.class, () -> new JobFactory().create(null, null, null, null));
     }
 }

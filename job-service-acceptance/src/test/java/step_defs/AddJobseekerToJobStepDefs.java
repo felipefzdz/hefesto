@@ -33,7 +33,7 @@ public class AddJobseekerToJobStepDefs{
 
     @And("^a job exists$")
     public void a_job_exists() throws Throwable {
-        provider.inMemoryJobs().add(Job.createJob(JobId.create(JOB_ID), aUser(), Title.create("Developer")));
+        provider.inMemoryJobs().add(Job.createJob(JobId.create(JOB_ID), aUser(), Title.create("Developer"), JobType.ATS));
     }
 
     @When("^the jobseeker save the job$")

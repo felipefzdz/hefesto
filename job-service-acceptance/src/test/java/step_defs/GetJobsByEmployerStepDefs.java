@@ -8,10 +8,7 @@ import cucumber.api.java.en.When;
 import infrastructure.dependency_injection.Provider;
 import org.olid16.domain.collections.Jobs;
 import org.olid16.domain.entities.Job;
-import org.olid16.domain.values.JobId;
-import org.olid16.domain.values.Title;
-import org.olid16.domain.values.User;
-import org.olid16.domain.values.UserId;
+import org.olid16.domain.values.*;
 
 import java.util.List;
 
@@ -39,7 +36,7 @@ public class GetJobsByEmployerStepDefs {
     public void Employer_creates_several_jobs() throws Throwable {
         Jobs inMemoryJobs = provider.inMemoryJobs();
         for(String title: TITLES){
-            inMemoryJobs.add(Job.createJob(JobId.create(title), User.create(create("Bob"), EMPLOYER, UserId.create(USER_ID)), Title.create(title)));
+            inMemoryJobs.add(Job.createJob(JobId.create(title), User.create(create("Bob"), EMPLOYER, UserId.create(USER_ID)), Title.create(title), JobType.ATS));
         }
     }
 

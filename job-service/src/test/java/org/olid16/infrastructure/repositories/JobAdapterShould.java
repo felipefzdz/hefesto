@@ -38,6 +38,7 @@ public class JobAdapterShould {
         dbObject.append("title", "title");
         dbObject.append("employer", employer());
         dbObject.append("jobseekers", "1234, 5678");
+        dbObject.append("type", "ats");
         return dbObject;
     }
 

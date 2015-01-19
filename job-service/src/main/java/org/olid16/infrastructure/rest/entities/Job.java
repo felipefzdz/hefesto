@@ -16,6 +16,8 @@ public class Job {
     @JsonProperty
     private final String userName;
     @JsonProperty
+    private final String type;
+    @JsonProperty
     private final List<String> jobseekers;
 
 
@@ -24,11 +26,13 @@ public class Job {
                @JsonProperty("title") String title,
                @JsonProperty("id") String id,
                @JsonProperty("userName") String userName,
+               @JsonProperty("type") String type,
                @JsonProperty("jobseekers") List<String> jobseekers) {
         this.userId = userId;
         this.title = title;
         this.id = id;
         this.userName = userName;
+        this.type = type;
         this.jobseekers = jobseekers;
     }
 
@@ -50,5 +54,9 @@ public class Job {
 
     public List<String> getJobseekers() {
         return jobseekers;
+    }
+
+    public String getType() {
+        return type;
     }
 }
