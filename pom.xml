@@ -146,7 +146,6 @@
                         <exclude>**/*App*</exclude>
                         <exclude>**/*Configuration*</exclude>
                         <exclude>**/*Module*</exclude>
-                        <exclude>**/*Adapter*</exclude>
                         <exclude>**/*Bundle*</exclude>
                         <exclude>**/*Tenacity*</exclude>
                     </excludes>

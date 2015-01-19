@@ -14,15 +14,15 @@ public class JobAdapter {
         return new Job(job.employerId(), job.title(), job.id(), job.employerName(), jobseekers(job));
     }
 
-    private List<String> jobseekers(org.olid16.domain.entities.Job job) {
-        return job.interestedJobseekers().get().stream()
-                .map(jobseeker -> jobseeker.id())
-                .collect(toList());
-    }
-
     public List<Job> fromDomain(List<org.olid16.domain.entities.Job> jobs){
         return jobs.stream()
                 .map(this::fromDomain)
+                .collect(toList());
+    }
+
+    private List<String> jobseekers(org.olid16.domain.entities.Job job) {
+        return job.interestedJobseekers().get().stream()
+                .map(jobseeker -> jobseeker.id())
                 .collect(toList());
     }
 }

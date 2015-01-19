@@ -26,6 +26,11 @@ public class JobBuilder {
         return new JobBuilder(aJobId().build(), aUser().build(), aTitle().build());
     }
     
+    public JobBuilder w(JobId jobId){
+        this.jobId = jobId;
+        return this;
+    }
+    
     public Job build(){return Job.createJob(jobId, user, title);}
 
     public static class JobIdBuilder {
