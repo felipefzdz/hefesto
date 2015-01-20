@@ -1,6 +1,7 @@
 package org.olid16.actions;
 
 import com.google.inject.Inject;
+import org.olid16.domain.collections.JobApplications;
 import org.olid16.domain.collections.Resumes;
 import org.olid16.domain.entities.Resume;
 import org.olid16.domain.values.User;
@@ -20,6 +21,8 @@ public class CreateResume {
         this.resumes = resumes;
         this.userClient = userClient;
     }
+
+
 
     public Resume with(Resume resume) {
         Optional<User> user = userClient.create(UserId.create(resume.userId()));

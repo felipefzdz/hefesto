@@ -1,5 +1,6 @@
-package org.olid16.infrastructure.clients;
+package org.olid16.infrastructure.clients.apis;
 
+import org.olid16.infrastructure.clients.entities.User;
 import retrofit.http.GET;
 import retrofit.http.Path;
 

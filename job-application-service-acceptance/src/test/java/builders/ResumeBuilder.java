@@ -19,7 +19,6 @@ public class ResumeBuilder {
 
     public static ResumeBuilder aResume(){
         return new ResumeBuilder(ResumeIdBuilder.aResumeId().build(), UserIdBuilder.aUserId().build(), ContentBuilder.aContent().build());
-
     }
 
     public ResumeBuilder w(ResumeId resumeId){

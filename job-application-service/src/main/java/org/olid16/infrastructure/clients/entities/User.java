@@ -1,4 +1,4 @@
-package org.olid16.infrastructure.clients;
+package org.olid16.infrastructure.clients.entities;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

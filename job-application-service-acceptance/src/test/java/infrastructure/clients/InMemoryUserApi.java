@@ -1,8 +1,8 @@
-package infrastructure;
+package infrastructure.clients;
 
 import org.olid16.domain.values.UserId;
-import org.olid16.infrastructure.clients.User;
-import org.olid16.infrastructure.clients.UserApi;
+import org.olid16.infrastructure.clients.entities.User;
+import org.olid16.infrastructure.clients.apis.UserApi;
 import retrofit.http.Path;
 
 import java.util.HashMap;

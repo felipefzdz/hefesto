@@ -1,4 +1,4 @@
-package infrastructure;
+package infrastructure.repositories;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;

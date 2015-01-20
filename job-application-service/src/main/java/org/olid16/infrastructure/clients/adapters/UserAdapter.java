@@ -1,8 +1,9 @@
-package org.olid16.infrastructure.clients;
+package org.olid16.infrastructure.clients.adapters;
 
 import org.olid16.domain.values.Person;
 import org.olid16.domain.values.UserId;
 import org.olid16.domain.values.UserRole;
+import org.olid16.infrastructure.clients.entities.User;
 
 public class UserAdapter {
     public org.olid16.domain.values.User fromClient(User user) {

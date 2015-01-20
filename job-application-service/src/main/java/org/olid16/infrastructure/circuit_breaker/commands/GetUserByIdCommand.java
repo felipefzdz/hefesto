@@ -3,8 +3,8 @@ package org.olid16.infrastructure.circuit_breaker.commands;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.yammer.tenacity.core.TenacityCommand;
-import org.olid16.infrastructure.clients.User;
-import org.olid16.infrastructure.clients.UserApi;
+import org.olid16.infrastructure.clients.entities.User;
+import org.olid16.infrastructure.clients.apis.UserApi;
 
 import static org.olid16.infrastructure.circuit_breaker.JobApplicationServiceTenacityPropertyKey.USER_SERVICE;
 

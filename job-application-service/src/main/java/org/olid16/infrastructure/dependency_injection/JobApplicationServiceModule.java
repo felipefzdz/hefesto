@@ -8,9 +8,12 @@ import com.google.inject.Singleton;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
+import org.olid16.domain.collections.JobApplications;
 import org.olid16.domain.collections.Resumes;
+import org.olid16.infrastructure.circuit_breaker.commands.GetJobByIdCommandFactory;
 import org.olid16.infrastructure.circuit_breaker.commands.GetUserByIdCommandFactory;
-import org.olid16.infrastructure.clients.UserApi;
+import org.olid16.infrastructure.clients.apis.JobApi;
+import org.olid16.infrastructure.clients.apis.UserApi;
 import org.olid16.infrastructure.repositories.MongoResumes;
 import retrofit.RestAdapter;
 import retrofit.converter.JacksonConverter;
@@ -20,9 +23,11 @@ import java.net.UnknownHostException;
 public class JobApplicationServiceModule extends AbstractModule{
     @Override
     protected void configure() {
-        bind(Resumes.class).to(MongoResumes.class).in(Singleton.class);
         install(new FactoryModuleBuilder()
                 .build(GetUserByIdCommandFactory.class));
+        install(new FactoryModuleBuilder()
+                .build(GetJobByIdCommandFactory.class));
+        bind(Resumes.class).to(MongoResumes.class).in(Singleton.class);
     }
 
     @Provides @Singleton
@@ -34,13 +39,21 @@ public class JobApplicationServiceModule extends AbstractModule{
         }
     }
     
-    @Provides @Singleton UserApi userClient(){
+    @Provides @Singleton UserApi userAPi(){
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setConverter(jacksonConverter())
                 .setEndpoint("http://localhost:8081")
                 .build();
         return restAdapter.create(UserApi.class);
-        
+    }
+
+    @Provides @Singleton JobApi jobApi(){
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setConverter(jacksonConverter())
+                .setEndpoint("http://localhost:8082")
+                .build();
+        return restAdapter.create(JobApi.class);
+
     }
 
     private JacksonConverter jacksonConverter() {

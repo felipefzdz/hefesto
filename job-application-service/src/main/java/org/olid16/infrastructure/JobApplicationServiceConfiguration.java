@@ -24,4 +24,6 @@ public class JobApplicationServiceConfiguration extends Configuration {
     public TenacityConfiguration getJobApplicationServiceTenacityConfig() {
         return jobApplicationServiceTenacityConfig;
     }
+    
+    
 }

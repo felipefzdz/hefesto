@@ -11,13 +11,17 @@ import org.olid16.infrastructure.JobApplicationServiceConfiguration;
 
 import java.util.Map;
 
+import static org.olid16.infrastructure.circuit_breaker.JobApplicationServiceTenacityPropertyKey.*;
+
 public class JobApplicationServiceTenacityBundleConfigurationFactory implements TenacityBundleConfigurationFactory<Configuration> {
 
 
     @Override
     public Map<TenacityPropertyKey, TenacityConfiguration> getTenacityConfigurations(Configuration configuration) {
+        TenacityConfiguration config = ((JobApplicationServiceConfiguration) configuration).getJobApplicationServiceTenacityConfig();
         return  ImmutableMap.<TenacityPropertyKey, TenacityConfiguration>of(
-                JobApplicationServiceTenacityPropertyKey.USER_SERVICE, ((JobApplicationServiceConfiguration)configuration).getJobApplicationServiceTenacityConfig());
+                USER_SERVICE, config,
+                JOB_SERVICE, config);
     }
 
     @Override

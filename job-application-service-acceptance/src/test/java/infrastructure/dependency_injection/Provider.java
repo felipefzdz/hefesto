@@ -1,9 +1,13 @@
-package infrastructure;
+package infrastructure.dependency_injection;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import infrastructure.clients.InMemoryJobApi;
+import infrastructure.clients.InMemoryUserApi;
+import org.olid16.actions.CreateJobApplication;
 import org.olid16.actions.CreateResume;
-import org.olid16.infrastructure.clients.UserApi;
+import org.olid16.infrastructure.clients.apis.JobApi;
+import org.olid16.infrastructure.clients.apis.UserApi;
 
 public class Provider {
 
@@ -26,5 +30,13 @@ public class Provider {
 
     public CreateResume createResume() {
         return injector.getInstance(CreateResume.class);
+    }
+
+    public InMemoryJobApi jobApi() {
+        return (InMemoryJobApi)injector.getInstance(JobApi.class);
+    }
+
+    public CreateJobApplication createJobApplication() {
+        return injector.getInstance(CreateJobApplication.class);
     }
 }
