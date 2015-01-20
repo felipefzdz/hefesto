@@ -3,19 +3,16 @@ package builders;
 import org.olid16.domain.entities.JobApplication;
 import org.olid16.domain.values.JobApplicationId;
 import org.olid16.domain.values.JobId;
-import org.olid16.domain.values.Title;
 import org.olid16.domain.values.UserId;
 
 public class JobApplicationBuilder {
 
     private JobId jobId;
-    private Title title;
     private UserId jobseekerId;
     private JobApplicationId jobApplicationId;
 
-    public JobApplicationBuilder(JobId jobId, Title title, UserId jobseekerId, JobApplicationId jobApplicationId) {
+    public JobApplicationBuilder(JobId jobId, UserId jobseekerId, JobApplicationId jobApplicationId) {
         this.jobId = jobId;
-        this.title = title;
         this.jobseekerId = jobseekerId;
         this.jobApplicationId = jobApplicationId;
     }
@@ -23,7 +20,6 @@ public class JobApplicationBuilder {
     public static JobApplicationBuilder aJobApplication(){
         return new JobApplicationBuilder(
                 JobIdBuilder.aJobId().build(),
-                TitleBuilder.aTitle().build(),
                 JobseekerIdBuilder.aJobseekerId().build(),
                 JobApplicationIdBuilder.aJobApplicationId().build());
 
@@ -36,7 +32,7 @@ public class JobApplicationBuilder {
     }
 
     public JobApplication build(){
-        return JobApplication.create(jobApplicationId, jobId, title, jobseekerId);
+        return JobApplication.create(jobApplicationId, jobId, jobseekerId);
 
     }
 
@@ -88,21 +84,5 @@ public class JobApplicationBuilder {
         }
     }
 
-    private static class TitleBuilder {
-        private final String title;
 
-        private TitleBuilder(String title) {
-            this.title = title;
-        }
-
-        public static TitleBuilder aTitle() {
-            return new TitleBuilder("title");
-        }
-
-        public Title build() {
-            return Title.create(title);
-        }
-    }
-    
-    
 }

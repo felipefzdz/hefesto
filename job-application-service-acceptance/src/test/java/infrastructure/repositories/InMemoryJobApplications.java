@@ -20,7 +20,6 @@ public class InMemoryJobApplications implements JobApplications{
         JobApplication createdJobApplication = JobApplication.create(
                 JobApplicationId.create(UUID.randomUUID().toString()),
                 JobId.create(jobApplication.jobId()),
-                Title.create(jobApplication.title()),
                 UserId.create(jobApplication.jobseekerId())
         );
         jobApplications.put(createdJobApplication.id(), createdJobApplication);
