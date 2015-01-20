@@ -13,7 +13,7 @@ public class JobApplicationServiceConfiguration extends Configuration {
     private BreakerboxConfiguration breakerboxConfiguration;
 
     @NotNull
-    private TenacityConfiguration jobServiceTenacityConfig;
+    private TenacityConfiguration jobApplicationServiceTenacityConfig;
 
     @JsonProperty
     public BreakerboxConfiguration getBreakerboxConfiguration() {
@@ -21,7 +21,7 @@ public class JobApplicationServiceConfiguration extends Configuration {
     }
 
     @JsonProperty
-    public TenacityConfiguration getJobServiceTenacityConfig() {
-        return jobServiceTenacityConfig;
+    public TenacityConfiguration getJobApplicationServiceTenacityConfig() {
+        return jobApplicationServiceTenacityConfig;
     }
 }

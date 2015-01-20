@@ -1,0 +1,28 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 8083
+  adminConnectors:
+    - type: http
+      port: 9083
+      
+breakerboxConfiguration:
+     urls: http://localhost:8080/archaius/jobApplicationService
+     initialDelay: 5s
+     delay: 2s
+
+jobApplicationServiceTenacityConfig:
+    executionIsolationThreadTimeoutInMillis: 1000
+    threadpool:
+        threadPoolCoreSize: 10
+        keepAliveTimeMinutes: 1
+        maxQueueSize: -1
+        queueSizeRejectionThreshold: 5
+        metricsRollingStatisticalWindowInMilliseconds: 10000
+        metricsRollingStatisticalWindowBuckets: 10
+    circuitBreaker:
+        requestVolumeThreshold: 20
+        errorThresholdPercentage: 50
+        sleepWindowInMillis: 5000
+        metricsRollingStatisticalWindowInMilliseconds: 10000
+        metricsRollingStatisticalWindowBuckets: 10

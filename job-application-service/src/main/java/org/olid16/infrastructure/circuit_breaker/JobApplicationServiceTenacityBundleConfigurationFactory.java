@@ -17,7 +17,7 @@ public class JobApplicationServiceTenacityBundleConfigurationFactory implements 
     @Override
     public Map<TenacityPropertyKey, TenacityConfiguration> getTenacityConfigurations(Configuration configuration) {
         return  ImmutableMap.<TenacityPropertyKey, TenacityConfiguration>of(
-                JobApplicationServiceTenacityPropertyKey.USER_SERVICE, ((JobApplicationServiceConfiguration)configuration).getJobServiceTenacityConfig());
+                JobApplicationServiceTenacityPropertyKey.USER_SERVICE, ((JobApplicationServiceConfiguration)configuration).getJobApplicationServiceTenacityConfig());
     }
 
     @Override
