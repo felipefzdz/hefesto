@@ -1,22 +1,38 @@
 package org.olid16.infrastructure.rest.adapters;
 
+import com.google.inject.Inject;
+import org.olid16.domain.factories.JobApplicationFactory;
 import org.olid16.domain.values.JobApplicationId;
 import org.olid16.domain.values.JobId;
+import org.olid16.domain.values.ResumeId;
 import org.olid16.domain.values.UserId;
 import org.olid16.infrastructure.rest.entities.JobApplication;
 
 public class JobApplicationAdapter {
-    public org.olid16.domain.entities.JobApplication toDomain(JobApplication jobApplication) {
-        return org.olid16.domain.entities.JobApplication.create(
-                jobApplicationIdFrom(jobApplication),
-                jobIdFrom(jobApplication),
-                jobseekerIdFrom(jobApplication)
-                
-        );
+    private final JobApplicationFactory jobApplicationFactory;
+
+    @Inject
+    public JobApplicationAdapter(JobApplicationFactory jobApplicationFactory) {
+        this.jobApplicationFactory = jobApplicationFactory;
     }
 
-    public JobApplication fromDomain(org.olid16.domain.entities.JobApplication createdJobApplication) {
-        return new JobApplication(createdJobApplication.jobId(), createdJobApplication.jobseekerId(), createdJobApplication.id());
+    public org.olid16.domain.entities.JobApplication toDomain(JobApplication jobApplication) {
+        return jobApplicationFactory.create(
+                jobApplicationIdFrom(jobApplication),
+                jobIdFrom(jobApplication),
+                jobseekerIdFrom(jobApplication),
+                resumeIdFrom(jobApplication));
+    }
+
+    public JobApplication fromDomain(org.olid16.domain.entities.JobApplication jobApp) {
+        return new JobApplication(jobApp.jobId(),
+                jobApp.jobseekerId(),
+                jobApp.id(),
+                jobApp.resumeId());
+    }
+
+    private ResumeId resumeIdFrom(JobApplication jobApplication) {
+        return ResumeId.create(jobApplication.getResumeId());
     }
 
     private UserId jobseekerIdFrom(JobApplication jobApplication) {

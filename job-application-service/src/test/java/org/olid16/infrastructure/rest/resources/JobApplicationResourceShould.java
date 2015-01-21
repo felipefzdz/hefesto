@@ -24,8 +24,8 @@ public class JobApplicationResourceShould {
 
     @Test public void
     return_job_application_id_when_create_job_application() {
-        given(jobApplicationAdapter.fromDomain(null)).willReturn(new JobApplication("id", "", ""));
-        JobApplication jobApplication = new JobApplication(null, null, null);
+        given(jobApplicationAdapter.fromDomain(null)).willReturn(new JobApplication("id", "", "", ""));
+        JobApplication jobApplication = new JobApplication(null, null, null, null);
         JobApplication createdJobApplication = (JobApplication) new JobApplicationResource(createJobApplication, jobApplicationAdapter).create(jobApplication).getEntity();
         assertThat(createdJobApplication.getJobId()).isNotNull();
     }
@@ -33,6 +33,6 @@ public class JobApplicationResourceShould {
     @Test public void
     return_bad_request_when_there_is_a_domain_exception() {
         given(createJobApplication.with(null)).willThrow(ValidationException.class);
-        assertThrows(ValidationException.class, () -> new JobApplicationResource(createJobApplication, jobApplicationAdapter).create(new JobApplication(null, null, null)));
+        assertThrows(ValidationException.class, () -> new JobApplicationResource(createJobApplication, jobApplicationAdapter).create(new JobApplication(null, null, null, null)));
     }
 }

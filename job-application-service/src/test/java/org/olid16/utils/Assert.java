@@ -18,4 +18,15 @@ public class Assert {
             assertThat(ex).isEqualTo(exThrown.getClass());
         }
     }
+
+    public static void assertNotThrows(Runnable runnable) {
+        Exception exThrown = null;
+        try {
+            runnable.run();
+        } catch (Exception exThrownActual) {
+            exThrown = exThrownActual;
+        }
+        
+        assertThat(exThrown).isNull();
+    }
 }

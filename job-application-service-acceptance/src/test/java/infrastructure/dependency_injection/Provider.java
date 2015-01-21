@@ -6,6 +6,8 @@ import infrastructure.clients.InMemoryJobApi;
 import infrastructure.clients.InMemoryUserApi;
 import org.olid16.actions.CreateJobApplication;
 import org.olid16.actions.CreateResume;
+import org.olid16.infrastructure.clients.JobClient;
+import org.olid16.infrastructure.clients.UserClient;
 import org.olid16.infrastructure.clients.apis.JobApi;
 import org.olid16.infrastructure.clients.apis.UserApi;
 
@@ -38,5 +40,13 @@ public class Provider {
 
     public CreateJobApplication createJobApplication() {
         return injector.getInstance(CreateJobApplication.class);
+    }
+
+    public JobClient createJobClient() {
+        return injector.getInstance(JobClient.class);
+    }
+
+    public UserClient createUserClient() {
+        return injector.getInstance(UserClient.class);
     }
 }

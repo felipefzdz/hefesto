@@ -11,6 +11,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import org.olid16.domain.collections.JobApplications;
 import org.olid16.domain.collections.Resumes;
+import org.olid16.domain.factories.JobApplicationFactory;
 import org.olid16.infrastructure.circuit_breaker.commands.GetJobByIdCommandFactory;
 import org.olid16.infrastructure.circuit_breaker.commands.GetUserByIdCommandFactory;
 import org.olid16.infrastructure.clients.apis.JobApi;
@@ -25,10 +26,9 @@ import java.net.UnknownHostException;
 public class JobApplicationServiceModule extends AbstractModule{
     @Override
     protected void configure() {
-        install(new FactoryModuleBuilder()
-                .build(GetUserByIdCommandFactory.class));
-        install(new FactoryModuleBuilder()
-                .build(GetJobByIdCommandFactory.class));
+        install(GetUserByIdCommandFactory.class,
+                GetJobByIdCommandFactory.class,
+                JobApplicationFactory.class);
         bind(Resumes.class).to(MongoResumes.class).in(Singleton.class);
         bind(JobApplications.class).to(MongoJobApplications.class).in(Singleton.class);
     }
@@ -52,7 +52,7 @@ public class JobApplicationServiceModule extends AbstractModule{
     DBCollection jobApplications(DB db){
         return db.getCollection("jobApplications");
     }
-    
+
     @Provides @Singleton UserApi userAPi(){
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setConverter(jacksonConverter())
@@ -68,6 +68,16 @@ public class JobApplicationServiceModule extends AbstractModule{
                 .build();
         return restAdapter.create(JobApi.class);
 
+    }
+
+    private void install(Class... clazzes) {
+        for(Class clazz: clazzes){
+            install(clazz);
+        }
+    }
+
+    private void install(Class clazz) {
+        install(new FactoryModuleBuilder().build(clazz));
     }
 
     private JacksonConverter jacksonConverter() {
