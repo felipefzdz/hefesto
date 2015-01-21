@@ -4,13 +4,11 @@ import com.google.inject.Inject;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import org.olid16.actions.CreateJobApplication;
+import org.olid16.infrastructure.exceptions.DomainException;
 import org.olid16.infrastructure.rest.adapters.JobApplicationAdapter;
 import org.olid16.infrastructure.rest.entities.JobApplication;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -33,7 +31,11 @@ public class JobApplicationResource {
     @POST
     @ApiOperation("Apply to a job")
     public Response create(JobApplication jobApplication) {
-        org.olid16.domain.entities.JobApplication createdJobApplication = createJobApplication.with(jobApplicationAdapter.toDomain(jobApplication));
-        return Response.ok(jobApplicationAdapter.fromDomain(createdJobApplication)).build();
+        try {
+            org.olid16.domain.entities.JobApplication createdJobApplication = createJobApplication.with(jobApplicationAdapter.toDomain(jobApplication));
+            return Response.ok(jobApplicationAdapter.fromDomain(createdJobApplication)).build();
+        } catch (DomainException e) {
+            throw new WebApplicationException(e);
+        }
     }
 }

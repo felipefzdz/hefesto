@@ -12,6 +12,8 @@ import org.olid16.infrastructure.clients.UserApi;
 import org.olid16.infrastructure.clients.UserClient;
 import retrofit.RetrofitError;
 
+import java.util.Optional;
+
 import static builders.UserBuilder.UserIdBuilder.aUserId;
 import static builders.UserBuilder.aUser;
 import static com.google.common.truth.Truth.assertThat;
@@ -27,8 +29,8 @@ public class UserClientShould {
 
     @Test public void
     return_employer_present_when_user_role_is_employer(){
-        User user = new User("1234", "Bob", "Employer");
-        given(userAdapter.fromClient(user)).willReturn(aUser().build());
+        Optional<User> user = Optional.of(new User("1234", "Bob", "Employer"));
+        given(userAdapter.fromClient(user.get())).willReturn(aUser().build());
         given(factory.create(anyString())).willReturn(getUserByIdCommand);
         given(getUserByIdCommand.execute()).willReturn(user);
         assertThat(new UserClient(userAdapter, factory).create(aUserId().build()).isPresent()).isTrue();
@@ -37,7 +39,7 @@ public class UserClientShould {
     @Test public void
     return_employer_false_when_user_does_not_exist(){
         given(factory.create(anyString())).willReturn(getUserByIdCommand);
-        given(getUserByIdCommand.execute()).willThrow(RetrofitError.class);
+        given(getUserByIdCommand.execute()).willReturn(Optional.empty());
         assertThat(new UserClient(userAdapter, factory).create(aUserId().build()).isPresent()).isFalse();
     }
 }

@@ -5,8 +5,6 @@ import org.olid16.domain.values.JobId;
 import org.olid16.infrastructure.circuit_breaker.commands.GetJobByIdCommand;
 import org.olid16.infrastructure.circuit_breaker.commands.GetJobByIdCommandFactory;
 import org.olid16.infrastructure.clients.adapters.JobAdapter;
-import org.olid16.infrastructure.clients.entities.Job;
-import retrofit.RetrofitError;
 
 import java.util.Optional;
 
@@ -22,12 +20,9 @@ public class JobClient {
     }
 
     public Optional<org.olid16.domain.values.Job> create(JobId jobId) {
-        try {
-            GetJobByIdCommand getJobByIdCommand = factory.create(jobId.id());
-            Job job = getJobByIdCommand.execute();
-            return Optional.of(jobAdapter.fromClient(job));
-        } catch (RetrofitError e) {
-            return Optional.empty();
-        }
+        GetJobByIdCommand getJobByIdCommand = factory.create(jobId.id());
+        return getJobByIdCommand.execute().
+                map(job -> Optional.of(jobAdapter.fromClient(job)))
+                .orElse(Optional.empty());
     }
 }

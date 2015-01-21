@@ -9,6 +9,8 @@ import org.olid16.infrastructure.exceptions.ValidationException;
 import org.olid16.infrastructure.rest.adapters.JobApplicationAdapter;
 import org.olid16.infrastructure.rest.entities.JobApplication;
 
+import javax.ws.rs.WebApplicationException;
+
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
@@ -33,6 +35,6 @@ public class JobApplicationResourceShould {
     @Test public void
     return_bad_request_when_there_is_a_domain_exception() {
         given(createJobApplication.with(null)).willThrow(ValidationException.class);
-        assertThrows(ValidationException.class, () -> new JobApplicationResource(createJobApplication, jobApplicationAdapter).create(new JobApplication(null, null, null, null)));
+        assertThrows(WebApplicationException.class, () -> new JobApplicationResource(createJobApplication, jobApplicationAdapter).create(new JobApplication(null, null, null, null)));
     }
 }

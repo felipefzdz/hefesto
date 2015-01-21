@@ -3,14 +3,14 @@ package org.olid16.infrastructure.circuit_breaker.commands;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.yammer.tenacity.core.TenacityCommand;
-import org.olid16.domain.values.JobType;
 import org.olid16.infrastructure.clients.apis.JobApi;
 import org.olid16.infrastructure.clients.entities.Job;
-import org.olid16.infrastructure.clients.entities.User;
+
+import java.util.Optional;
 
 import static org.olid16.infrastructure.circuit_breaker.JobApplicationServiceTenacityPropertyKey.USER_SERVICE;
 
-public class GetJobByIdCommand extends TenacityCommand<Job> {
+public class GetJobByIdCommand extends TenacityCommand<Optional<Job>> {
     private final JobApi jobApi;
     private final String jobId;
 
@@ -23,12 +23,12 @@ public class GetJobByIdCommand extends TenacityCommand<Job> {
     }
 
     @Override
-    protected Job run() throws Exception {
-        return jobApi.getBy(jobId);
+    protected Optional<Job> run() throws Exception {
+        return Optional.of(jobApi.getBy(jobId));
     }
 
     @Override
-    protected Job getFallback() {
-        return new Job("", "", JobType.UNKNOWN.toString());
+    protected Optional<Job> getFallback() {
+        return Optional.empty();
     }
 }

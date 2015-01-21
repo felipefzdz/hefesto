@@ -6,7 +6,6 @@ import org.olid16.domain.values.UserId;
 import org.olid16.infrastructure.circuit_breaker.commands.GetUserByIdCommand;
 import org.olid16.infrastructure.circuit_breaker.commands.GetUserByIdCommandFactory;
 import org.olid16.infrastructure.clients.adapters.UserAdapter;
-import retrofit.RetrofitError;
 
 import java.util.Optional;
 
@@ -22,12 +21,9 @@ public class UserClient {
     }
 
     public Optional<User> create(UserId userId) {
-        try {
-            GetUserByIdCommand getUserByIdCommand = factory.create(userId.id());
-            org.olid16.infrastructure.clients.entities.User user = getUserByIdCommand.execute();
-            return Optional.of(userAdapter.fromClient(user));
-        } catch (RetrofitError e) {
-            return Optional.empty();
-        }
+        GetUserByIdCommand getUserByIdCommand = factory.create(userId.id());
+        return getUserByIdCommand.execute().
+                map(user -> Optional.of(userAdapter.fromClient(user)))
+                .orElse(Optional.empty());
     }
 }

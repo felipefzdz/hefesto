@@ -6,9 +6,11 @@ import com.yammer.tenacity.core.TenacityCommand;
 import org.olid16.infrastructure.clients.User;
 import org.olid16.infrastructure.clients.UserApi;
 
+import java.util.Optional;
+
 import static org.olid16.infrastructure.circuit_breaker.JobServiceTenacityPropertyKey.USER_SERVICE;
 
-public class GetUserByIdCommand extends TenacityCommand<User> {
+public class GetUserByIdCommand extends TenacityCommand<Optional<User>> {
     private final UserApi userApi;
     private final String userId;
 
@@ -21,12 +23,12 @@ public class GetUserByIdCommand extends TenacityCommand<User> {
     }
 
     @Override
-    protected User run() throws Exception {
-        return userApi.getBy(userId);
+    protected Optional<User> run() throws Exception {
+        return Optional.of(userApi.getBy(userId));
     }
 
     @Override
-    protected User getFallback() {
-        return new User("", "", "");
+    protected Optional<User> getFallback() {
+        return Optional.empty();
     }
 }
