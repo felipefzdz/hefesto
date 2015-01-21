@@ -7,6 +7,8 @@ import org.olid16.domain.collections.Resumes;
 import org.olid16.domain.entities.Resume;
 import org.olid16.infrastructure.dependency_injection.ResumesDb;
 
+import java.util.Optional;
+
 public class MongoResumes implements Resumes{
     private final DBCollection resumes;
     private final ResumeAdapter resumeAdapter;
@@ -23,5 +25,10 @@ public class MongoResumes implements Resumes{
         DBObject dbResume = resumeAdapter.toDbObject(resume);
         resumes.insert(dbResume);
         return resumeAdapter.fromDbObject(dbResume);
+    }
+
+    @Override
+    public Optional<Resume> findById(String id) {
+        return null;
     }
 }

@@ -8,6 +8,7 @@ import org.olid16.domain.values.Content;
 import org.olid16.domain.values.ResumeId;
 import org.olid16.domain.values.UserId;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public class InMemoryResumes implements Resumes{
@@ -21,5 +22,10 @@ public class InMemoryResumes implements Resumes{
                 Content.create(resume.content()));
         resumes.put(resumeWithId.id(), resumeWithId);
         return resumeWithId;
+    }
+
+    @Override
+    public Optional<Resume> findById(String id) {
+        return null;
     }
 }

@@ -3,6 +3,7 @@ package org.olid16.infrastructure.circuit_breaker.commands;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.yammer.tenacity.core.TenacityCommand;
+import org.olid16.domain.values.JobType;
 import org.olid16.infrastructure.clients.apis.JobApi;
 import org.olid16.infrastructure.clients.entities.Job;
 import org.olid16.infrastructure.clients.entities.User;
@@ -28,6 +29,6 @@ public class GetJobByIdCommand extends TenacityCommand<Job> {
 
     @Override
     protected Job getFallback() {
-        return new Job("", "");
+        return new Job("", "", JobType.UNKNOWN.toString());
     }
 }

@@ -1,7 +1,9 @@
 package org.olid16.domain.entities;
 
+import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import org.olid16.domain.collections.Resumes;
 import org.olid16.domain.values.*;
 import org.olid16.infrastructure.clients.JobClient;
 import org.olid16.infrastructure.clients.UserClient;
@@ -17,45 +19,55 @@ public class JobApplication {
     private final JobId jobId;
     private final UserId jobseekerId;
     private final ResumeId resumeId;
+    private final Resumes resumes;
 
     @Inject
     public JobApplication(UserClient userClient,
-                            JobClient jobClient,
-                            @Assisted JobApplicationId jobApplicationId, 
-                            @Assisted JobId jobId, 
-                            @Assisted UserId jobseekerId, 
-                            @Assisted ResumeId resumeId) {
+                          JobClient jobClient,
+                          Resumes resumes,
+                          @Assisted JobApplicationId jobApplicationId,
+                          @Assisted JobId jobId,
+                          @Assisted UserId jobseekerId,
+                          @Assisted ResumeId resumeId) {
         this.userClient = userClient;
         this.jobClient = jobClient;
         this.jobApplicationId = jobApplicationId;
         this.jobId = jobId;
         this.jobseekerId = jobseekerId;
         this.resumeId = resumeId;
+        this.resumes = resumes;
     }
 
-    public static JobApplication create(UserClient userClient,
-                                        JobClient jobClient,
-                                        JobApplicationId jobApplicationId, 
-                                        JobId jobId, 
-                                        UserId jobseekerId, 
-                                        ResumeId resumeId) {
-        return new JobApplication(userClient, jobClient, jobApplicationId, jobId, jobseekerId, resumeId);
-    }
+
 
     public void validate() {
-        Optional<User> user = userClient.create(UserId.create(jobseekerId()));
-        if (user.isPresent() && user.get().isJobseeker()){
-            Optional<Job> job = jobClient.create(JobId.create(jobId()));
-            if(job.isPresent()){
-                return;
-            }
-            throw new ValidationException(String.format("Job %s doesn't exist", jobId()));
-        }
-        throw new AuthorizationException("Only jobseekers can apply to jobs");
+        validateUser();
+        validateJob();
+
     }
-    
-    
-    
+
+    private void validateUser() {
+        User user = userClient.create(jobseekerId).orElseThrow(() -> new AuthorizationException(String.format("User %s doesn't exist", jobseekerId())));
+        if (!user.isJobseeker()) {
+            throw new AuthorizationException("Only jobseekers can apply to jobs");
+        } 
+    }
+
+    public void validateJob() {
+        Job job = jobClient.create(jobId).orElseThrow(() -> new ValidationException(String.format("Job %s doesn't exist", jobId())));
+        if (JobType.JREQ.equals(job.jobType())){
+            validateResume();
+        }
+    }
+
+    public void validateResume() {
+        Resume resume = resumes.findById(resumeId()).
+                orElseThrow(() -> new ValidationException(String.format("Resume %s doesn't exist and it's needed for apply to JREQ jobs", resumeId())));
+        if(!resume.userId().equals(jobseekerId())){
+            throw new ValidationException(String.format("Resume %s doesn't belong to jobseeker %s", resumeId(), jobseekerId()));
+        }
+    }
+
 
     public String jobId() {
         return jobId.id();

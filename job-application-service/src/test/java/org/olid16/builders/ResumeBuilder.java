@@ -27,6 +27,11 @@ public class ResumeBuilder {
         return this;
     }
 
+    public ResumeBuilder w(UserId userId) {
+        this.userId = userId;
+        return this;
+    }
+
     public Resume build(){
         return Resume.createResume(resumeId, userId, content);
 

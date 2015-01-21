@@ -1,5 +1,6 @@
 package org.olid16.builders;
 
+import org.olid16.domain.collections.Resumes;
 import org.olid16.domain.entities.JobApplication;
 import org.olid16.domain.values.JobApplicationId;
 import org.olid16.domain.values.JobId;
@@ -16,19 +17,22 @@ public class JobApplicationBuilder {
     private ResumeId resumeId;
     private UserClient userClient;
     private JobClient jobClient;
+    private Resumes resumes;
 
     public JobApplicationBuilder(JobId jobId,
-                                 UserId jobseekerId, 
+                                 UserId jobseekerId,
                                  JobApplicationId jobApplicationId,
-                                 ResumeId resumeId, 
-                                 UserClient userClient, 
-                                 JobClient jobClient) {
+                                 ResumeId resumeId,
+                                 UserClient userClient,
+                                 JobClient jobClient,
+                                 Resumes resumes) {
         this.jobId = jobId;
         this.jobseekerId = jobseekerId;
         this.jobApplicationId = jobApplicationId;
         this.resumeId = resumeId;
         this.userClient = userClient;
         this.jobClient = jobClient;
+        this.resumes = resumes;
     }
 
     public static JobApplicationBuilder aJobApplication(){
@@ -37,6 +41,7 @@ public class JobApplicationBuilder {
                 JobseekerIdBuilder.aJobseekerId().build(),
                 JobApplicationIdBuilder.aJobApplicationId().build(),
                 ResumeIdBuilder.aResumeId().build(), 
+                null, 
                 null, 
                 null);
 
@@ -57,8 +62,13 @@ public class JobApplicationBuilder {
         return this;
     }
 
+    public JobApplicationBuilder w(Resumes resumes){
+        this.resumes = resumes;
+        return this;
+    }
+
     public JobApplication build(){
-        return JobApplication.create(userClient, jobClient, jobApplicationId, jobId, jobseekerId, resumeId);
+        return new JobApplication(userClient, jobClient, resumes, jobApplicationId, jobId, jobseekerId, resumeId);
 
     }
 

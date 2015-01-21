@@ -19,7 +19,7 @@ public class CreateJobApplicationStepDefs {
 
     @And("^a job exists$")
     public void a_job_exists() throws Throwable {
-        provider.jobApi().add(new Job("1234", "title"));
+        provider.jobApi().add(new Job("1234", "title", "ats"));
     }
 
     @When("^the jobseeker apply to the job$")
