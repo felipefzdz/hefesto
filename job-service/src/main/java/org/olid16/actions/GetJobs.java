@@ -26,4 +26,8 @@ public class GetJobs {
     public List<Job> byJobseeker(String jobseekerId) {
         return jobs.byJobseekerId(jobseekerId);
     }
+
+    public Optional<Job> byId(String id) {
+        return jobs.byId(id);
+    }
 }

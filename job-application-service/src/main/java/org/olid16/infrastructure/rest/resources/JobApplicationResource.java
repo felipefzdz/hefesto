@@ -12,6 +12,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import static org.eclipse.jetty.http.HttpStatus.BAD_REQUEST_400;
+
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/jobApplications")
@@ -35,7 +37,7 @@ public class JobApplicationResource {
             org.olid16.domain.entities.JobApplication createdJobApplication = createJobApplication.with(jobApplicationAdapter.toDomain(jobApplication));
             return Response.ok(jobApplicationAdapter.fromDomain(createdJobApplication)).build();
         } catch (DomainException e) {
-            throw new WebApplicationException(e);
+            throw new WebApplicationException(e, BAD_REQUEST_400);
         }
     }
 }

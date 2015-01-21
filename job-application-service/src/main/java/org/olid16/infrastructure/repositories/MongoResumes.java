@@ -1,8 +1,10 @@
 package org.olid16.infrastructure.repositories;
 
 import com.google.inject.Inject;
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
+import org.bson.types.ObjectId;
 import org.olid16.domain.collections.Resumes;
 import org.olid16.domain.entities.Resume;
 import org.olid16.infrastructure.dependency_injection.ResumesDb;
@@ -29,6 +31,7 @@ public class MongoResumes implements Resumes{
 
     @Override
     public Optional<Resume> findById(String id) {
-        return null;
+        DBObject dbObject = resumes.find(new BasicDBObject("_id", new ObjectId(id))).one();
+        return dbObject == null ? Optional.empty() : Optional.of(resumeAdapter.fromDbObject(dbObject));
     }
 }

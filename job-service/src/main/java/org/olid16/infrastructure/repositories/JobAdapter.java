@@ -14,7 +14,8 @@ public class JobAdapter {
                 .append("name", job.employerName());
         return new BasicDBObject("_id", job.id())
                 .append("employer", employer)
-                .append("title", job.title());
+                .append("title", job.title())
+                .append("type", job.type());
     }
 
     public Job fromDBObject(DBObject dbObject) {

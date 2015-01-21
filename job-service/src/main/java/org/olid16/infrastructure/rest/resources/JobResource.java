@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.eclipse.jetty.http.HttpStatus.BAD_REQUEST_400;
+import static org.eclipse.jetty.http.HttpStatus.NOT_FOUND_404;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -47,7 +48,7 @@ public class JobResource {
     public Response getByEmployer(@PathParam("employerId") String employerId){
         List<org.olid16.domain.entities.Job> jobs = getJobs.byEmployer(employerId);
         if (jobs.isEmpty()) {
-            throw new WebApplicationException(HttpStatus.NOT_FOUND_404);
+            throw new WebApplicationException(NOT_FOUND_404);
         }
         return Response.ok(jobAdapter.fromDomain(jobs)).build();
     }
@@ -58,7 +59,7 @@ public class JobResource {
     public Response getByJobseeker(@PathParam("jobseekerId") String jobseekerId){
         List<org.olid16.domain.entities.Job> jobs = getJobs.byJobseeker(jobseekerId);
         if (jobs.isEmpty()) {
-            throw new WebApplicationException(HttpStatus.NOT_FOUND_404);
+            throw new WebApplicationException(NOT_FOUND_404);
         }
         return Response.ok(jobAdapter.fromDomain(jobs)).build();
     }
@@ -68,7 +69,7 @@ public class JobResource {
     public Response getAll(){
         List<org.olid16.domain.entities.Job> jobs = getJobs.all();
         if (jobs.isEmpty()) {
-            throw new WebApplicationException(HttpStatus.NOT_FOUND_404);
+            throw new WebApplicationException(NOT_FOUND_404);
         }
         return Response.ok(jobAdapter.fromDomain(jobs)).build();
     }
@@ -93,5 +94,14 @@ public class JobResource {
         } catch (DomainException e) {
             throw new WebApplicationException(e, BAD_REQUEST_400);
         }
+    }
+
+    @GET
+    @Path("/{id}")
+    @ApiOperation("Get job by id")
+    public Response getById(@PathParam("id") String id) {
+        return getJobs.byId(id).
+                map(job -> Response.ok(jobAdapter.fromDomain(job)).build())
+                .orElseThrow(() -> new WebApplicationException(NOT_FOUND_404));
     }
 }

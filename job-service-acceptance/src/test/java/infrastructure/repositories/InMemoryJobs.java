@@ -39,8 +39,8 @@ public class InMemoryJobs implements Jobs {
 
     @Override
     public void addJobseeker(JobId jobId, UserId jobseekerId) {
-        Job job = byId(jobId.id());
-        job.addJobseeker(jobseekerId);
+        Optional<Job> job = byId(jobId.id());
+        job.get().addJobseeker(jobseekerId);
     }
 
     @Override
@@ -55,10 +55,10 @@ public class InMemoryJobs implements Jobs {
 
     }
 
-    public Job byId(String jobId) {
+    public Optional<Job> byId(String jobId) {
         return jobs.values().stream()
                 .filter(job -> jobId.equals(job.id()))
-                .findFirst().get();
+                .findFirst();
     }
     
     public void clear(){

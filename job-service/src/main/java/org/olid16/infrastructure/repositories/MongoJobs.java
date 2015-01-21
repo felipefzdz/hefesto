@@ -10,6 +10,7 @@ import org.olid16.domain.values.UserId;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class MongoJobs implements Jobs {
     private final DBCollection jobs;
@@ -61,6 +62,12 @@ public class MongoJobs implements Jobs {
         BasicDBObject modification = new BasicDBObject();
         modification.append("$set", new BasicDBObject().append("employer.name", name));
         jobs.updateMulti(query, modification);
+    }
+
+    @Override
+    public Optional<Job> byId(String id) {
+        DBObject dbObject = jobs.find(new BasicDBObject("_id", id)).one();
+        return dbObject == null ? Optional.empty() : Optional.of(jobAdapter.fromDBObject(dbObject));
     }
 
     private List<Job> adapt(DBCursor cursor) {

@@ -43,7 +43,7 @@ public class AddJobseekerToJobStepDefs{
 
     @Then("^the jobseeker get added into that job$")
     public void the_jobseeker_get_added_into_that_job() throws Throwable {
-        Job job = provider.inMemoryJobs().byId(JOB_ID);
+        Job job = provider.inMemoryJobs().byId(JOB_ID).get();
         assertThat(job.interestedJobseekers().contains(UserId.create(JOBSEEKER_ID))).isTrue();
     }
 

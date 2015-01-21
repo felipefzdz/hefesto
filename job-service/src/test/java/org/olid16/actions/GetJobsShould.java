@@ -8,6 +8,7 @@ import org.olid16.domain.collections.Jobs;
 import org.olid16.domain.entities.Job;
 
 import java.util.List;
+import java.util.Optional;
 
 import static builders.JobBuilder.aJob;
 import static com.google.common.truth.Truth.assertThat;
@@ -41,6 +42,14 @@ public class GetJobsShould {
         List<Job> jobsByJobseeker = new GetJobs(jobs).byJobseeker("");
         assertThat(jobsByJobseeker.isEmpty()).isFalse();
         
+    }
+
+    @Test public void
+    return_job_by_id(){
+        given(jobs.byId(anyString())).willReturn(Optional.of(aJob().build()));
+        Optional<Job> job = new GetJobs(jobs).byId("");
+        assertThat(job.isPresent()).isTrue();
+
     }
 
 }

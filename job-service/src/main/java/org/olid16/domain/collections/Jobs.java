@@ -21,4 +21,6 @@ public interface Jobs {
     List<Job> byJobseekerId(String jobseekerId);
 
     void updateEmployerName(String employerId, String name);
+
+    Optional<Job> byId(String id);
 }

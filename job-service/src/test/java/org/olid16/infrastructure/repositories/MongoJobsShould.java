@@ -2,6 +2,7 @@ package org.olid16.infrastructure.repositories;
 
 import builders.JobBuilder;
 import builders.UserBuilder;
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
@@ -13,6 +14,7 @@ import org.olid16.domain.entities.Job;
 import org.olid16.domain.values.JobId;
 
 import java.util.List;
+import java.util.Optional;
 
 import static builders.JobBuilder.JobIdBuilder.*;
 import static builders.UserBuilder.UserIdBuilder.*;
@@ -87,6 +89,23 @@ public class MongoJobsShould {
     update_employer_name(){
         new MongoJobs(dbCollection, null).updateEmployerName("", "");
         verify(dbCollection).updateMulti(any(), any());
+    }
+
+    @Test public void
+    return_a_job_by_id_when_found() {
+        given(cursor.one()).willReturn(new BasicDBObject());
+        given(dbCollection.find(any())).willReturn(cursor);
+        given(jobAdapter.fromDBObject(any())).willReturn(JobBuilder.aJob().build());
+        Optional<Job> job = new MongoJobs(dbCollection, jobAdapter).byId("");
+        assertThat(job.isPresent()).isTrue();
+    }
+
+    @Test public void
+    return_empty_job_by_id_when_not_found() {
+        given(cursor.one()).willReturn(null);
+        given(dbCollection.find(any())).willReturn(cursor);
+        Optional<Job> job = new MongoJobs(dbCollection, jobAdapter).byId("");
+        assertThat(job.isPresent()).isFalse();
     }
     
 }

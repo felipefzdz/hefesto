@@ -21,6 +21,7 @@ public class ResumeAdapter {
                 contentFrom(dbResume));
     }
 
+
     private Content contentFrom(DBObject dbResume) {
         return Content.create(extractField(dbResume, "content"));
     }
