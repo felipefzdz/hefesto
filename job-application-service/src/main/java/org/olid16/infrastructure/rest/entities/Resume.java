@@ -1,28 +1,31 @@
 package org.olid16.infrastructure.rest.entities;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Resume {
     
+    @JsonIgnore
+    private String resumeId;
     @JsonProperty
-    private final String resumeId;
+    private String jobseekerId;
     @JsonProperty
-    private final String jobseekerId;
-    @JsonProperty
-    private final String content;
+    private String content;
 
-    @JsonCreator
-    public Resume(@JsonProperty("resumeId") String resumeId,
-                  @JsonProperty("jobseekerId") String jobseekerId,
-                  @JsonProperty("content") String content) {
+    public Resume(String resumeId,
+                  String jobseekerId,
+                  String content) {
         this.resumeId = resumeId;
         this.jobseekerId = jobseekerId;
         this.content = content;
     }
 
-    public String getResumeId() {
-        return resumeId;
+    @JsonCreator
+    public Resume(@JsonProperty("jobseekerId") String jobseekerId,
+                  @JsonProperty("content") String content) {
+        this.jobseekerId = jobseekerId;
+        this.content = content;
     }
 
     public String getJobseekerId() {
@@ -31,5 +34,15 @@ public class Resume {
 
     public String getContent() {
         return content;
+    }
+
+    @JsonProperty
+    public String getResumeId() {
+        return resumeId;
+    }
+
+    @JsonIgnore
+    public void setResumeId(String resumeId) {
+        this.resumeId = resumeId;
     }
 }
