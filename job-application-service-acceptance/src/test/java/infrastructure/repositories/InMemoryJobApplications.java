@@ -8,7 +8,10 @@ import org.olid16.domain.entities.JobApplication;
 import org.olid16.domain.factories.JobApplicationFactory;
 import org.olid16.domain.values.*;
 
+import java.util.List;
 import java.util.UUID;
+
+import static java.util.stream.Collectors.toList;
 
 public class InMemoryJobApplications implements JobApplications{
 
@@ -30,5 +33,12 @@ public class InMemoryJobApplications implements JobApplications{
         );
         jobApplications.put(createdJobApplication.id(), createdJobApplication);
         return createdJobApplication;
+    }
+
+    @Override
+    public List<JobApplication> byJobseekerId(String jobseekerId) {
+        return jobApplications.values().stream()
+                .filter(jobApplication -> jobApplication.jobseekerId().equals(jobseekerId))
+                .collect(toList());
     }
 }

@@ -19,4 +19,8 @@ public class InMemoryJobApi  implements JobApi{
     public Job getBy(@Path("jobId") String jobId) {
         return jobs.get(JobId.create(jobId));
     }
+
+    public void clear() {
+        jobs.clear();
+    }
 }

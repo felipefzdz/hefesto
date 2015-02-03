@@ -8,6 +8,10 @@ import org.olid16.domain.values.ResumeId;
 import org.olid16.domain.values.UserId;
 import org.olid16.infrastructure.rest.entities.JobApplication;
 
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
+
 public class JobApplicationAdapter {
     private final JobApplicationFactory jobApplicationFactory;
 
@@ -29,6 +33,12 @@ public class JobApplicationAdapter {
                 jobApp.jobseekerId(),
                 jobApp.id(),
                 jobApp.resumeId());
+    }
+
+    public List<JobApplication> fromDomain(List<org.olid16.domain.entities.JobApplication> jobApplications) {
+        return jobApplications.stream()
+                .map(this::fromDomain)
+                .collect(toList());
     }
 
     private ResumeId resumeIdFrom(JobApplication jobApplication) {
