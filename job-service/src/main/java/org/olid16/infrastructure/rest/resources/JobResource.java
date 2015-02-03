@@ -44,7 +44,7 @@ public class JobResource {
 
     @GET
     @Path("/employerId/{employerId}")
-    @ApiOperation("Get list of jobs by employer id")
+    @ApiOperation("Get list of jobs saved by employer id")
     public Response getByEmployer(@PathParam("employerId") String employerId){
         List<org.olid16.domain.entities.Job> jobs = getJobs.byEmployer(employerId);
         if (jobs.isEmpty()) {
@@ -55,7 +55,7 @@ public class JobResource {
 
     @GET
     @Path("/jobseekerId/{jobseekerId}")
-    @ApiOperation("Get list of jobs by jobseeker id")
+    @ApiOperation("Get list of jobs  saved by jobseeker for later viewing")
     public Response getByJobseeker(@PathParam("jobseekerId") String jobseekerId){
         List<org.olid16.domain.entities.Job> jobs = getJobs.byJobseeker(jobseekerId);
         if (jobs.isEmpty()) {
@@ -87,7 +87,7 @@ public class JobResource {
 
     @PUT
     @Path("/{jobId}")
-    @ApiOperation("Add jobseeker to a job")
+    @ApiOperation("Add jobseeker to a job so he can save it for later viewing")
     public void addJobseekerToJob(Job job, @PathParam("jobId")String jobId){
         try {
             addJobSeekerToJob.with(job.getUserId(), jobId);

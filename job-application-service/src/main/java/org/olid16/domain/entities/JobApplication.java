@@ -1,6 +1,5 @@
 package org.olid16.domain.entities;
 
-import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import org.olid16.domain.collections.Resumes;
@@ -9,8 +8,6 @@ import org.olid16.infrastructure.clients.JobClient;
 import org.olid16.infrastructure.clients.UserClient;
 import org.olid16.infrastructure.exceptions.AuthorizationException;
 import org.olid16.infrastructure.exceptions.ValidationException;
-
-import java.util.Optional;
 
 public class JobApplication {
     private final UserClient userClient;
@@ -38,8 +35,6 @@ public class JobApplication {
         this.resumes = resumes;
     }
 
-
-
     public void validate() {
         validateUser();
         validateJob();
@@ -53,14 +48,14 @@ public class JobApplication {
         } 
     }
 
-    public void validateJob() {
+    private void validateJob() {
         Job job = jobClient.create(jobId).orElseThrow(() -> new ValidationException(String.format("Job %s doesn't exist", jobId())));
         if (JobType.JREQ.equals(job.jobType())){
             validateResume();
         }
     }
 
-    public void validateResume() {
+    private void validateResume() {
         Resume resume = resumes.findById(resumeId()).
                 orElseThrow(() -> new ValidationException(String.format("Resume %s doesn't exist and it's needed for apply to JREQ jobs", resumeId())));
         if(!resume.userId().equals(jobseekerId())){
