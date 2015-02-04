@@ -92,7 +92,7 @@ public class JobResourceShould {
 
     @Test public void
     call_add_jobseeker_to_job() {
-        new JobResource(createJob, getJobs, addJobSeekerToJob, jobAdapter).addJobseekerToJob(emptyRestJob(), "");
+        new JobResource(createJob, getJobs, addJobSeekerToJob, jobAdapter).addJobseekerToJob("", "");
         verify(addJobSeekerToJob).with(anyString(), anyString());
 
     }
@@ -100,7 +100,7 @@ public class JobResourceShould {
     @Test public void
     return_bad_request_in_response_when_request_is_invalid_with_add_jobseeker_to_job_action(){
         doThrow(AuthorizationException.class).when(addJobSeekerToJob).with(anyString(), anyString());
-        assertThrows(WebApplicationException.class, () -> new JobResource(createJob, getJobs, addJobSeekerToJob, jobAdapter).addJobseekerToJob(emptyRestJob(), ""));
+        assertThrows(WebApplicationException.class, () -> new JobResource(createJob, getJobs, addJobSeekerToJob, jobAdapter).addJobseekerToJob("", ""));
     }
 
 

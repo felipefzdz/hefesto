@@ -3,6 +3,7 @@ package org.olid16.infrastructure.rest.resources;
 import com.google.inject.Inject;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
+import io.dropwizard.jersey.PATCH;
 import org.eclipse.jetty.http.HttpStatus;
 import org.olid16.actions.AddJobseekerToJob;
 import org.olid16.actions.CreateJob;
@@ -85,12 +86,12 @@ public class JobResource {
         }
     }
 
-    @PUT
-    @Path("/{jobId}")
-    @ApiOperation("Add jobseeker to a job so he can save it for later viewing")
-    public void addJobseekerToJob(Job job, @PathParam("jobId")String jobId){
+    @PATCH
+    @Path("/{jobId}/{jobseekerId}")
+    @ApiOperation(value="Add jobseeker to a job so he can save it for later viewing", httpMethod = "PATCH")
+    public void addJobseekerToJob(@PathParam("jobseekerId") String jobseekerId, @PathParam("jobId")String jobId){
         try {
-            addJobSeekerToJob.with(job.getUserId(), jobId);
+            addJobSeekerToJob.with(jobseekerId, jobId);
         } catch (DomainException e) {
             throw new WebApplicationException(e, BAD_REQUEST_400);
         }
