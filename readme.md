@@ -4,7 +4,7 @@
 ## HEFESTO
 Hefesto is a Java app that models a small job website. [Hefesto](http://en.wikipedia.org/wiki/Hephaestus) is the Greek god of craftsmen, blacksmiths and another workers, so that's why I picked up his name.
 
-The app spec can be found [here](https://github.com/TheLadders/object-calisthenics#exercise). The intent of this project is exercise some techniques or tools as TDD, DDD, Microservices, NoSql or BDD. I've been blogging about this project [here](olid16.github.io). 
+The app spec can be found [here](https://github.com/TheLadders/object-calisthenics#exercise). The intent of this project is exercise some techniques or tools as TDD, DDD, Microservices, NoSql or BDD. I've been blogging about this project [here](http://felipefzdz.github.io/). 
 
 ### ARCHITECTURE
 
